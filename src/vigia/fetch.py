@@ -55,17 +55,14 @@ def _request(client, url: str, *, headers: dict[str, str]):
             with client.stream("GET", url, headers=headers, timeout=30.0) as resp:
                 status = resp.status_code
                 resp_headers = resp.headers
-                if status == 200:
-                    chunks: list[bytes] = []
-                    total = 0
-                    for chunk in resp.iter_bytes():
-                        total += len(chunk)
-                        if total > MAX_RESPONSE_BYTES:
-                            raise _ResponseTooLarge(url)
-                        chunks.append(chunk)
-                    content = b"".join(chunks)
-                else:
-                    content = resp.read()
+                chunks: list[bytes] = []
+                total = 0
+                for chunk in resp.iter_bytes():
+                    total += len(chunk)
+                    if total > MAX_RESPONSE_BYTES:
+                        raise _ResponseTooLarge(url)
+                    chunks.append(chunk)
+                content = b"".join(chunks)
             return httpx.Response(status, headers=resp_headers, content=content, request=resp.request)
         except _ResponseTooLarge:
             raise
@@ -227,11 +224,11 @@ def _fetch_feed(conn, source_id, payload: bytes, checked_at: str, response_heade
             edits.append({"external_id": external_id, "url": link, "old_content": old_content, "new_content": content})
     conn.execute(
         """UPDATE sources SET etag = COALESCE(?, etag), last_modified = COALESCE(?, last_modified),
-           last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0,
-           robots_checked_at = ? WHERE id = ?""",
+           last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0
+           WHERE id = ?""",
         (response_headers.get("ETag") if response_headers else None,
          response_headers.get("Last-Modified") if response_headers else None,
-         checked_at, checked_at, checked_at, source_id),
+         checked_at, checked_at, source_id),
     )
     conn.commit()
     return {"changed": changed, "new_entries": new_entries, "edits": edits, "error": None}
@@ -251,11 +248,11 @@ def _fetch_html(conn, source_id, source_row, payload: bytes, checked_at: str, re
     if previous and previous[0] == content_hash:
         conn.execute(
             """UPDATE sources SET etag = COALESCE(?, etag), last_modified = COALESCE(?, last_modified),
-               last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0,
-               robots_checked_at = ? WHERE id = ?""",
+               last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0
+               WHERE id = ?""",
             (response_headers.get("ETag") if response_headers else None,
              response_headers.get("Last-Modified") if response_headers else None,
-             checked_at, checked_at, checked_at, source_id),
+             checked_at, checked_at, source_id),
         )
         conn.commit()
         return {"changed": False, "new_entries": 0, "edits": [], "error": None}
@@ -265,11 +262,11 @@ def _fetch_html(conn, source_id, source_row, payload: bytes, checked_at: str, re
     )
     conn.execute(
         """UPDATE sources SET etag = COALESCE(?, etag), last_modified = COALESCE(?, last_modified),
-           last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0,
-           robots_checked_at = ? WHERE id = ?""",
+           last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0
+           WHERE id = ?""",
         (response_headers.get("ETag") if response_headers else None,
          response_headers.get("Last-Modified") if response_headers else None,
-         checked_at, checked_at, checked_at, source_id),
+         checked_at, checked_at, source_id),
     )
     conn.commit()
     return {"changed": bool(previous), "new_entries": 0, "edits": [], "error": None}
