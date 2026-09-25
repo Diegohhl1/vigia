@@ -63,6 +63,9 @@ def _request(client, url: str, *, headers: dict[str, str]):
                         raise _ResponseTooLarge(url)
                     chunks.append(chunk)
                 content = b"".join(chunks)
+            if (status >= 500 or status == 429) and attempt < MAX_RETRIES:
+                time.sleep(0.1 * (2 ** attempt))
+                continue
             return httpx.Response(status, headers=resp_headers, content=content, request=resp.request)
         except _ResponseTooLarge:
             raise

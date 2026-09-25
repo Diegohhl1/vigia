@@ -1,10 +1,9 @@
 import sqlite3
-from pathlib import Path
 
 import httpx
 
-from vigia.db import init_db
 import vigia.fetch as fetch
+from vigia.db import init_db
 
 
 def _conn(tmp_path):
@@ -57,3 +56,22 @@ def test_stream_limit_applies_to_non_200_responses(tmp_path, monkeypatch):
     client = httpx.Client(transport=httpx.MockTransport(handler))
     result = fetch.fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), client)
     assert result["error"] == "response_too_large"
+
+
+def test_server_error_retries_three_attempts(tmp_path, monkeypatch):
+    monkeypatch.setattr(fetch, "_ROBOTS", {"https://example.test": (None, "cached")})
+    monkeypatch.setattr(fetch, "_HOST_LAST_REQUEST", {})
+    monkeypatch.setattr(fetch.time, "sleep", lambda seconds: None)
+    conn = _conn(tmp_path)
+    calls = 0
+
+    def handler(request):
+        nonlocal calls
+        calls += 1
+        status = 500 if calls < 3 else 200
+        return httpx.Response(status, text="ok" if status == 500 else "<main>" + "x" * 250 + "</main>", headers={"Content-Type": "text/html"}, request=request)
+
+    client = httpx.Client(transport=httpx.MockTransport(handler))
+    result = fetch.fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), client)
+    assert result["error"] is None
+    assert calls == 3
