@@ -1,0 +1,18 @@
+## RESULTADO FINAL — Bloque 1 REVISE Corregido
+
+**Hallazgo 1 (fixtures corruptos):** ✅ CORREGIDO — 8 fixtures XML recapturados completos, recorte en fronteras `</item>`/`</entry>`, todos bozo=False
+
+**Hallazgo 2 (Cloudflare robots):** ✅ CORREGIDO — robots.txt revalidado con curl: `Allow: /` sin restricción a /changelog/. Cloudflare recuperado como IN. Evidencia literal en informe.
+
+**Hallazgo 3 (Supabase):** ✅ CORREGIDO — Marcado OUT con motivo: /rss.xml es blog general, /changelog/rss.xml da 404. No hay feed de changelog.
+
+**Hallazgo 4 (gate 8 fuentes):** ✅ CUMPLIDO — 8 fuentes IN: aws(2), gcp(1), github(2), twilio(1), cloudflare(1), sentry(1). 6 proveedores dentro de límite 4-6.
+
+**Hallazgo 5 (db.py init):** ✅ CORREGIDO — get_conn() siempre ejecuta init_db() (idempotente). Tests: empty db, busy_timeout=5000, FK enforcement.
+
+**Hallazgo 6 (pyproject.toml):** ✅ CORREGIDO — Python 3.12 existe en host. Entry point phantom vigia.cli:main eliminado.
+
+**Hallazgo 7 (providers.yaml):** ✅ CREADO — config/providers.yaml con 6 proveedores y 8 fuentes validadas.
+
+**Test suite:** 25/25 PASSED (9 db + 16 fixtures). **Commits:** 2 nuevos (0697daf, 1a35ef8). No push realizado.
+EXIT:0

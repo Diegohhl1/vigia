@@ -11,9 +11,9 @@ XML_FIXTURES = [
     "aws-blog.xml",
     "gcp.xml",
     "github.xml",
-    "github-status.xml",
     "twilio.xml",
     "cloudflare.xml",
+    "cloudflare-deprecations.xml",
     "sentry.xml",
 ]
 

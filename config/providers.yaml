@@ -25,9 +25,6 @@ providers:
       - kind: rss
         url: https://github.blog/changelog/feed/
         enabled: true
-      - kind: rss
-        url: https://www.githubstatus.com/history.rss
-        enabled: true
 
   - slug: twilio
     name: Twilio
@@ -41,6 +38,9 @@ providers:
     sources:
       - kind: rss
         url: https://developers.cloudflare.com/changelog/rss/index.xml
+        enabled: true
+      - kind: rss
+        url: https://developers.cloudflare.com/fundamentals/api/reference/deprecations/index.xml
         enabled: true
 
   - slug: sentry

@@ -1,0 +1,23 @@
+REVISE — Bloque 1 devuelto con hallazgos del revisor (gpt-5.6-sol) verificados por el orquetizador. Corrige TODO antes de terminar. Sigue en el mismo worktree ~/Desktop/vigia-wt-bloque1, rama feat/bloque-1-fuentes-y-esquema. No toques Wiki/.
+
+HALLAZGOS CONFIRMADOS (corregir todos):
+
+1. FIXTURES CORRUPTOS (verificado con feedparser): aws.xml, gcp.xml, supabase.xml → bozo=1 (truncados a mitad de elemento); sentry.xml → bozo=1 y 0 entries; stripe-blog.html y stripe-docs.html → solo header/nav, sin entradas. Solo github.xml y twilio.xml son íntegros.
+   → Recaptura TODOS los fixtures: feeds XML enteros si son <100KB; si recortas, corta en frontera de entrada (</item> o </entry>) y verifica que feedparser parsea sin bozo. Para Stripe: identifica el selector real de la lista de entradas en el DOM (inspecciona el HTML completo), guarda suficiente HTML que contenga entradas, y valida con BeautifulSoup que el selector devuelve ≥3 nodos de entrada. Escribe ese selector en el informe y en el fixture un test que lo valide.
+   → Añade tests parametrizados: cada fixture XML → bozo==False y len(entries)>=1; cada fixture HTML → selector no vacío con ≥1 nodo.
+
+2. CLOUDFLARE: tu informe es FALSO. robots.txt real (verificado con curl hoy): "User-agent: * / Allow: /" con Disallows que no afectan a /changelog/. Revalida con urllib.robotparser contra https://developers.cloudflare.com/robots.txt y UA vigia/0.1, guarda la evidencia literal, y re-incorpora Cloudflare como fuente IN (https://developers.cloudflare.com/changelog/rss/index.xml) con fixture íntegro. Nota: su robots declara Content-Signal ai-train=yes search=yes ai-input=yes — anótalo en el informe.
+
+3. SUPABASE: https://supabase.com/rss.xml es el blog general, NO el changelog. O encuentras el feed real del changelog (busca en supabase.com/changelog) o lo marcas OUT con motivo. No lo dejes IN con el blog.
+
+4. GATE DE PROVEEDORES: el plan exige 4-6 proveedores y ≥8 fuentes. Con Cloudflare recuperado tienes: stripe(2), aws(1), github(1), twilio(1), gcp(1), cloudflare(1) = 7 fuentes / 6 proveedores. Te falta 1 fuente: consíguela DENTRO de esos 6 proveedores (p.ej. segunda fuente de Cloudflare, o feed de precios/deprecación de alguno que exista de verdad). No añadas un 7º proveedor.
+
+5. db.py get_conn: si el fichero SQLite ya existe (vacío), no inicializa el esquema. Corrige para que siempre ejecute el schema. Añade tests: (a) PRAGMA busy_timeout == 5000; (b) INSERT con FK inválida lanza IntegrityError (foreign_keys=ON activo); (c) get_conn sobre fichero preexistente vacío crea todas las tablas.
+
+6. pyproject.toml: requires-python >=3.12 pero el host solo tiene 3.11 (.venv se creó con 3.11.16). Comprueba `which python3.12`: si NO existe, cambia a >=3.11 y anota la desviación en el resultado final (el código no usa features 3.12). Elimina el entry point [project.scripts] vigia=vigia.cli:main (vigia.cli no existe hasta Task 6) — trabajo phantom.
+
+7. config/providers.yaml NO existe y Task 1 lo exige: créalo con las fuentes finales validadas (solo las IN reales con sus URLs finales y selectores).
+
+CRITERIO DE CIERRE: pytest verde completo (tests viejos + nuevos de fixtures y db), informe docs/preflight-fuentes.md corregido (tabla completa: selector probado, ID estable de entrada, fecha, tamaño, robots con evidencia literal), providers.yaml creado, 2 commits adicionales (`fix: fixtures integros y cloudflare robots real`, `fix: db init robusto y providers.yaml`). NO hagas push. No toques Wiki/.
+
+RESULTADO FINAL (último mensaje, máx 12 líneas): estado de cada hallazgo (1-7), nº de fuentes IN finales y proveedores, resultado pytest.

@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Changelog | API deprecations</title><description>Updates to API deprecations</description><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations</link><item><title>API deprecations - Zone Settings Batch API</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-settings-batch-api</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-settings-batch-api</guid><description>&lt;p&gt;Deprecation date: April 23, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: March 31, 2027&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; This deprecation&apos;s end of life date has been extended to March 31, 2027 (previously September 15, 2026).&lt;/p&gt;
+&lt;p&gt;The Zone Settings Batch API endpoints, which read and edit multiple zone settings in a single request, are deprecated and will reach their end of life on March 31, 2027. Use the per-setting endpoints to read and edit individual zone settings instead.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/{zone_id}/settings&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/{zone_id}/settings&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/zones/subresources/settings/methods/get/&quot;&gt;Get zone setting&lt;/a&gt; — &lt;code&gt;GET /zones/{zone_id}/settings/{setting_id}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/zones/subresources/settings/methods/edit/&quot;&gt;Edit zone setting&lt;/a&gt; — &lt;code&gt;PATCH /zones/{zone_id}/settings/{setting_id}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Integrations that read or edit multiple settings in a single call must migrate to per-setting requests before March 31, 2027 to ensure uninterrupted service. After this date, the batch endpoints will no longer be available.&lt;/p&gt;
+</description><pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Foundation DNS boolean setting</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#foundation-dns-boolean-setting</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#foundation-dns-boolean-setting</guid><description>&lt;p&gt;Deprecation date: July 27, 2026&lt;/p&gt;
+&lt;p&gt;End of life date: November 23, 2026&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;foundation_dns&lt;/code&gt; boolean is deprecated in the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/&quot;&gt;DNS settings endpoints&lt;/a&gt; for zone settings and account defaults. Use &lt;code&gt;nameservers.type: &quot;cloudflare.advanced&quot;&lt;/code&gt; to configure Advanced Nameservers instead.&lt;/p&gt;
+&lt;p&gt;Affected endpoints:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/zone/&quot;&gt;&lt;code&gt;/zones/{zone_id}/dns_settings&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/account/&quot;&gt;&lt;code&gt;/accounts/{account_id}/dns_settings&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Beginning October 26, 2026, the DNS settings API will gradually represent Advanced Nameservers with &lt;code&gt;nameservers.type: &quot;cloudflare.advanced&quot;&lt;/code&gt;. This rollout is expected to take seven days. Before the rollout reaches an account, the API will continue to return &lt;code&gt;nameservers.type: &quot;cloudflare.standard&quot;&lt;/code&gt; for Advanced Nameservers. The API will accept &lt;code&gt;nameservers.type: &quot;cloudflare.advanced&quot;&lt;/code&gt; in &lt;code&gt;PATCH&lt;/code&gt; requests for entitled accounts throughout the rollout.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;foundation_dns&lt;/code&gt; boolean remains available as a compatibility alias during this transition. You can continue to read and write it. If a &lt;code&gt;PATCH&lt;/code&gt; request includes both values, they must match. The API will reject conflicting values.&lt;/p&gt;
+&lt;p&gt;Beginning November 23, 2026, the DNS settings API will no longer return or accept &lt;code&gt;foundation_dns&lt;/code&gt;. This rollout is expected to take seven days. &lt;code&gt;PATCH&lt;/code&gt; requests that include &lt;code&gt;foundation_dns&lt;/code&gt; will be rejected. Update clients that treat &lt;code&gt;nameservers.type&lt;/code&gt; as a closed enum to recognize the &lt;code&gt;&quot;cloudflare.advanced&quot;&lt;/code&gt; value, and update clients that read or write &lt;code&gt;foundation_dns&lt;/code&gt; before the end-of-life date. This API change does not change your Foundation DNS subscription or whether Advanced Nameservers are enabled on your zones. It does not require a zone migration.&lt;/p&gt;
+</description><pubDate>Mon, 27 Jul 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Account name 65-character limit</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-name-65-character-limit</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-name-65-character-limit</guid><description>&lt;p&gt;Enforcement date: September 27, 2026&lt;/p&gt;
+&lt;p&gt;Account names will be limited to a maximum of 65 characters across all account creation and update APIs. This limit applies to all accounts, including organization accounts. Currently, the account update API (&lt;code&gt;PUT /accounts/{account_id}&lt;/code&gt;) already enforces this limit, while the account create API (&lt;code&gt;POST /accounts&lt;/code&gt;) silently truncates names up to 120 bytes. This mismatch can result in accounts that are created successfully but cannot later be renamed. After September 27, 2026, the create API will reject names longer than 65 characters with an HTTP &lt;code&gt;400&lt;/code&gt; error.&lt;/p&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts&lt;/code&gt; — Create account&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /accounts/{account_id}&lt;/code&gt; — Update account (already enforced)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After the enforcement date, integrations that create accounts with names longer than 65 characters must truncate or shorten the name before sending the request to ensure uninterrupted service.&lt;/p&gt;
+</description><pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Account Roles API</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-roles-api</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-roles-api</guid><description>&lt;p&gt;Deprecation date: July 21, 2026&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://developers.cloudflare.com/api/resources/accounts/subresources/roles/&quot;&gt;Account Roles API&lt;/a&gt; only returns account-level roles today, and is deprecated in favor of the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/iam/subresources/permission_groups/&quot;&gt;Permission Groups API&lt;/a&gt;. The Permission Groups API is the supported way to enumerate account, zone, and resource-level roles that can be granted to account members.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/roles&lt;/code&gt; — List roles&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/roles/{role_id}&lt;/code&gt; — Role details&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/iam/permission_groups&lt;/code&gt; — List account permission groups&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/iam/permission_groups/{permission_group_id}&lt;/code&gt; — Permission group details&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The response schema differs from the legacy Roles response:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The legacy &lt;code&gt;Role&lt;/code&gt; response includes a top-level &lt;code&gt;description&lt;/code&gt; and a &lt;code&gt;permissions&lt;/code&gt; object keyed by resource type with edit/read flags.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;PermissionGroup&lt;/code&gt; response replaces those with a &lt;code&gt;meta&lt;/code&gt; object containing &lt;code&gt;label&lt;/code&gt; and &lt;code&gt;scopes&lt;/code&gt;. Individual permissions are not returned as part of the permission group.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Additional notes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Integrations migrating to the Permission Groups API must obtain Permission Group IDs from that API and use them in the Account Members API policies request shape. Integrations that persist legacy Role IDs will need to remap their assignments.&lt;/li&gt;
+&lt;li&gt;Both endpoints use the standard Cloudflare response envelope, so pagination and error-handling do not change.&lt;/li&gt;
+&lt;li&gt;The new API supports the &lt;a href=&quot;https://developers.cloudflare.com/fundamentals/api/get-started/create-token/&quot;&gt;API Token&lt;/a&gt; authorization scheme. The legacy Email + API Key authorization scheme is provided for backwards compatibility.&lt;/li&gt;
+&lt;li&gt;The affected terraform resource is the &lt;code&gt;cloudflare_account_role&lt;/code&gt; data source. You will need to migrate to the &lt;code&gt;cloudflare_account_permission_group&lt;/code&gt; data source.&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 21 Jul 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Workers KV: Legacy Namespace Routes</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#workers-kv-legacy-namespace-routes</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#workers-kv-legacy-namespace-routes</guid><description>&lt;p&gt;Deprecation date: July 15, 2026&lt;/p&gt;
+&lt;p&gt;End of life date: October 15, 2026&lt;/p&gt;
+&lt;p&gt;The legacy Workers KV API routes under &lt;code&gt;/accounts/{account_id}/workers/namespaces/*&lt;/code&gt; are deprecated in favor of the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/kv/&quot;&gt;Workers KV API&lt;/a&gt; routes under &lt;code&gt;/accounts/{account_id}/storage/kv/namespaces/*&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The legacy and replacement routes are interchangeable. They accept the same request parameters and return the same response payloads. To migrate, update the URL path from &lt;code&gt;/workers/namespaces/&lt;/code&gt; to &lt;code&gt;/storage/kv/namespaces/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST /accounts/{account_id}/workers/namespaces&lt;/code&gt; (list and create namespaces)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;PUT&lt;/code&gt;, and &lt;code&gt;DELETE /accounts/{account_id}/workers/namespaces/{namespace_id}&lt;/code&gt; (get, rename, and remove a namespace)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/workers/namespaces/{namespace_id}/keys&lt;/code&gt; (list keys)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/workers/namespaces/{namespace_id}/metadata/{key_name}&lt;/code&gt; (read key metadata)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;PUT&lt;/code&gt;, and &lt;code&gt;DELETE /accounts/{account_id}/workers/namespaces/{namespace_id}/values/{key_name}&lt;/code&gt; (read, write, and delete key-value pairs)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;p&gt;Update the URL path from &lt;code&gt;/workers/namespaces/&lt;/code&gt; to &lt;code&gt;/storage/kv/namespaces/&lt;/code&gt; in each endpoint.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST /accounts/{account_id}/storage/kv/namespaces&lt;/code&gt; (list and create namespaces)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;PUT&lt;/code&gt;, and &lt;code&gt;DELETE /accounts/{account_id}/storage/kv/namespaces/{namespace_id}&lt;/code&gt; (get, rename, and remove a namespace)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/keys&lt;/code&gt; (list keys)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/metadata/{key_name}&lt;/code&gt; (read key metadata)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;PUT&lt;/code&gt;, and &lt;code&gt;DELETE /accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}&lt;/code&gt; (read, write, and delete key-value pairs)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After October 15, 2026, requests to the legacy &lt;code&gt;/accounts/{account_id}/workers/namespaces/*&lt;/code&gt; routes will no longer be supported. Update integrations to use the documented Workers KV API endpoints before that date to ensure uninterrupted service.&lt;/p&gt;
+</description><pubDate>Wed, 15 Jul 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Zero Trust Networks Route Endpoints and Cloudflare Tunnel Connections Field</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zero-trust-networks-route-endpoints-and-cloudflare-tunnel-connections-field</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zero-trust-networks-route-endpoints-and-cloudflare-tunnel-connections-field</guid><description>&lt;p&gt;Deprecation date: July 9, 2026&lt;/p&gt;
+&lt;p&gt;End of life date: October 5, 2026&lt;/p&gt;
+&lt;p&gt;Two related changes to the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/zero_trust/subresources/networks/&quot;&gt;Zero Trust Networks API&lt;/a&gt; and &lt;a href=&quot;https://developers.cloudflare.com/api/resources/zero_trust/subresources/tunnels/&quot;&gt;Cloudflare Tunnel API&lt;/a&gt; take effect on October 5, 2026.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Route endpoints&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The CIDR-encoded route endpoints are deprecated in favor of the standard, &lt;code&gt;route_id&lt;/code&gt;-based endpoints that already exist today.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/teamnet/routes/network/{ip_network_encoded}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /accounts/{account_id}/teamnet/routes/network/{ip_network_encoded}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /accounts/{account_id}/teamnet/routes/network/{ip_network_encoded}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/teamnet/routes&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /accounts/{account_id}/teamnet/routes/{route_id}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /accounts/{account_id}/teamnet/routes/{route_id}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Cloudflare Tunnel and Cloudflare Mesh connections&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;connections&lt;/code&gt; array is removed from list and get responses for Cloudflare Tunnel and Cloudflare Mesh nodes (the &lt;code&gt;cfd_tunnel&lt;/code&gt; and &lt;code&gt;warp_connector&lt;/code&gt; API resources). Query the dedicated connections endpoint instead of reading the field off the tunnel or node object.&lt;/p&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/cfd_tunnel&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/cfd_tunnel/{tunnel_id}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/warp_connector&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/warp_connector/{tunnel_id}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/cfd_tunnel/{tunnel_id}/connections&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/warp_connector/{tunnel_id}/connections&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For full migration guidance, including &lt;code&gt;curl&lt;/code&gt; examples and &lt;code&gt;cloudflared&lt;/code&gt; and Terraform notes, refer to the &lt;a href=&quot;https://developers.cloudflare.com/changelog/2026-07-09-tunnel-routes-and-connections-api-changes/&quot;&gt;Cloudflare Tunnel changelog&lt;/a&gt;.&lt;/p&gt;
+</description><pubDate>Thu, 09 Jul 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - AMP/SXG API and Rules</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#ampsxg-api-and-rules</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#ampsxg-api-and-rules</guid><description>&lt;p&gt;Deprecation date: September 18, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: June 23, 2026&lt;/p&gt;
+&lt;p&gt;The AMP/SXG features have reached end of life. There will be no replacement functionality. The zone settings API endpoints and sxg &lt;a href=&quot;https://developers.cloudflare.com/rules/configuration-rules/settings/&quot;&gt;Configuration Rule setting&lt;/a&gt; should no longer be used.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/{zone_id}/amp/sxg&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/{zone_id}/amp/sxg&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Deprecated Configuration Rule setting:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sxg&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The Dashboard UI will no longer show references to AMP or the sxg setting. Users can remove the sxg parameter from their rulesets by using the &lt;a href=&quot;https://developers.cloudflare.com/ruleset-engine/rulesets-api/update-rule/&quot;&gt;rulesets API&lt;/a&gt;. Terraform deprecation will follow later, and users should remove references to the &lt;code&gt;sxg&lt;/code&gt; parameter from their &lt;a href=&quot;https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/ruleset#sxg-1&quot;&gt;terraform&lt;/a&gt;.&lt;/p&gt;
+</description><pubDate>Wed, 08 Jul 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Legacy Registrar Domain Management API</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#legacy-registrar-domain-management-api</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#legacy-registrar-domain-management-api</guid><description>&lt;p&gt;Deprecation date: April 10, 2026&lt;/p&gt;
+&lt;p&gt;End of life date: September 27, 2026&lt;/p&gt;
+&lt;p&gt;The legacy Registrar domain management endpoints are deprecated and will reach their end of life on September 27, 2026. These endpoints have been replaced by the new &lt;a href=&quot;https://developers.cloudflare.com/api/resources/registrar/&quot;&gt;Registrar API&lt;/a&gt;, which provides domain search, availability checking, and registration capabilities.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/registrar/domains&lt;/code&gt; — List domains&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/registrar/domains/{domain_name}&lt;/code&gt; — Get domain&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /accounts/{account_id}/registrar/domains/{domain_name}&lt;/code&gt; — Update domain&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement: &lt;a href=&quot;https://developers.cloudflare.com/api/resources/registrar/&quot;&gt;Registrar API&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/registrar/methods/search/&quot;&gt;Search for available domains&lt;/a&gt; — &lt;code&gt;GET /accounts/{account_id}/registrar/domain-search&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/registrar/methods/check/&quot;&gt;Check domain availability&lt;/a&gt; — &lt;code&gt;POST /accounts/{account_id}/registrar/domain-check&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/registrar/subresources/registrations/methods/list/&quot;&gt;List registrations&lt;/a&gt; — &lt;code&gt;GET /accounts/{account_id}/registrar/registrations&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/registrar/subresources/registrations/methods/create/&quot;&gt;Create registration&lt;/a&gt; — &lt;code&gt;POST /accounts/{account_id}/registrar/registrations&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Customers and integrations using the legacy domain management endpoints must migrate to the new Registrar API before September 27, 2026 to ensure uninterrupted service. After this date, the legacy endpoints will no longer be available.&lt;/p&gt;
+</description><pubDate>Mon, 29 Jun 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Gateway Audit SSH rules</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#gateway-audit-ssh-rules</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#gateway-audit-ssh-rules</guid><description>&lt;p&gt;Deprecation date: November 3, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: July 15, 2026&lt;/p&gt;
+&lt;p&gt;The Gateway Audit SSH action for &lt;a href=&quot;https://developers.cloudflare.com/cloudflare-one/traffic-policies/network-policies/&quot;&gt;network policies&lt;/a&gt; is deprecated and will be fully removed on July 15, 2026. &lt;a href=&quot;https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/use-cases/ssh/ssh-infrastructure-access/&quot;&gt;SSH with Access for Infrastructure&lt;/a&gt; is the replacement for managing and auditing SSH access.&lt;/p&gt;
+&lt;p&gt;Creating new Gateway rules with &lt;code&gt;action: &quot;audit_ssh&quot;&lt;/code&gt; via the dashboard was disabled in December 2024. Creating new rules via the API and Terraform was disabled on November 3, 2025. Editing existing rules via the dashboard, API, and Terraform was disabled on January 15, 2026. On July 15, 2026, all remaining Audit SSH rules will stop working.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/gateway/rules&lt;/code&gt; — creating rules with &lt;code&gt;action: &quot;audit_ssh&quot;&lt;/code&gt; is no longer accepted&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /accounts/{account_id}/gateway/rules/{rule_id}&lt;/code&gt; — editing rules with &lt;code&gt;action: &quot;audit_ssh&quot;&lt;/code&gt; is no longer accepted&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement: &lt;a href=&quot;https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/use-cases/ssh/ssh-infrastructure-access/&quot;&gt;SSH with Access for Infrastructure&lt;/a&gt;&lt;/p&gt;
+</description><pubDate>Wed, 13 May 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Service Key Authentication</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#service-key-authentication</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#service-key-authentication</guid><description>&lt;p&gt;Deprecation date: March 19, 2026&lt;/p&gt;
+&lt;p&gt;End of life date: September 30, 2026&lt;/p&gt;
+&lt;p&gt;Service Key authentication for the Cloudflare API is deprecated and will be removed on September 30, 2026. &lt;a href=&quot;https://developers.cloudflare.com/fundamentals/api/get-started/create-token/&quot;&gt;API Tokens&lt;/a&gt; are capable of providing all functionality of Service Keys, with additional support for fine-grained permission scoping, expiration, and IP address restrictions.&lt;/p&gt;
+&lt;p&gt;Deprecated behavior:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Authenticating API requests using the &lt;code&gt;X-Auth-User-Service-Key&lt;/code&gt; header.&lt;/li&gt;
+&lt;li&gt;Generating new Service Keys via the Cloudflare dashboard or API. The ability to generate new Service Keys from the Dashboard will be removed soon.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/fundamentals/api/get-started/create-token/&quot;&gt;Create an API Token&lt;/a&gt; with the appropriate permissions for your use case. API Tokens support fine-grained scoping, expiration, and revocation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Users of &lt;code&gt;cloudflared&lt;/code&gt; should ensure they are running a version from November 2022 or later, which uses API Tokens instead of Service Keys. Users of &lt;a href=&quot;https://github.com/cloudflare/origin-ca-issuer&quot;&gt;origin-ca-issuer&lt;/a&gt; should update to a version that supports API Token authentication.&lt;/p&gt;
+</description><pubDate>Thu, 19 Mar 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - DNS Record Type Updates via API</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-record-type-updates-via-api</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-record-type-updates-via-api</guid><description>&lt;p&gt;Deprecation date: January 23, 2026&lt;/p&gt;
+&lt;p&gt;End of life date: June 30, 2026&lt;/p&gt;
+&lt;p&gt;Changing the type of an existing DNS record via the API is deprecated and will no longer be supported after June 30, 2026.&lt;/p&gt;
+&lt;p&gt;Changing a DNS record&apos;s type is not a natural update operation and typically also requires changing the record&apos;s content. Updates to attributes such as name, TTL, or content are common and safe, but changing the record type introduces additional validation complexity and consistency risks.&lt;/p&gt;
+&lt;p&gt;To align with correct DNS semantics and reduce operational risk, Cloudflare is deprecating support for in-place DNS record type changes. This behavior already exists in the Terraform v5 provider, where record type changes result in a delete and recreate operation rather than an update.&lt;/p&gt;
+&lt;p&gt;Deprecated behavior:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Using the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/records/&quot;&gt;DNS Records API&lt;/a&gt; to change the type of an existing record.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement behavior:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/records/methods/delete/&quot;&gt;Delete the existing DNS record&lt;/a&gt; and &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/records/methods/create/&quot;&gt;Create a new DNS record&lt;/a&gt; with the desired type and content.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;DELETE /zones/{zone_id}/dns_records/{dns_record_id}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;POST /zones/{zone_id}/dns_records&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Use the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/records/methods/batch/&quot;&gt;Batch DNS records&lt;/a&gt; API to perform both operations in a single request.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;POST /zones/{zone_id}/dns_records/batch&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Customers and integrations that rely on in-place record type updates must migrate to a delete-and-recreate workflow before June 30, 2026 to ensure uninterrupted service. After this date, attempts to change a record&apos;s type via update operations will no longer be supported.&lt;/p&gt;
+</description><pubDate>Fri, 23 Jan 2026 00:00:00 GMT</pubDate></item><item><title>API deprecations - Authoritative DNS and DNS Firewall Legacy Analytics</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#authoritative-dns-and-dns-firewall-legacy-analytics</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#authoritative-dns-and-dns-firewall-legacy-analytics</guid><description>&lt;p&gt;Deprecation date: December 9, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: December 1, 2026&lt;/p&gt;
+&lt;p&gt;The following REST APIs are deprecated and will reach their end of life on December 1, 2026.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/analytics/&quot;&gt;DNS Analytics API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns_firewall/subresources/analytics/&quot;&gt;DNS Firewall Analytics API&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All existing functionality is fully supported by Cloudflare&apos;s GraphQL Analytics API, which provides improved performance, flexibility, and long-term support. Integrations using the REST API need to be migrated to the new GraphQL API before December 1, 2026 in order to ensure uninterrupted service.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET/zones/{zone_id}/dns_analytics/&lt;/code&gt; (DNS Analytics API)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET/accounts/{account_id}/dns_firewall/{dns_firewall_id}/dns_analytics/report&lt;/code&gt; (DNS Firewall Analytics API)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/dns/additional-options/analytics/#explore-with-the-api&quot;&gt;GraphQL API for DNS Analytics&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://developers.cloudflare.com/dns/dns-firewall/analytics/#graphql&quot;&gt;GraphQL API for DNS Firewall Analytics&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 09 Dec 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Zero Trust Devices</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zero-trust-devices</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zero-trust-devices</guid><description>&lt;p&gt;End of life date: November 11, 2025&lt;/p&gt;
+&lt;p&gt;We are changing the definition of Devices. Devices are going to represent the real-world machines while
+the relation between Users and Devices will be represented by a new concept - Registrations.&lt;/p&gt;
+&lt;p&gt;As a result multiple fields are moving from Devices to Registrations and we are deprecating the endpoints listed below.&lt;/p&gt;
+&lt;p&gt;The deprecated endpoints are not supported on accounts with &lt;a href=&quot;https://developers.cloudflare.com/cloudflare-one/team-and-resources/devices/cloudflare-one-client/deployment/mdm-deployment/windows-multiuser/&quot;&gt;multi-user mode&lt;/a&gt; enabled.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices/{device_id}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices/{device_id}/override_codes&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/devices/revoke&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/devices/unrevoke&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices/physical-devices&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices/physical-devices/{device_id}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices/registrations&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices/registrations/{registration_id}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/devices/registrations/{registration_id}/override_codes&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/devices/registrations/revoke&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/devices/registrations/unrevoke&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 11 Nov 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Cloudflare Mirage</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-mirage</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-mirage</guid><description>&lt;p&gt;Deprecation date: November 2025&lt;/p&gt;
+&lt;p&gt;End of life date: January 2026&lt;/p&gt;
+&lt;p&gt;Following on from the &lt;a href=&quot;https://developers.cloudflare.com/speed/optimization/images/mirage/&quot;&gt;deprecation of Cloudflare Mirage&lt;/a&gt;, the following API endpoints that manage Mirage settings are now deprecated and will be sunsetted in January 2026.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/{zone_id}/settings/mirage&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/{zone_id}/settings/mirage&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/{zone_id}/pagerules/settings&lt;/code&gt; - Mirage will be removed from available settings.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/{zone_id}/pagerules&lt;/code&gt; - Mirage parameter will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/{zone_id}/pagerules/{rule_id}&lt;/code&gt; - Mirage parameter will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/{zone_id}/pagerules/{rule_id}&lt;/code&gt; - Mirage parameter will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/{zone_id}/rulesets/{ruleset_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/{zone_id}/rulesets/{ruleset_id}/versions/{version_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/{zone_id}/rulesets&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/{zone_id}/rulesets/{ruleset_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/{zone_id}/rulesets/{ruleset_id}/rules&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/{zone_id}/rulesets/{ruleset_id}/rules/{rule_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/rulesets/{ruleset_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/{account_id}/rulesets/{ruleset_id}/versions/{version_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/rulesets&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /accounts/{account_id}/rulesets/{ruleset_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/{account_id}/rulesets/{ruleset_id}/rules&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /accounts/{account_id}/rulesets/{ruleset_id}/rules/{rule_id}&lt;/code&gt; - Mirage parameter in &lt;code&gt;set_config&lt;/code&gt; action will be removed.&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Mon, 03 Nov 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Cloudflare Radar: Summary and Timeseries Groups Endpoints</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-summary-and-timeseries-groups-endpoints</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-summary-and-timeseries-groups-endpoints</guid><description>&lt;p&gt;Deprecation date: October 15, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: April 15, 2026&lt;/p&gt;
+&lt;p&gt;The Radar API currently has multiple summary and timeseries groups endpoints per dataset (for example, &lt;code&gt;/radar/http/summary/device_type&lt;/code&gt; and &lt;code&gt;/radar/http/timeseries_groups/device_type&lt;/code&gt;), which share nearly identical parameters and schema.
+To simplify the API and improve maintainability, these endpoints will be replaced with parameterized endpoints using a &lt;code&gt;{dimension}&lt;/code&gt; path parameter.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/http/summary/device_type&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/http/summary/bot_class&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/http/timeseries_groups/device_type&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/http/timeseries_groups/bot_class&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Other similar summary and timeseries groups endpoints for the following datasets: AI Bots, AI Inference, AS112, DNS, Email Routing, Email security, HTTP, Layer 3 Attacks, Layer 7 Attacks, Leaked Credential Checks&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/http/summary/{dimension}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/http/timeseries_groups/{dimension}&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here, &lt;code&gt;{dimension}&lt;/code&gt; is a required path parameter listing all available dimensions for the dataset.&lt;/p&gt;
+&lt;p&gt;For users calling the API directly (not via the Cloudflare SDK), no action is required.
+For users using the SDK, we recommend updating to the new operations to ensure compatibility after the operations are removed.&lt;/p&gt;
+</description><pubDate>Wed, 15 Oct 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Cloudflare Radar: Verified Bots APIs</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-verified-bots-apis</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-verified-bots-apis</guid><description>&lt;p&gt;Deprecation date: July 1, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: January 1, 2026&lt;/p&gt;
+&lt;p&gt;The Radar Verified Bots API is now deprecated and will be replaced by the new Bots API.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/verified_bots/top/bots&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/verified_bots/top/categories&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/bots/summary/bot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/bots/summary/category&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Cloudflare DWeb Resolver</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-dweb-resolver</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-dweb-resolver</guid><description>&lt;p&gt;Deprecation date: July 1, 2025&lt;/p&gt;
+&lt;p&gt;The Cloudflare DWeb Resolver experiment is ending.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DoH resolver on resolver.cloudflare-eth.com&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 01 Jul 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Firewall Rules API and Filters API</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#firewall-rules-api-and-filters-api</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#firewall-rules-api-and-filters-api</guid><description>&lt;p&gt;Deprecation date: June 15, 2025&lt;/p&gt;
+&lt;p&gt;The Firewall Rules API and the Filters API are deprecated, since Firewall Rules was deprecated in favor of &lt;a href=&quot;https://developers.cloudflare.com/waf/custom-rules/&quot;&gt;WAF custom rules&lt;/a&gt;. Refer to &lt;a href=&quot;https://developers.cloudflare.com/waf/reference/legacy/firewall-rules-upgrade/&quot;&gt;Firewall Rules upgrade&lt;/a&gt; for more information about this change.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/rules&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/firewall/rules&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/firewall/rules&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/firewall/rules&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /zones/:zone_id/firewall/rules&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/rules/:rule_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/firewall/rules/:rule_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/firewall/rules/:rule_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /zones/:zone_id/firewall/rules/:rule_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/filters&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/filters&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/filters&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /zones/:zone_id/filters&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/filters/:filter_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/filters/:filter_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /zones/:zone_id/filters/:filter_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement: &lt;a href=&quot;https://developers.cloudflare.com/waf/custom-rules/&quot;&gt;WAF custom rules&lt;/a&gt;&lt;/p&gt;
+</description><pubDate>Sun, 15 Jun 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - WAF managed rules APIs (previous version)</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#waf-managed-rules-apis-previous-version</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#waf-managed-rules-apis-previous-version</guid><description>&lt;p&gt;Deprecation date: June 15, 2025&lt;/p&gt;
+&lt;p&gt;The APIs for managing WAF managed rules (previous version) — namely for managing packages, rule groups, rules, and overrides — are deprecated in favor of using the &lt;a href=&quot;https://developers.cloudflare.com/ruleset-engine/rulesets-api/&quot;&gt;Rulesets API&lt;/a&gt; for managing the new version of &lt;a href=&quot;https://developers.cloudflare.com/waf/managed-rules/&quot;&gt;WAF Managed Rules&lt;/a&gt;. Refer to &lt;a href=&quot;https://developers.cloudflare.com/waf/reference/legacy/old-waf-managed-rules/upgrade/&quot;&gt;WAF Managed Rules upgrade&lt;/a&gt; for more information about this change.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/packages&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/packages/:package_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/firewall/waf/packages/:package_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/packages/:package_id/groups&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/packages/:package_id/groups/:group_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/firewall/waf/packages/:package_id/groups/:group_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/packages/:package_id/rules&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/packages/:package_id/rules/:rule_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/firewall/waf/packages/:package_id/rules/:rule_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/overrides&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/firewall/waf/overrides&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/firewall/waf/overrides/:override_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/firewall/waf/overrides/:override_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /zones/:zone_id/firewall/waf/overrides/:override_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement: &lt;a href=&quot;https://developers.cloudflare.com/waf/managed-rules/&quot;&gt;WAF Managed Rules&lt;/a&gt; (new version)&lt;/p&gt;
+</description><pubDate>Sun, 15 Jun 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Rate Limiting API (previous version)</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#rate-limiting-api-previous-version</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#rate-limiting-api-previous-version</guid><description>&lt;p&gt;Deprecation date: June 15, 2025&lt;/p&gt;
+&lt;p&gt;The Rate Limiting API is deprecated, in favor of using the &lt;a href=&quot;https://developers.cloudflare.com/ruleset-engine/rulesets-api/&quot;&gt;Rulesets API&lt;/a&gt; for managing the new &lt;a href=&quot;https://developers.cloudflare.com/waf/rate-limiting-rules/&quot;&gt;rate limiting rules&lt;/a&gt;. Refer to &lt;a href=&quot;https://developers.cloudflare.com/waf/reference/legacy/old-rate-limiting/upgrade/&quot;&gt;Rate limiting (previous version) upgrade&lt;/a&gt; for more information about this change.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/rate_limits&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/rate_limits&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/rate_limits/:rate_limit_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/rate_limits/:rate_limit_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE /zones/:zone_id/rate_limits/:rate_limit_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement: &lt;a href=&quot;https://developers.cloudflare.com/waf/rate-limiting-rules/&quot;&gt;Rate limiting rules&lt;/a&gt; (new version)&lt;/p&gt;
+</description><pubDate>Sun, 15 Jun 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Zone Setting: cname_flattening</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-setting-cname_flattening</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-setting-cname_flattening</guid><description>&lt;p&gt;Deprecation date: June 8, 2025&lt;/p&gt;
+&lt;p&gt;The Zone Settings API endpoints for managing zone-level CNAME flattening are deprecated. Instead, use the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/zone/methods/get/&quot;&gt;Show DNS Settings&lt;/a&gt; and &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/zone/methods/edit/&quot;&gt;Update DNS Settings&lt;/a&gt; endpoints to manage this setting.&lt;/p&gt;
+&lt;p&gt;Changes via the old endpoints will be reflected in the new ones, and vice versa, so there is no need to migrate existing zones. However, future API calls must use DNS Settings instead of the Zone Settings endpoints.&lt;/p&gt;
+&lt;p&gt;Note that, with the deprecated zone setting, values &lt;code&gt;&quot;off&quot;&lt;/code&gt; and &lt;code&gt;&quot;apex&quot;&lt;/code&gt; have the same behavior. These are represented as &lt;code&gt;{&quot;flatten_all_cnames&quot;: false}&lt;/code&gt; in the new API.
+The zone setting &lt;code&gt;&quot;on&quot;&lt;/code&gt; corresponds to &lt;code&gt;{&quot;flatten_all_cnames&quot;: true}&lt;/code&gt; in the new API.&lt;/p&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/settings&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/settings&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/settings/cname_flattening&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/settings/cname_flattening&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Sun, 08 Jun 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Eligible Zones For Account Custom Nameservers</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#eligible-zones-for-account-custom-nameservers</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#eligible-zones-for-account-custom-nameservers</guid><description>&lt;p&gt;Deprecation date: March 23, 2025&lt;/p&gt;
+&lt;p&gt;Users can now add custom nameservers that are not part of a zone managed within their account. As a result, any zone is eligible for custom nameservers, regardless of whether it is managed by Cloudflare. Given this change, an endpoint to check for eligible zones is no longer relevant and is therefore being deprecated.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/:account_id/custom_ns/availability&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Sun, 23 Mar 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Cloudflare Radar: Attack top industry and vertical endpoints</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-attack-top-industry-and-vertical-endpoints</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-attack-top-industry-and-vertical-endpoints</guid><description>&lt;p&gt;Deprecation date: March 20, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: September 20, 2025&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;/top/industry&lt;/code&gt; and &lt;code&gt;/top/vertical&lt;/code&gt; attack endpoints are now deprecated and will be replaced by the corresponding summary endpoints.&lt;/p&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer3/top/industry&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer3/top/vertical&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer7/top/industry&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer7/top/vertical&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer3/summary/industry&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer3/summary/vertical&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer7/summary/industry&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /radar/attacks/layer7/summary/vertical&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Thu, 20 Mar 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Security Center: Security level and Threat Score are now automated</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#security-center-security-level-and-threat-score-are-now-automated</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#security-center-security-level-and-threat-score-are-now-automated</guid><description>&lt;p&gt;Change date: March 17, 2025&lt;/p&gt;
+&lt;p&gt;Cloudflare now combines the IP address threat signal with threshold and botnet data, no longer requiring you to set a sensitivity level. Users will no longer be able to set Security level via the  Cloudflare dashboard. However, users can still rely on the existing API or Terraform configuration to set a Security level.&lt;/p&gt;
+&lt;p&gt;If you are using threat score in rule expressions, you should review those expressions to make sure the rule still triggers when appropriate. Cloudflare will audit and migrate your configuration in the future to update any references to threat score. If you are using the Rulesets API or Terraform to push your configuration, you should review your scripts and pipelines before the end of Q1 2026 to prevent issues.&lt;/p&gt;
+</description><pubDate>Mon, 17 Mar 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Account Settings: default_nameservers and use_account_custom_ns_by_default</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-settings-default_nameservers-and-use_account_custom_ns_by_default</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-settings-default_nameservers-and-use_account_custom_ns_by_default</guid><description>&lt;p&gt;Deprecation date: March 14, 2025&lt;/p&gt;
+&lt;p&gt;The fields &lt;code&gt;&quot;default_nameservers&quot;&lt;/code&gt; and &lt;code&gt;&quot;use_account_custom_ns_by_default&quot;&lt;/code&gt; within the &lt;code&gt;&quot;settings&quot;&lt;/code&gt; object of accounts are deprecated.
+Instead, use the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/account/methods/get/&quot;&gt;Show DNS Settings&lt;/a&gt; and &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/account/methods/edit/&quot;&gt;Update DNS Settings&lt;/a&gt; endpoints to manage this setting.
+This setting is available in the new API as &lt;code&gt;.zone_defaults.nameservers.type&lt;/code&gt;, with allowed values &lt;code&gt;&quot;cloudflare.standard&quot;&lt;/code&gt;, &lt;code&gt;&quot;cloudflare.standard.random&quot;&lt;/code&gt;, &lt;code&gt;&quot;custom.account&quot;&lt;/code&gt; and &lt;code&gt;&quot;custom.tenant&quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Changes via the old endpoints will be reflected in the new ones, and vice versa, so there is no need to migrate existing zones. However, future API calls must use DNS Settings instead of the Accounts endpoints.&lt;/p&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/:account_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /accounts/:account_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Fri, 14 Mar 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Cloudflare Radar: Layer 7 attack magnitude parameter</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-layer-7-attack-magnitude-parameter</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-radar-layer-7-attack-magnitude-parameter</guid><description>&lt;p&gt;Deprecation date: March 11, 2025&lt;/p&gt;
+&lt;p&gt;End of life date: June 11, 2025&lt;/p&gt;
+&lt;p&gt;The layer 7 attack &lt;code&gt;magnitude&lt;/code&gt; query parameter, which allows you to define attack magnitude by total requests mitigated (&lt;code&gt;MITIGATED_REQUESTS&lt;/code&gt;) or total zones attacked (&lt;code&gt;AFFECTED_ZONES&lt;/code&gt;), is deprecated.
+Moving forward, Cloudflare Radar will only support defining layer 7 attack magnitude based on the total number of mitigated requests.&lt;/p&gt;
+&lt;p&gt;Affected API:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;GET /radar/attacks/layer7/top/attacks&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Replacement:&lt;/p&gt;
+&lt;p&gt;Users should stop using the &lt;code&gt;magnitude&lt;/code&gt; parameter, as the default behavior already uses &lt;code&gt;MITIGATED_REQUESTS&lt;/code&gt;.&lt;/p&gt;
+</description><pubDate>Tue, 11 Mar 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - DNS Records API: Changes to Filter Parameters</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-records-api-changes-to-filter-parameters</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-records-api-changes-to-filter-parameters</guid><description>&lt;p&gt;Deprecation date: February 21, 2025&lt;/p&gt;
+&lt;p&gt;The following URL parameters for filtering DNS records are deprecated:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name=contains:value&lt;/code&gt;
+Instead, use the supported &lt;code&gt;name.contains=value&lt;/code&gt; syntax.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;name=starts_with:value&lt;/code&gt;
+Instead, use the supported &lt;code&gt;name.startswith=value&lt;/code&gt; syntax.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;name=ends_with:value&lt;/code&gt;
+Instead, use the supported &lt;code&gt;name.endswith=value&lt;/code&gt; syntax.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;name=one,two,three&lt;/code&gt; (searching for one of multiple possible names, separated by commas)
+Instead, make multiple requests, one for each possible &lt;code&gt;name&lt;/code&gt;.
+Alternatively, if only querying the &lt;code&gt;name&lt;/code&gt; field, the &lt;code&gt;?match=any&amp;amp;name=one&amp;amp;name=two&amp;amp;name=three&lt;/code&gt; syntax can be used instead.
+This syntax has an extended deprecation date of May 23, 2025.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content=contains:value&lt;/code&gt;
+Instead, use the supported &lt;code&gt;content.contains=value&lt;/code&gt; syntax.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content=starts_with:value&lt;/code&gt;
+Instead, use the supported &lt;code&gt;content.startswith=value&lt;/code&gt; syntax.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content=ends_with:value&lt;/code&gt;
+Instead, use the supported &lt;code&gt;content.endswith=value&lt;/code&gt; syntax.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content=one,two,three&lt;/code&gt; (searching for one of multiple possible contents, separated by commas)
+Instead, make multiple requests, one for each possible &lt;code&gt;content&lt;/code&gt;.
+Alternatively, if only querying the &lt;code&gt;content&lt;/code&gt; field, the &lt;code&gt;?match=any&amp;amp;content=one&amp;amp;content=two&amp;amp;content=three&lt;/code&gt; syntax can be used instead.
+This syntax has an extended deprecation date of May 23, 2025.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;type=contains:value&lt;/code&gt;
+Searching for substrings of a type name will no longer be supported.
+Instead, please search for an exact type name, such as &lt;code&gt;type=CNAME&lt;/code&gt;.
+If the input value is a free-text search from a human user, consider using the &lt;code&gt;search&lt;/code&gt; parameter instead.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;None of the parameters being deprecated were ever officially supported per our API documentation.&lt;/p&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_records&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Fri, 21 Feb 2025 00:00:00 GMT</pubDate></item><item><title>API deprecations - Access applications: self_hosted_domains</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#access-applications-self_hosted_domains</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#access-applications-self_hosted_domains</guid><description>&lt;p&gt;Deprecation date: November 21, 2025&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;self_hosted_domains&lt;/code&gt; field for &lt;a href=&quot;https://developers.cloudflare.com/api/resources/zero_trust/subresources/access/subresources/applications/methods/update/&quot;&gt;Access applications&lt;/a&gt; is deprecated in favor of &lt;code&gt;destinations&lt;/code&gt; to allow for more flexibility in defining different types of domains.&lt;/p&gt;
+&lt;p&gt;Before:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+  // ...
+  &quot;self_hosted_domains&quot;: [&quot;foo.example.com&quot;, &quot;bar.example.com&quot;]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+  // ...
+  &quot;destinations&quot;: [
+    {
+      &quot;type&quot;: &quot;public&quot;,
+      &quot;uri&quot;: &quot;foo.example.com&quot;
+    },
+    {
+      &quot;type&quot;: &quot;public&quot;,
+      &quot;uri&quot;: &quot;bar.example.com&quot;
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The API will accept both fields until the deprecation date. If &lt;code&gt;self_hosted_domains&lt;/code&gt; are provided, then they will be interpreted as &lt;code&gt;public&lt;/code&gt; destinations. However, if &lt;code&gt;destinations&lt;/code&gt; are provided, then &lt;code&gt;self_hosted_domains&lt;/code&gt; will be ignored even if provided.&lt;/p&gt;
+&lt;p&gt;Additionally, the API will continue to return &lt;code&gt;self_hosted_domains&lt;/code&gt; until the deprecation date. The field will contain the URIs of the subset of destinations that have type &lt;code&gt;public&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Affected APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/:account_id/access/apps&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /accounts/:account_id/access/apps&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /accounts/:account_id/access/apps/:app_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /accounts/:account_id/access/apps/:app_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/access/apps&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/access/apps&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/access/apps/:app_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/access/apps/:app_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Mon, 09 Dec 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Zone information in individual DNS records</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-information-in-individual-dns-records</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-information-in-individual-dns-records</guid><description>&lt;p&gt;Deprecation date: November 30, 2024&lt;/p&gt;
+&lt;p&gt;Currently, each individual DNS record returned by the API contains information about the zone it is on, specifically the zone ID and name.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-json&quot;&gt;{
+  &quot;result&quot;: [
+    {
+      // ...
+      &quot;zone_id&quot;: &quot;ab922473c42f4e50819d7c1c9b81b16b&quot;,
+      &quot;zone_name&quot;: &quot;example.com&quot;
+    }
+  ],
+  // ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This information is redundant because both affected API routes are already within the zone scope. In particular, the zone ID will already be known to any user of these routes because it appears in the URL. The zone name can be retrieved by making a &lt;code&gt;GET&lt;/code&gt; request to &lt;code&gt;/zones/:zone_id&lt;/code&gt; if it is necessary.&lt;/p&gt;
+&lt;p&gt;After November 30th, 2024, Cloudflare will stop including the &lt;code&gt;zone_id&lt;/code&gt; and &lt;code&gt;zone_name&lt;/code&gt; fields on individual DNS records in API responses. These fields are currently ignored when sent to the API as part of a request body, so no changes to request bodies are required.&lt;/p&gt;
+&lt;p&gt;Modified API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_records&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/dns_records&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Sat, 30 Nov 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - DNS Records: Error chains for DNS validation errors</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-records-error-chains-for-dns-validation-errors</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-records-error-chains-for-dns-validation-errors</guid><description>&lt;p&gt;Deprecation date: October 1, 2024&lt;/p&gt;
+&lt;p&gt;Cloudflare is making a minor change to the representation of certain errors when creating DNS records. Currently, when the DNS record to be created is invalid, an error similar to the following may be returned:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;{
+  &quot;result&quot;: null,
+  &quot;success&quot;: false,
+  &quot;errors&quot;: [
+    {
+      &quot;code&quot;: 1004,
+      &quot;message&quot;: &quot;DNS Validation Error&quot;,
+      &quot;error_chain&quot;: [
+        {
+          &quot;code&quot;: 9999,
+          &quot;message&quot;: &quot;This is an example.&quot;
+        }
+      ]
+    }
+  ],
+  &quot;messages&quot;: []
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After October 1st, 2024, the &lt;code&gt;error_chain&lt;/code&gt; will be omitted, returning the root cause directly without wrapping it in another &quot;DNS Validation Error&quot; error:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;{
+  &quot;result&quot;: null,
+  &quot;success&quot;: false,
+  &quot;errors&quot;: [
+    {
+      &quot;code&quot;: 9999,
+      &quot;message&quot;: &quot;This is an example.&quot;
+    }
+  ],
+  &quot;messages&quot;: []
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description><pubDate>Tue, 01 Oct 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Legacy DNS Settings Endpoints</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#legacy-dns-settings-endpoints</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#legacy-dns-settings-endpoints</guid><description>&lt;p&gt;Deprecation date: September 13, 2024&lt;/p&gt;
+&lt;p&gt;The dedicated endpoints for DNS settings &lt;code&gt;use_apex_ns&lt;/code&gt; and &lt;code&gt;secondary_overrides&lt;/code&gt; are being deprecated.&lt;/p&gt;
+&lt;p&gt;Instead, use the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/zone/methods/get/&quot;&gt;Show DNS Settings&lt;/a&gt; and &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/settings/subresources/zone/methods/edit/&quot;&gt;Update DNS Settings&lt;/a&gt; endpoints to manage these settings.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Instead of the &lt;code&gt;.../use_apex_ns&lt;/code&gt; endpoint, use the &lt;code&gt;multi_provider&lt;/code&gt; field.&lt;/li&gt;
+&lt;li&gt;Instead of the &lt;code&gt;.../secondary_overrides&lt;/code&gt; endpoint, use the &lt;code&gt;secondary_overrides&lt;/code&gt; field.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_settings/use_apex_ns&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/dns_settings/use_apex_ns&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_settings/secondary_overrides&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/dns_settings/secondary_overrides&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Fri, 13 Sep 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Brotli</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#brotli</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#brotli</guid><description>&lt;p&gt;Deprecation date: August 15, 2024&lt;/p&gt;
+&lt;p&gt;The Brotli setting and its API endpoints are deprecated. Brotli compression is available for all non-Enterprise zones, and it will be extended to Enterprise zones in the coming year.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/settings/brotli&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/settings/brotli&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Enterprise customers can override Cloudflare&apos;s default compression behavior using &lt;a href=&quot;https://developers.cloudflare.com/rules/compression-rules/&quot;&gt;Compression Rules&lt;/a&gt;.&lt;/p&gt;
+</description><pubDate>Thu, 15 Aug 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Auto Minify</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#auto-minify</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#auto-minify</guid><description>&lt;p&gt;Deprecation date: August 5, 2024&lt;/p&gt;
+&lt;p&gt;The Auto Minify API endpoints are deprecated since the Auto Minify feature was deprecated.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/settings/minify&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/settings/minify&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Mon, 05 Aug 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - DNS Records: &apos;locked&apos; Field</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-records-locked-field</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#dns-records-locked-field</guid><description>&lt;p&gt;Deprecation date: July 14, 2024&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;&quot;locked&quot;&lt;/code&gt; field of DNS records in API responses is unused and has been guaranteed to always be &lt;code&gt;false&lt;/code&gt; for more than a year. This deprecation means that the field will be omitted from API responses entirely. If received from a client, the field will continue to be ignored, just as it is today.&lt;/p&gt;
+&lt;p&gt;Modified API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_records&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/dns_records&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Sun, 14 Jul 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Mobile redirect</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#mobile-redirect</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#mobile-redirect</guid><description>&lt;p&gt;Deprecation date: June 30, 2024&lt;/p&gt;
+&lt;p&gt;This endpoint and its related APIs are deprecated in favor of &lt;a href=&quot;https://developers.cloudflare.com/rules/url-forwarding/single-redirects/&quot;&gt;Single Redirects&lt;/a&gt;. Refer to &lt;a href=&quot;https://developers.cloudflare.com/rules/url-forwarding/examples/perform-mobile-redirects/&quot;&gt;Perform mobile redirects&lt;/a&gt; to migrate Mobile Redirect to Redirect Rules.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_identifier/settings/mobile_redirect&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_identifier/settings/mobile_redirect&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement: &lt;a href=&quot;https://developers.cloudflare.com/rules/url-forwarding/single-redirects/&quot;&gt;Single Redirects&lt;/a&gt;&lt;/p&gt;
+</description><pubDate>Sun, 30 Jun 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Server-side Excludes</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#server-side-excludes</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#server-side-excludes</guid><description>&lt;p&gt;Deprecation date: June 14, 2024&lt;/p&gt;
+&lt;p&gt;The Server-side Excludes feature and its API endpoints are deprecated.&lt;/p&gt;
+&lt;p&gt;Deprecated APIs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/settings/server_side_exclude&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/settings/server_side_exclude&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Fri, 14 Jun 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Name-Related Data Fields on SRV (DNS) Records</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#name-related-data-fields-on-srv-dns-records</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#name-related-data-fields-on-srv-dns-records</guid><description>&lt;p&gt;Deprecation date: May 31, 2024&lt;/p&gt;
+&lt;p&gt;The name of an SRV record normally consists of three parts: the service (e.g., &lt;code&gt;_xmpp&lt;/code&gt;), the protocol (e.g., &lt;code&gt;_tcp&lt;/code&gt;), and the base name (&lt;code&gt;example.com&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;The complete name would then be, e.g., &lt;code&gt;_xmpp._tcp.example.com&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;When interacting with DNS records through the &lt;a href=&quot;https://developers.cloudflare.com/api/resources/dns/subresources/records/methods/create/&quot;&gt;API&lt;/a&gt;, SRV records contain both a full &lt;code&gt;name&lt;/code&gt; as well as a &lt;code&gt;data&lt;/code&gt; map containing the individual components of the name:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;{
+  &quot;name&quot;: &quot;_xmpp._tcp.example.com&quot;,
+  &quot;data&quot;: {
+    &quot;service&quot;: &quot;_xmpp&quot;,
+    &quot;proto&quot;: &quot;_tcp&quot;,
+    &quot;name&quot;: &quot;example.com&quot;,
+    ...
+  },
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We are deprecating the &lt;code&gt;service&lt;/code&gt;, &lt;code&gt;proto&lt;/code&gt; and &lt;code&gt;name&lt;/code&gt; fields &lt;em&gt;within&lt;/em&gt; the &lt;code&gt;data&lt;/code&gt; map in favor of the &lt;code&gt;name&lt;/code&gt; field &lt;em&gt;outside&lt;/em&gt; the data map, which is the same name field that&apos;s used by all other record types.&lt;/p&gt;
+&lt;p&gt;Before the end of life date, please ensure that:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;when reading SRV records, you use only the &lt;code&gt;name&lt;/code&gt; outside of the data map and ignore &lt;code&gt;service&lt;/code&gt;, &lt;code&gt;proto&lt;/code&gt; and &lt;code&gt;name&lt;/code&gt; within the data map if they exist; and&lt;/li&gt;
+&lt;li&gt;when writing SRV records, you set the &lt;code&gt;name&lt;/code&gt; outside of the data map and &lt;strong&gt;do not set&lt;/strong&gt; &lt;code&gt;service&lt;/code&gt;, &lt;code&gt;proto&lt;/code&gt; or &lt;code&gt;name&lt;/code&gt; within the data map.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;After the end of life date, the API will stop producing the &lt;code&gt;service&lt;/code&gt;, &lt;code&gt;proto&lt;/code&gt; and &lt;code&gt;name&lt;/code&gt; data fields, and if any of them are received from a client, an error will be returned.&lt;/p&gt;
+&lt;p&gt;This deprecation does not affect other SRV data fields not mentioned above (&lt;code&gt;priority&lt;/code&gt;, &lt;code&gt;weight&lt;/code&gt;, &lt;code&gt;port&lt;/code&gt;, &lt;code&gt;target&lt;/code&gt;) or data fields for any other record type other than SRV.&lt;/p&gt;
+&lt;p&gt;Modified API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_records&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST /zones/:zone_id/dns_records&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT /zones/:zone_id/dns_records/:dns_record_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Fri, 31 May 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Privacy Pass API Removal</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#privacy-pass-api-removal</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#privacy-pass-api-removal</guid><description>&lt;p&gt;Deprecation date: March 31, 2024&lt;/p&gt;
+&lt;p&gt;In 2017, Cloudflare &lt;a href=&quot;https://blog.cloudflare.com/cloudflare-supports-privacy-pass/&quot;&gt;announced support&lt;/a&gt; for Privacy Pass, a recent protocol to let users prove their identity across multiple sites anonymously without enabling tracking. The initial use case was to provide untraceable tokens to sites to vouch for users who might otherwise have been presented with a CAPTCHA challenge. In the time since this release, Privacy Pass has evolved both at the &lt;a href=&quot;https://datatracker.ietf.org/wg/privacypass/documents/&quot;&gt;IETF&lt;/a&gt; and within Cloudflare. The version announced in 2017 is now considered legacy, and these legacy Privacy Pass tokens are no longer supported as an alternative to Cloudflare challenges. As has been discussed on our blog &lt;a href=&quot;https://blog.cloudflare.com/end-cloudflare-captcha/&quot;&gt;The end road for CAPTCHA&lt;/a&gt;, Cloudflare uses a variety of signals to infer if incoming traffic is likely automated. The (legacy) Privacy Pass zone setting is no longer meaningful to Cloudflare customers as Cloudflare now operates &lt;a href=&quot;https://blog.cloudflare.com/turnstile-ga/&quot;&gt;CAPTCHA free&lt;/a&gt;, and supports the latest &lt;a href=&quot;https://blog.cloudflare.com/eliminating-captchas-on-iphones-and-macs-using-new-standard/&quot;&gt;Privacy Pass draft&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In September 2023, support for legacy Privacy Pass tokens as an alternative to Cloudflare Managed Challenge was removed. By the end of March 2024, the current public-facing API will be removed as well.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET zones/:zone_identifier/settings/privacy_pass&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST zones/:zone_identifier/settings/privacy_pass&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Sun, 31 Mar 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - Argo Tunnel</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#argo-tunnel</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#argo-tunnel</guid><description>&lt;p&gt;Deprecation date: February 4, 2024&lt;/p&gt;
+&lt;p&gt;This endpoint and its related APIs are deprecated in favor of the Cloudflare Tunnels equivalent APIs.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET accounts/:account_identifier/tunnels&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST accounts/:account_identifier/tunnels&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET accounts/:account_identifier/tunnels/:tunnel_id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE accounts/:account_identifier/tunnels/:tunnel_id&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement:
+Cloudflare Tunnel API&lt;/p&gt;
+</description><pubDate>Sun, 04 Feb 2024 00:00:00 GMT</pubDate></item><item><title>API deprecations - ChaCha20 TLS Cipher Removal</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#chacha20-tls-cipher-removal</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#chacha20-tls-cipher-removal</guid><description>&lt;p&gt;Deprecation date: July 1, 2023&lt;/p&gt;
+&lt;p&gt;Back in 2016, Cloudflare &lt;a href=&quot;https://blog.cloudflare.com/it-takes-two-to-chacha-poly/&quot;&gt;introduced support&lt;/a&gt; for &lt;code&gt;ChaCha20-Poly1305&lt;/code&gt; cipher suites for TLS 1.2. At the time, we introduced two variants of these new suites, the &quot;standard&quot; suites as defined by the IETF RFC 7905, and &quot;draft&quot; suites that followed an earlier draft of said specification. The draft suites were added for compatibility with some older Android devices that at the time did not yet support the proper &lt;code&gt;ChaCha20-Poly1305&lt;/code&gt; standard versions. This was in 2016, and in the meantime the standard &lt;code&gt;ChaCha20-Poly1305&lt;/code&gt; cipher suites have gained much wider adoption, to the point were traffic using the old suites has dropped significantly. Due to the current low usage and the non-standard nature of these cipher suites, we are now deprecating their support on the Cloudflare network.&lt;/p&gt;
+&lt;p&gt;This should not affect customer zones in any way, as clients that might currently use these cipher suites will be able to fallback to different ones. In addition, unlike the standard variants, these legacy cipher suites are not exposed directly through our API (e.g. through the TLS cipher suites preferences endpoint), and their deprecation will not affect customer configurations in any way.&lt;/p&gt;
+&lt;p&gt;As of July 1st, 2023, the ChaCha20-Poly1305 ciphers have been deprecated and are deemed End of Life by Cloudflare. If you have clients that currently rely on these ciphers, it is strongly recommended to upgrade them to newer, more secure ciphers. Be aware that these deprecated ciphers will be completely removed in the first quarter of 2024, and requests using them will start to fail. Take proactive measures to ensure a smooth transition and maintain the security of your systems.&lt;/p&gt;
+</description><pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate></item><item><title>API deprecations - Transfer-Encoding and Content-Length headers</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#transfer-encoding-and-content-length-headers</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#transfer-encoding-and-content-length-headers</guid><description>&lt;p&gt;Deprecation date: July 1, 2023&lt;/p&gt;
+&lt;p&gt;Previously, RFC 2616 allowed the use of &lt;code&gt;Transfer-Encoding&lt;/code&gt; and &lt;code&gt;Content-Length&lt;/code&gt; HTTP headers in the same request. RFC 7230 supersedes RFC 2616 and prohibits the use of &lt;code&gt;Transfer-Encoding&lt;/code&gt; and &lt;code&gt;Content-Length&lt;/code&gt; headers in the same request because they can cause HTTP request smuggling vulnerabilities.&lt;/p&gt;
+&lt;p&gt;Starting on July 1st, 2023, Cloudflare will decline requests with both &lt;code&gt;Transfer-Encoding&lt;/code&gt; and &lt;code&gt;Content-Length&lt;/code&gt; HTTP headers.&lt;/p&gt;
+</description><pubDate>Sat, 01 Jul 2023 00:00:00 GMT</pubDate></item><item><title>API deprecations - Account Billing Profile, User Billing Profile, and User Billing History</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-billing-profile-user-billing-profile-and-user-billing-history</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#account-billing-profile-user-billing-profile-and-user-billing-history</guid><description>&lt;p&gt;Deprecation date: June 6, 2023&lt;/p&gt;
+&lt;p&gt;There is no API replacement for these endpoints. As an alternative, please log in to your Cloudflare account to view your:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://dash.cloudflare.com/?to=/:account/billing&quot;&gt;Invoices &amp;amp; Billing Email&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://dash.cloudflare.com/?to=/:account/billing/subscriptions&quot;&gt;Billing subscriptions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://dash.cloudflare.com/?to=/:account/billing/payment-info&quot;&gt;Billing profile payment info&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET accounts/{account_identifier}/billing/profile&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET user/billing/profile&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET user/billing/history&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description><pubDate>Tue, 06 Jun 2023 00:00:00 GMT</pubDate></item><item><title>API deprecations - Load Balancing - notification_email</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#load-balancing---notification_email</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#load-balancing---notification_email</guid><description>&lt;p&gt;Deprecation date: April 3, 2023&lt;/p&gt;
+&lt;p&gt;This field is deprecated and has been moved to &lt;a href=&quot;https://developers.cloudflare.com/notifications/&quot;&gt;Cloudflare centralized notification service&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;notification_email&lt;/code&gt; is the email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.&lt;/p&gt;
+</description><pubDate>Mon, 03 Apr 2023 00:00:00 GMT</pubDate></item><item><title>API deprecations - Access Bookmark applications</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#access-bookmark-applications</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#access-bookmark-applications</guid><description>&lt;p&gt;Deprecation date: March 19, 2023&lt;/p&gt;
+&lt;p&gt;This endpoint is deprecated in favor of using a specialized Access Application App Type API.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET accounts/:identifier/access/bookmarks&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET accounts/:identifier/access/bookmarks/:uuid&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST accounts/:identifier/access/bookmarks/:uuid&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PUT accounts/:identifier/access/bookmarks/:uuid&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE accounts/:identifier/access/bookmarks/:uuid&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement:
+Access applications app type API&lt;/p&gt;
+</description><pubDate>Sun, 19 Mar 2023 00:00:00 GMT</pubDate></item><item><title>API deprecations - Page Shield</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#page-shield</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#page-shield</guid><description>&lt;p&gt;Deprecation date: October 11, 2022&lt;/p&gt;
+&lt;p&gt;Replace &lt;code&gt;script_monitor&lt;/code&gt; in Page Shield API routes with &lt;code&gt;page_shield&lt;/code&gt;.&lt;/p&gt;
+</description><pubDate>Tue, 11 Oct 2022 00:00:00 GMT</pubDate></item><item><title>API deprecations - Cloudflare Images - Create authenticated direct upload URL v1</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-images---create-authenticated-direct-upload-url-v1</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#cloudflare-images---create-authenticated-direct-upload-url-v1</guid><description>&lt;p&gt;Deprecation date: July 1, 2022&lt;/p&gt;
+&lt;p&gt;This endpoint is deprecated in favor of using v2, which allows you to control metadata, define an access policy, and get the image ID.&lt;/p&gt;
+&lt;p&gt;Deprecated API:
+&lt;code&gt;POST accounts/:account_identifier/images/v1/direct_upload&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Replacement:
+&lt;code&gt;POST accounts/:account_identifier/images/v2/direct_upload&lt;/code&gt;&lt;/p&gt;
+</description><pubDate>Fri, 01 Jul 2022 00:00:00 GMT</pubDate></item><item><title>API deprecations - Zone Analytics API</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-analytics-api</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#zone-analytics-api</guid><description>&lt;p&gt;Deprecation date: March 1, 2021&lt;/p&gt;
+&lt;p&gt;This API is deprecated in favor of the &lt;a href=&quot;https://developers.cloudflare.com/analytics/graphql-api/&quot;&gt;GraphQL Analytics API&lt;/a&gt;, which provides equivalent data and more features, including the ability to select only the metrics that you need. For more information, refer to the &lt;a href=&quot;https://developers.cloudflare.com/analytics/graphql-api/migration-guides/zone-analytics/&quot;&gt;Zone analytics to GraphQL analytics migration guide&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET zones/:zone_identifier/analytics/dashboard&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET zones/:zone_identifier/analytics/colos&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement:
+GraphQL Analytics API&lt;/p&gt;
+</description><pubDate>Mon, 01 Mar 2021 00:00:00 GMT</pubDate></item><item><title>API deprecations - Organizations</title><link>https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#organizations</link><guid isPermaLink="true">https://developers.cloudflare.com/fundamentals/api/reference/deprecations/#organizations</guid><description>&lt;p&gt;Deprecation date: April 2, 2020&lt;/p&gt;
+&lt;p&gt;This endpoint and its related APIs are deprecated in favor of the &lt;code&gt;/accounts&lt;/code&gt; equivalent API, which has a broader range of features and is backwards compatible with the &lt;code&gt;/organizations&lt;/code&gt; API.&lt;/p&gt;
+&lt;p&gt;Deprecated API:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH organizations/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/invites&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST organizations/:organization_identifier/invites&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/invites/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH organizations/:organization_identifier/invites/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE organizations/:organization_identifier/invites/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/members&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/members/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH organizations/:organization_identifier/members/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE organizations/:organization_identifier/members/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/roles&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/roles/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/audit_logs&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/railguns&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;POST organizations/:organization_identifier/railguns&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/railguns/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PATCH organizations/:organization_identifier/railguns/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DELETE organizations/:organization_identifier/railguns/:identifier&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GET organizations/:organization_identifier/railguns/:identifier/zones&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Replacement:
+Accounts API&lt;/p&gt;
+</description><pubDate>Thu, 02 Apr 2020 00:00:00 GMT</pubDate></item></channel></rss>

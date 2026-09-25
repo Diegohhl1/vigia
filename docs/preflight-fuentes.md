@@ -16,9 +16,9 @@ Validadas 8 fuentes RSS de 6 proveedores. **Resultado:** cumple gate (≥8 fuent
 | AWS (blog) | https://aws.amazon.com/blogs/aws/feed/ | 200 | application/rss+xml | RSS | ALLOW | aws-blog.xml (7 entries) | **IN** | Blog oficial AWS |
 | Google Cloud | https://docs.cloud.google.com/feeds/gcp-release-notes.xml | 200 | text/xml | Atom | ALLOW | gcp.xml (2 entries) | **IN** | Feed Atom release notes |
 | GitHub (changelog) | https://github.blog/changelog/feed/ | 200 | application/rss+xml | RSS | ALLOW | github.xml (10 entries) | **IN** | Changelog de producto |
-| GitHub (status) | https://www.githubstatus.com/history.rss | 200 | application/rss+xml | RSS | ALLOW | github-status.xml (25 entries) | **IN** | Historial de incidentes |
 | Twilio | https://www.twilio.com/en-us/changelog.feed.xml | 200 | text/xml | RSS | ALLOW | twilio.xml (30 entries) | **IN** | Feed de changelog |
-| Cloudflare | https://developers.cloudflare.com/changelog/rss/index.xml | 200 | application/xml | RSS | ALLOW* | cloudflare.xml (25 entries) | **IN** | Feed de changelog (1260 entries totales) |
+| Cloudflare (changelog) | https://developers.cloudflare.com/changelog/rss/index.xml | 200 | application/xml | RSS | ALLOW* | cloudflare.xml (25 entries) | **IN** | Feed de changelog (1260 entries totales) |
+| Cloudflare (deprecations) | https://developers.cloudflare.com/fundamentals/api/reference/deprecations/index.xml | 200 | application/xml | RSS | ALLOW* | cloudflare-deprecations.xml (48 entries) | **IN** | Feed oficial de deprecaciones de API (en el alcance del producto: changelogs + deprecaciones) |
 | Sentry | https://sentry.io/changelog/feed.xml | 200 | application/xml | RSS | ALLOW | sentry.xml (154 entries) | **IN** | Feed de changelog (320 entries totales) |
 | Supabase | https://supabase.com/rss.xml | 200 | application/xml | RSS | ALLOW | - | **OUT** | Solo blog general, no changelog; /changelog/rss.xml da 404 |
 | Stripe | https://stripe.com/blog/changelog | 200 | text/html | HTML | ALLOW | - | **OUT** | Contenido dinámico (JS), selectores vacíos en HTML estático |
@@ -65,7 +65,9 @@ Guardados en `tests/fixtures/`, recortados a <100KB en fronteras de `</item>` o 
 
 4. **Stripe descartado:** contenido cargado dinámicamente con JS. Selectores probados (article, div, a[href*="/blog/"]) devuelven 0 items en HTML estático descargado. Scraping requeriría navegador headless (fuera de scope Task 0). Marcado OUT.
 
-5. **8ª fuente añadida:** AWS blog (https://aws.amazon.com/blogs/aws/feed/) y GitHub status (https://www.githubstatus.com/history.rss) añadidos para cumplir gate ≥8 fuentes.
+5. **8ª fuente añadida:** AWS blog (https://aws.amazon.com/blogs/aws/feed/) y Cloudflare API deprecations (https://developers.cloudflare.com/fundamentals/api/reference/deprecations/index.xml) añadidas para cumplir el gate de ≥8 fuentes.
+
+6. **GitHub status EXCLUIDO por el orquestador:** https://www.githubstatus.com/history.rss es un feed de INCIDENTES de disponibilidad, no changelog de producto. El challenge del plan ya excluyó OpenAI status por el mismo motivo (Revisión v2, punto 1). Sustituido por Cloudflare deprecations (fixture verificado: 48 entries, bozo=False).
 
 ## Proveedores Finales (6)
 
