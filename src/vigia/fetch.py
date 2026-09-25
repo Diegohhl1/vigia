@@ -7,14 +7,16 @@ import hashlib
 import re
 import sqlite3
 import time
+from urllib import robotparser
 from urllib.parse import urlparse
 
 import feedparser
 from bs4 import BeautifulSoup
+import httpx
 
 
 USER_AGENT = "vigia/0.1 (+https://github.com/Diegohhl1/vigia)"
-_ROBOTS: dict[str, tuple[bool, str]] = {}
+_ROBOTS: dict[str, tuple[robotparser.RobotFileParser | None, str]] = {}
 _HOST_LAST_REQUEST: dict[str, float] = {}
 MAX_RESPONSE_BYTES = 2 * 1024 * 1024
 MAX_RETRIES = 2
@@ -35,6 +37,10 @@ def _normalise(value: str) -> str:
     return re.sub(r"\s+", " ", value or "").strip()
 
 
+class _ResponseTooLarge(Exception):
+    """El cuerpo de la respuesta supera MAX_RESPONSE_BYTES."""
+
+
 def _request(client, url: str, *, headers: dict[str, str]):
     host = urlparse(url).netloc
     for attempt in range(MAX_RETRIES + 1):
@@ -44,36 +50,57 @@ def _request(client, url: str, *, headers: dict[str, str]):
             time.sleep(2.0 - elapsed)
         _HOST_LAST_REQUEST[host] = time.monotonic()
         try:
-            response = client.get(url, headers=headers, timeout=30.0)
-            if (response.status_code >= 500 or response.status_code == 429) and attempt < MAX_RETRIES:
-                time.sleep(0.1 * (2 ** attempt))
-                continue
-            return response
+            # Lectura en streaming: aborta en cuanto el cuerpo excede el límite
+            # en lugar de cargar la respuesta completa en memoria.
+            with client.stream("GET", url, headers=headers, timeout=30.0) as resp:
+                status = resp.status_code
+                resp_headers = resp.headers
+                if status == 200:
+                    chunks: list[bytes] = []
+                    total = 0
+                    for chunk in resp.iter_bytes():
+                        total += len(chunk)
+                        if total > MAX_RESPONSE_BYTES:
+                            raise _ResponseTooLarge(url)
+                        chunks.append(chunk)
+                    content = b"".join(chunks)
+                else:
+                    content = resp.read()
+            return httpx.Response(status, headers=resp_headers, content=content, request=resp.request)
+        except _ResponseTooLarge:
+            raise
         except Exception:
             if attempt >= MAX_RETRIES:
                 raise
             time.sleep(0.1 * (2 ** attempt))
 
 
-def _robots_allowed(url: str, client=None) -> bool:
+def _robots_allowed(url: str, client=None) -> tuple[bool, str]:
+    """Comprueba robots.txt para esta URL concreta; cachea el PARSER por dominio.
+
+    Devuelve (allowed, checked_at). Un parser None significa "sin robots.txt" (404):
+    se permite todo.
+    """
     parsed = urlparse(url)
     domain = f"{parsed.scheme}://{parsed.netloc}"
-    cached = _ROBOTS.get(domain)
-    if cached is None:
+    entry = _ROBOTS.get(domain)
+    if entry is None:
         if client is None:
-            return True
+            return True, ""
         response = _request(client, f"{domain}/robots.txt", headers={"User-Agent": USER_AGENT})
+        checked_at = _now()
         if response.status_code == 404:
-            allowed = True
+            parser = None
         else:
             response.raise_for_status()
-            from urllib import robotparser
             parser = robotparser.RobotFileParser()
             parser.parse(response.text.splitlines())
-            allowed = parser.can_fetch(USER_AGENT, url)
-        _ROBOTS[domain] = (allowed, _now())
-        return allowed
-    return cached[0]
+        _ROBOTS[domain] = (parser, checked_at)
+        entry = (parser, checked_at)
+    parser, checked_at = entry
+    if parser is None:
+        return True, checked_at
+    return parser.can_fetch(USER_AGENT, url), checked_at
 
 
 def _failure(conn, source_id, message: str, checked_at: str) -> dict:
@@ -104,13 +131,15 @@ def fetch_source(conn: sqlite3.Connection, source_row, client) -> dict:
     checked_at = _now()
     url = _value(source_row, "url")
     try:
-        try:
-            allowed = _robots_allowed(url, client)
-        except TypeError:
-            # Backwards-compatible hook for tests/integrations overriding the helper.
-            allowed = _robots_allowed(url)
+        allowed, robots_checked = _robots_allowed(url, client)
     except Exception as exc:
         return _failure(conn, source_id, str(exc), checked_at)
+    if robots_checked:
+        conn.execute(
+            "UPDATE sources SET last_checked_at = ?, robots_checked_at = ? WHERE id = ?",
+            (checked_at, robots_checked, source_id),
+        )
+        conn.commit()
     if not allowed:
         return _failure(conn, source_id, "robots_disallowed", checked_at)
 
@@ -131,27 +160,27 @@ def fetch_source(conn: sqlite3.Connection, source_row, client) -> dict:
         headers["If-Modified-Since"] = source_row["last_modified"]
     try:
         response = _request(client, url, headers=headers)
-        if response.status_code == 304:
-            if not has_baseline:
-                return _failure(conn, source_id, "not_modified_without_baseline", checked_at)
-            conn.execute(
-                "UPDATE sources SET last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0 WHERE id = ?",
-                (checked_at, checked_at, source_id),
-            )
-            conn.commit()
-            conn.execute("UPDATE sources SET robots_checked_at = ? WHERE id = ?", (_now(), source_id))
-            conn.commit()
-            return {"changed": False, "new_entries": 0, "edits": [], "error": None}
-        response.raise_for_status()
+    except _ResponseTooLarge:
+        return _failure(conn, source_id, "response_too_large", checked_at)
     except Exception as exc:
         return _failure(conn, source_id, str(exc), checked_at)
+    if response.status_code == 304:
+        if not has_baseline:
+            return _failure(conn, source_id, "not_modified_without_baseline", checked_at)
+        conn.execute(
+            "UPDATE sources SET last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0 WHERE id = ?",
+            (checked_at, checked_at, source_id),
+        )
+        conn.commit()
+        return {"changed": False, "new_entries": 0, "edits": [], "error": None}
+    response.raise_for_status()
 
     content_type = response.headers.get("Content-Type", "").split(";", 1)[0].lower()
     if len(response.content) > MAX_RESPONSE_BYTES:
         return _failure(conn, source_id, "response_too_large", checked_at)
-    if kind == "html" and content_type and content_type not in {"text/html", "application/xhtml+xml"}:
+    if kind == "html" and content_type not in {"text/html", "application/xhtml+xml"}:
         return _failure(conn, source_id, "invalid_content_type", checked_at)
-    if kind != "html" and content_type and content_type not in {
+    if kind != "html" and content_type not in {
         "application/rss+xml", "application/atom+xml", "application/xml", "text/xml"
     }:
         return _failure(conn, source_id, "invalid_content_type", checked_at)

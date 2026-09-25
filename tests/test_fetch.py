@@ -22,13 +22,15 @@ def _db(tmp_path):
 
 
 def _client(payload, status_code=200, headers=None):
+    merged = {"Content-Type": "application/rss+xml"}
+    merged.update(headers or {})
     def handler(request):
-        return httpx.Response(status_code, content=payload, headers=headers or {}, request=request)
+        return httpx.Response(status_code, content=payload, headers=merged, request=request)
     return httpx.Client(transport=httpx.MockTransport(handler))
 
 
 def test_first_rss_ingestion_is_baseline(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     client = _client(FIXTURE.read_bytes(), headers={"ETag": '"v1"', "Last-Modified": "yesterday"})
 
@@ -42,7 +44,7 @@ def test_first_rss_ingestion_is_baseline(tmp_path, monkeypatch):
 
 
 def test_new_entry_and_edited_entry_are_detected(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     original = FIXTURE.read_bytes()
     first = _client(original)
@@ -59,7 +61,7 @@ def test_new_entry_and_edited_entry_are_detected(tmp_path, monkeypatch):
 
 
 def test_not_modified_is_clean_and_network_error_is_captured(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     conn.execute("UPDATE sources SET etag = 'v1', last_success_at = 'baseline'")
     conn.execute("INSERT INTO entries (source_id, external_id, url, published_at, content_hash, content) VALUES (1, 'old', ?, 'now', 'hash', 'old')", (URL,))
@@ -76,17 +78,17 @@ def test_not_modified_is_clean_and_network_error_is_captured(tmp_path, monkeypat
 
 
 def test_html_empty_selector_does_not_create_baseline(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     conn.execute("UPDATE sources SET kind='html', selector='main'")
     conn.commit()
-    result = fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), _client(b"<html><body>short</body></html>"))
+    result = fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), _client(b"<html><body>short</body></html>", headers={"Content-Type": "text/html"}))
     assert result["error"] == "selector_empty_or_content_too_short"
     assert conn.execute("SELECT COUNT(*) FROM snapshots").fetchone()[0] == 0
 
 
 def test_304_without_baseline_is_not_success_and_sends_no_validator(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     conn.execute("UPDATE sources SET etag = 'v1'")
     conn.commit()
@@ -103,7 +105,7 @@ def test_304_without_baseline_is_not_success_and_sends_no_validator(tmp_path, mo
 
 
 def test_validator_is_not_saved_when_feed_parse_fails(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     result = fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), _client(b"not a feed", headers={"ETag": 'bad'}))
     assert result["error"] == "feed_parse_error"
@@ -111,7 +113,7 @@ def test_validator_is_not_saved_when_feed_parse_fails(tmp_path, monkeypatch):
 
 
 def test_empty_feed_establishes_baseline(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     assert fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), _client(b"<rss version='2.0'><channel><title>x</title></channel></rss>"))["changed"] is False
     result = fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), _client(FIXTURE.read_bytes()))
@@ -119,7 +121,7 @@ def test_empty_feed_establishes_baseline(tmp_path, monkeypatch):
 
 
 def test_html_json_content_type_and_oversize_are_rejected(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     conn = _db(tmp_path)
     conn.execute("UPDATE sources SET kind='html', selector='main'")
     conn.commit()
@@ -130,7 +132,7 @@ def test_html_json_content_type_and_oversize_are_rejected(tmp_path, monkeypatch)
 
 
 def test_connect_error_is_retried_and_succeeds_on_second_attempt(tmp_path, monkeypatch):
-    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url: True)
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
     monkeypatch.setattr("vigia.fetch.time.sleep", lambda seconds: None)
     monkeypatch.setattr("vigia.fetch._HOST_LAST_REQUEST", {})
     conn = _db(tmp_path)
@@ -141,7 +143,7 @@ def test_connect_error_is_retried_and_succeeds_on_second_attempt(tmp_path, monke
         calls += 1
         if calls == 1:
             raise httpx.ConnectError("offline", request=request)
-        return httpx.Response(200, content=FIXTURE.read_bytes(), request=request)
+        return httpx.Response(200, content=FIXTURE.read_bytes(), headers={"Content-Type": "application/rss+xml"}, request=request)
 
     result = fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), httpx.Client(transport=httpx.MockTransport(handler)))
     assert result["error"] is None
