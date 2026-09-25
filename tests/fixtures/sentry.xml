@@ -1,0 +1,1344 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Sentry Changelog]]></title>
+        <description><![CDATA[Stay up to date on everything big and small, from product updates to SDK changes with the Sentry Changelog.]]></description>
+        <link>https://sentry.io/changelog</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 25 Sep 2026 17:51:48 GMT</lastBuildDate>
+        <atom:link href="https://sentry.io/changelog/feed.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Fri, 25 Sep 2026 17:51:47 GMT</pubDate>
+        <copyright><![CDATA[Copyright 2026, Sentry]]></copyright>
+        <language><![CDATA[en-US]]></language>
+        <ttl>60</ttl>
+        <item>
+            <title><![CDATA[One alert to rule them all. And every project you add later. ]]></title>
+            <description><![CDATA[A single alert can now be triggered by an issue in any one of your projects, including all new and future projects. 
+]]></description>
+            <link>https://sentry.io/changelog/one-alert-to-rule-them-all-and-every-project-you-add-later-</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/one-alert-to-rule-them-all-and-every-project-you-add-later-</guid>
+            <category><![CDATA[Alerts]]></category>
+            <pubDate>Thu, 24 Sep 2026 16:19:31 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JavaScript SDK v11]]></title>
+            <description><![CDATA[Version 11 of the Sentry JavaScript SDK is out, with better OpenTelemetry compatibility and more complete instrumentation for Cloudflare, Bun and Deno. Spans are now streamed by default and `sendDefaultPii` is replaced by more granular data collection options.]]></description>
+            <link>https://sentry.io/changelog/javascript-sdk-v11</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/javascript-sdk-v11</guid>
+            <category><![CDATA[SDK]]></category>
+            <pubDate>Wed, 23 Sep 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer now iterates on the pull requests it opens]]></title>
+            <description><![CDATA[Seer can push follow-up commits to a pull request it opened — fixing failing CI checks on its own and acting on feedback from you, your reviewers, and review bots.]]></description>
+            <link>https://sentry.io/changelog/seer-pr-iteration</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-pr-iteration</guid>
+            <category><![CDATA[AI]]></category>
+            <pubDate>Mon, 21 Sep 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Agent Tracing is now GA]]></title>
+            <description><![CDATA[Sentry's Agent Tracing is now GA — trace every model call, tool execution, and handoff inside your existing traces, and read the full user-agent exchange in Conversations.]]></description>
+            <link>https://sentry.io/changelog/agent-tracing-is-now-ga</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/agent-tracing-is-now-ga</guid>
+            <category><![CDATA[Agent Monitoring]]></category>
+            <pubDate>Fri, 11 Sep 2026 08:00:33 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ruby SDK Releases — September 2026]]></title>
+            <description><![CDATA[Ruby 7.0.0 enables logs and metrics by default, defaults OTLP setup off, and replaces send_default_pii with granular data_collection.]]></description>
+            <link>https://sentry.io/changelog/2026-09-ruby-sdk-releases</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/2026-09-ruby-sdk-releases</guid>
+            <category><![CDATA[SDK]]></category>
+            <pubDate>Tue, 01 Sep 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[We're Changing Our TLS Certificate Authority in February 2027]]></title>
+            <description><![CDATA[We're moving to Let's Encrypt and Google Trust Services in February 2027.]]></description>
+            <link>https://sentry.io/changelog/were-changing-our-tls-certificate-authority-in-february-2027</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/were-changing-our-tls-certificate-authority-in-february-2027</guid>
+            <category><![CDATA[Security]]></category>
+            <pubDate>Wed, 26 Aug 2026 14:40:12 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[SentrySQLiteDriver is stable on Android]]></title>
+            <description><![CDATA[Easily create spans with your existing AndroidX SQLiteDriver.
+]]></description>
+            <link>https://sentry.io/changelog/sentrysqlitedriver-is-stable-on-android</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentrysqlitedriver-is-stable-on-android</guid>
+            <category><![CDATA[PERFORMANCE]]></category>
+            <pubDate>Thu, 13 Aug 2026 14:38:20 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI Query Assistant UX Improvements]]></title>
+            <description><![CDATA[Updates to the AI Query Assistant now makes it easier to track query generation, recover from errors, and regenerate suggestions in Explore.]]></description>
+            <link>https://sentry.io/changelog/ai-query-assistant-ux-improvements</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-query-assistant-ux-improvements</guid>
+            <category><![CDATA[Seer]]></category>
+            <category><![CDATA[Explore]]></category>
+            <pubDate>Wed, 12 Aug 2026 17:46:02 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Track feature flag in your iOS and macOS apps]]></title>
+            <description><![CDATA[See which feature flags were active right before an error; and which one probably caused it.]]></description>
+            <link>https://sentry.io/changelog/feature-flags-ios</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/feature-flags-ios</guid>
+            <category><![CDATA[IOS]]></category>
+            <category><![CDATA[SDK]]></category>
+            <pubDate>Wed, 12 Aug 2026 15:39:34 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Dashboard Quality-of-Life Improvements]]></title>
+            <description><![CDATA[Several quality-of-life improvements to make dashboards easier to discover and navigate.]]></description>
+            <link>https://sentry.io/changelog/dashboard-quality-of-life-improvements</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/dashboard-quality-of-life-improvements</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Mon, 10 Aug 2026 15:54:38 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Autofix Browser Notifications]]></title>
+            <description><![CDATA[Get a notification when manually triggered Autofix steps are completed.]]></description>
+            <link>https://sentry.io/changelog/autofix-browser-notifications</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/autofix-browser-notifications</guid>
+            <category><![CDATA[UI/UX UPDATE]]></category>
+            <category><![CDATA[Notifications]]></category>
+            <category><![CDATA[AUTOFIX]]></category>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Mon, 03 Aug 2026 19:54:40 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Weekly Report Revamp]]></title>
+            <description><![CDATA[We revamped our Weekly Report to give you a clearer weekly snapshot of your projects, so you can spot what's trending up, what needs fixing, and where to focus first. 
+]]></description>
+            <link>https://sentry.io/changelog/weekly-report-revamp</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/weekly-report-revamp</guid>
+            <pubDate>Sun, 02 Aug 2026 14:28:47 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JavaScript SDK Releases — July 2026]]></title>
+            <description><![CDATA[SvelteKit 3 support, Cloudflare nodejs_compat entrypoint, minimal OTel tracer by default, and richer URL attributes on routing spans.]]></description>
+            <link>https://sentry.io/changelog/2026-07-javascript-sdk-releases</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/2026-07-javascript-sdk-releases</guid>
+            <category><![CDATA[SDK]]></category>
+            <pubDate>Fri, 31 Jul 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Issue Activity Feed Enhancements]]></title>
+            <description><![CDATA[Your issue activity feed and external links now give you real-time status updates, including linked PRs, so you can quickly see the status of an issue and who’s working on it. ]]></description>
+            <link>https://sentry.io/changelog/issue-activity-feed-enhancements</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/issue-activity-feed-enhancements</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <pubDate>Tue, 28 Jul 2026 22:50:54 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Search and Aggregate Errors on Developer Plans]]></title>
+            <description><![CDATA[Explore → Errors is now available on Developer plans, making error search available alongside the rest of Sentry's telemetry.
+]]></description>
+            <link>https://sentry.io/changelog/search-and-aggregate-errors-on-developer-plans</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/search-and-aggregate-errors-on-developer-plans</guid>
+            <category><![CDATA[ERROR MONITORING]]></category>
+            <category><![CDATA[Explore]]></category>
+            <pubDate>Tue, 28 Jul 2026 15:35:44 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Redesigned Conversations view ]]></title>
+            <description><![CDATA[We've redesigned the Conversations detail page under Explore > Conversations, so you can follow every message, tool call, and model response in a conversation.
+]]></description>
+            <link>https://sentry.io/changelog/redesigned-conversations-view-</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/redesigned-conversations-view-</guid>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[Tracing]]></category>
+            <category><![CDATA[AI]]></category>
+            <pubDate>Tue, 21 Jul 2026 23:25:35 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Log Pinning]]></title>
+            <description><![CDATA[You can now pin important log lines while debugging.]]></description>
+            <link>https://sentry.io/changelog/log-pinning</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/log-pinning</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Tue, 21 Jul 2026 17:27:50 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Issue stream sorting just got smarter]]></title>
+            <description><![CDATA[Issue sorting just got a new default: 'Recommended.' It surfaces the issues that actually need your attention, personalized to you.]]></description>
+            <link>https://sentry.io/changelog/issue-stream-sorting-just-got-smarter</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/issue-stream-sorting-just-got-smarter</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <pubDate>Tue, 21 Jul 2026 16:04:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer now supports GitLab]]></title>
+            <description><![CDATA[Seer can now use your GitLab code files in Root Cause Analysis and open Merge Requests with a proposed fix — now generally available.]]></description>
+            <link>https://sentry.io/changelog/seer-supports-gitlab</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-supports-gitlab</guid>
+            <category><![CDATA[AI]]></category>
+            <category><![CDATA[Integrations]]></category>
+            <pubDate>Tue, 21 Jul 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Heatmaps for Application Metrics]]></title>
+            <description><![CDATA[Application Metrics now support heatmap visualizations]]></description>
+            <link>https://sentry.io/changelog/heatmaps-for-application-metrics</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/heatmaps-for-application-metrics</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Thu, 16 Jul 2026 19:06:15 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Dart/Flutter SDK: gRPC Integration]]></title>
+            <description><![CDATA[The new `sentry_grpc` package instruments outgoing gRPC calls in Dart and Flutter apps with tracing, breadcrumbs, and distributed tracing headers, and can capture failed calls as errors.
+]]></description>
+            <link>https://sentry.io/changelog/dartflutter-sdk-grpc-integration</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/dartflutter-sdk-grpc-integration</guid>
+            <category><![CDATA[MOBILE]]></category>
+            <pubDate>Wed, 15 Jul 2026 17:15:48 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[New Issue Type: Low-Value Spans (Beta)]]></title>
+            <description><![CDATA[Sentry now automatically detects high-volume, low-signal spans to help you reduce noise, lower your span bill, and keep your traces useful.]]></description>
+            <link>https://sentry.io/changelog/new-issue-type-low-value-spans-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/new-issue-type-low-value-spans-beta</guid>
+            <category><![CDATA[ERROR MONITORING]]></category>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[PERFORMANCE]]></category>
+            <category><![CDATA[Tracing]]></category>
+            <pubDate>Wed, 08 Jul 2026 16:30:35 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Dashboards Now Support Equations for Application Metrics]]></title>
+            <description><![CDATA[You can now add visualizations to Custom Dashboards based on Application Metrics equations. ]]></description>
+            <link>https://sentry.io/changelog/dashboards-now-support-equations-for-application-metrics</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/dashboards-now-support-equations-for-application-metrics</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Tue, 07 Jul 2026 15:11:56 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer can now hand off to GitHub Copilot to write the fix for you]]></title>
+            <description><![CDATA[Seer's new GitHub Copilot agent handoff lets you go from root cause to pull request in one click. Seer analyzes the issue, then passes its findings to a Copilot agent to write and open the fix for you. Available for all GitHub Copilot plans.]]></description>
+            <link>https://sentry.io/changelog/gh-copilot-agent-GA</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/gh-copilot-agent-GA</guid>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Tue, 30 Jun 2026 18:16:31 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Python SDK Releases — June 2026]]></title>
+            <description><![CDATA[gen_ai span streaming on by default, new aiomysql and HTTPX2 integrations, MCP SDK v2 support, and broad PII-gating improvements.]]></description>
+            <link>https://sentry.io/changelog/2026-06-python-sdk-releases</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/2026-06-python-sdk-releases</guid>
+            <category><![CDATA[SDK]]></category>
+            <pubDate>Tue, 30 Jun 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Export Logs as JSONL or CSV]]></title>
+            <description><![CDATA[You may now export logs in JSONL and CSV format.]]></description>
+            <link>https://sentry.io/changelog/export-logs-as-jsonl-or-csv</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/export-logs-as-jsonl-or-csv</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Tue, 23 Jun 2026 18:49:05 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Snapshots is now in Open Beta]]></title>
+            <description><![CDATA[Get screenshot diffing in CI to catch unintended visual changes. Works for any platform with a frontend.]]></description>
+            <link>https://sentry.io/changelog/snapshots-is-now-in-open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/snapshots-is-now-in-open-beta</guid>
+            <category><![CDATA[MOBILE]]></category>
+            <category><![CDATA[FRONTEND]]></category>
+            <category><![CDATA[CI]]></category>
+            <pubDate>Mon, 15 Jun 2026 22:56:27 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JavaScript SDK Internal packages moved to the @sentry scope]]></title>
+            <description><![CDATA[No action is needed for most users. In this release, Sentry’s published internal JavaScript packages moved from @sentry-internal/* to @sentry/*, and the SDK now depends on the new package names automatically.]]></description>
+            <link>https://sentry.io/changelog/javascript-sdk-internal-packages-moved-to-the-sentry-scope</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/javascript-sdk-internal-packages-moved-to-the-sentry-scope</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[REPLAY]]></category>
+            <category><![CDATA[NODE]]></category>
+            <category><![CDATA[NODE.JS]]></category>
+            <pubDate>Mon, 15 Jun 2026 14:19:21 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Enhanced Issue Grouping]]></title>
+            <description><![CDATA[Sentry's AI issue grouping got a major upgrade. You'll see less noise in your issue feed, with 20% fewer duplicate issues and incorrect merges cut in half.
+]]></description>
+            <link>https://sentry.io/changelog/enhanced-issue-grouping</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/enhanced-issue-grouping</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <pubDate>Fri, 12 Jun 2026 18:35:12 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The Sentry API endpoints your agents use are now fully documented]]></title>
+            <description><![CDATA[We've added 10 newly documented endpoints and cleaned up the ones developers and agents reach for most (tracing, profiling, and attachments), making building automated, self-healing workflows with Sentry more straightforward.
+]]></description>
+            <link>https://sentry.io/changelog/the-sentry-api-endpoints-your-agents-use-are-now-fully-documented</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/the-sentry-api-endpoints-your-agents-use-are-now-fully-documented</guid>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[API]]></category>
+            <pubDate>Mon, 08 Jun 2026 17:59:34 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Command Palette (Cmd+K) improvements in Sentry]]></title>
+            <description><![CDATA[The Command Palette (Cmd+K) got an upgrade: bulk-resolve issues, run any issue action without the toolbar, look up DSNs both directions, hand work to Seer, and search fast even with a lot of projects.]]></description>
+            <link>https://sentry.io/changelog/command-palette-cmdk-improvements-in-sentry</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/command-palette-cmdk-improvements-in-sentry</guid>
+            <pubDate>Thu, 04 Jun 2026 19:26:58 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JavaScript SDK 10.55.0: Hono SDK is now stable]]></title>
+            <description><![CDATA[The `@sentry/hono` SDK is now stable, with error monitoring, tracing, profiling, metrics, and logs for apps built with Hono. It works across Node.js, Cloudflare Workers, and Bun.]]></description>
+            <link>https://sentry.io/changelog/javascript-sdk-10550-hono-sdk-is-now-stable</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/javascript-sdk-10550-hono-sdk-is-now-stable</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[RELEASES]]></category>
+            <pubDate>Wed, 03 Jun 2026 08:49:33 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Codecov in Sentry has been removed]]></title>
+            <description><![CDATA[You will no longer see Codecov data in Sentry. ]]></description>
+            <link>https://sentry.io/changelog/codecov-in-sentry-has-been-removed</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/codecov-in-sentry-has-been-removed</guid>
+            <category><![CDATA[CODE COVERAGE]]></category>
+            <pubDate>Fri, 29 May 2026 18:29:33 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Explore and Dashboard Previews in Slack]]></title>
+            <description><![CDATA[Sentry's Slack integration now provides previews for additional charts.]]></description>
+            <link>https://sentry.io/changelog/explore-and-dashboard-previews-in-slack</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/explore-and-dashboard-previews-in-slack</guid>
+            <category><![CDATA[INTEGRATIONS]]></category>
+            <pubDate>Thu, 28 May 2026 15:25:56 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI-Detected Issues Now Generally Available]]></title>
+            <description><![CDATA[Sentry can use AI to analyze your traces and logs to detect issues that traditional pattern-matching would miss, like database inefficiencies, blocking operations, and security concerns.
+]]></description>
+            <link>https://sentry.io/changelog/ai-detected-issues-now-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-detected-issues-now-generally-available</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <pubDate>Wed, 27 May 2026 18:07:34 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI Conversations Now in Open Beta]]></title>
+            <description><![CDATA[Conversations is now in open beta for all Sentry users. It gives you a readable view into past sessions with your agent, showing the full exchange of messages and tool calls so you can understand exactly what happened during each session.]]></description>
+            <link>https://sentry.io/changelog/conversations-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/conversations-beta</guid>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[Agent Monitoring]]></category>
+            <pubDate>Thu, 21 May 2026 17:30:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Span Attribute Scrubbing Fix for `http.query`, `url.query`, and `url.full`]]></title>
+            <description><![CDATA[A regression in data scrubbing prevented specific attributes from being scrubbed]]></description>
+            <link>https://sentry.io/changelog/span-attribute-scrubbing-fix-for-httpquery-urlquery-and-urlfull</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/span-attribute-scrubbing-fix-for-httpquery-urlquery-and-urlfull</guid>
+            <category><![CDATA[REPLAY]]></category>
+            <category><![CDATA[SECURITY ADVISORY]]></category>
+            <pubDate>Wed, 20 May 2026 14:42:24 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer can send bugs to GitHub Copilot for the fix. Now in open beta.]]></title>
+            <description><![CDATA[Send Seer’s root cause to Copilot for the fix.]]></description>
+            <link>https://sentry.io/changelog/seer-can-send-bugs-to-github-copilot-for-the-fix-now-in-open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-can-send-bugs-to-github-copilot-for-the-fix-now-in-open-beta</guid>
+            <pubDate>Thu, 14 May 2026 17:06:19 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Dashboard Revision History]]></title>
+            <description><![CDATA[Dashboards now maintain a revision history of your most recent changes.]]></description>
+            <link>https://sentry.io/changelog/dashboard-revision-history</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/dashboard-revision-history</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Wed, 13 May 2026 16:46:05 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer’s Claude integration is now generally available]]></title>
+            <description><![CDATA[Trigger Claude to fix bugs using Seer’s root cause
+]]></description>
+            <link>https://sentry.io/changelog/seers-claude-integration-is-now-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seers-claude-integration-is-now-generally-available</guid>
+            <pubDate>Wed, 13 May 2026 16:04:40 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Monitors & Alerts — Now Generally Available]]></title>
+            <description><![CDATA[We’ve updated how you build alerts - separated now into Monitors and Alerts - to give you more control over what you track and how your team gets notified. ]]></description>
+            <link>https://sentry.io/changelog/monitors--alerts--now-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/monitors--alerts--now-generally-available</guid>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Thu, 07 May 2026 20:47:55 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Application Metrics are now GA]]></title>
+            <description><![CDATA[Sentry’s Application Metrics are now GA. They're high-cardinality and trace-connected. Tag a metric with user ID, region, plan type, or any attribute you care about, and slice by any of them at query time so you can ask questions about your application or users. When something spikes, you get the connected trace, log, or error to find out why]]></description>
+            <link>https://sentry.io/changelog/application-metrics-are-now-ga</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/application-metrics-are-now-ga</guid>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Tue, 05 May 2026 22:58:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Snapshots is now available in Early Access]]></title>
+            <description><![CDATA[Snapshots, now in Early Access, handles image storage, diffing, and CI checks to help you catch unintended visual regressions in CI.]]></description>
+            <link>https://sentry.io/changelog/snapshots-is-now-available-in-early-access</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/snapshots-is-now-available-in-early-access</guid>
+            <category><![CDATA[MOBILE]]></category>
+            <category><![CDATA[FRONTEND]]></category>
+            <pubDate>Tue, 05 May 2026 22:57:41 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cross-Event Querying is now Generally Available]]></title>
+            <description><![CDATA[Cross-Event Querying is now generally available: join queries across logs, metrics, and spans.]]></description>
+            <link>https://sentry.io/changelog/cross-event-querying-is-now-ga</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/cross-event-querying-is-now-ga</guid>
+            <category><![CDATA[Tracing]]></category>
+            <pubDate>Mon, 04 May 2026 19:48:34 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry's Perforce Integration is now Generally Available]]></title>
+            <description><![CDATA[Sentry now connects natively to Perforce P4, bringing stack trace linking, suspect commits, on-demand source context, and P4 Code Review to teams using Perforce.]]></description>
+            <link>https://sentry.io/changelog/perforce-integration-ga</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/perforce-integration-ga</guid>
+            <category><![CDATA[INTEGRATIONS]]></category>
+            <pubDate>Thu, 30 Apr 2026 20:30:49 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JavaScript SDK 10.51.0: Nitro SDK now in beta]]></title>
+            <description><![CDATA[Sentry's JavaScript SDK 10.51.0 introduces a new `@sentry/nitro` SDK in beta and adds trace propagation across Cloudflare Workers RPC calls. Plus middleware spans for nested Hono route groups, LangGraph instrumentation and customizable Feedback errors.]]></description>
+            <link>https://sentry.io/changelog/javascript-sdk-10510</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/javascript-sdk-10510</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[RELEASES]]></category>
+            <pubDate>Thu, 30 Apr 2026 14:58:06 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Multi-Module JVM Source Bundles in Sentry CLI]]></title>
+            <description><![CDATA[Sentry CLI now supports bundling and uploading of Source Context for multi-module Android/JVM applications.]]></description>
+            <link>https://sentry.io/changelog/multi-module-jvm-source-bundles-in-sentry-cli</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/multi-module-jvm-source-bundles-in-sentry-cli</guid>
+            <category><![CDATA[ANDROID]]></category>
+            <category><![CDATA[JAVA]]></category>
+            <category><![CDATA[SOURCE CONTEXT]]></category>
+            <pubDate>Thu, 30 Apr 2026 12:27:26 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer Agent in Slack requires updated permissions]]></title>
+            <description><![CDATA[To access Seer Agent through Slack, update Slack permissions]]></description>
+            <link>https://sentry.io/changelog/seer-agent-in-slack-requires-updated-permissions</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-agent-in-slack-requires-updated-permissions</guid>
+            <pubDate>Wed, 29 Apr 2026 15:58:04 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer Agent is in open beta — ask it anything about your app]]></title>
+            <description><![CDATA[Seer Agent is now in open beta. Ask anything about what's happening in your application and get answers based on all the connected Sentry telemetry and context. ]]></description>
+            <link>https://sentry.io/changelog/seer-agent-is-in-open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-agent-is-in-open-beta</guid>
+            <pubDate>Wed, 29 Apr 2026 15:57:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Monitors & Alerts are in Early Access]]></title>
+            <description><![CDATA[Sentry Alerts is splitting into two features — Monitors and Alerts — to give you more control over what you track and how your team gets notified. ]]></description>
+            <link>https://sentry.io/changelog/monitors--alerts-are-in-early-access</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/monitors--alerts-are-in-early-access</guid>
+            <category><![CDATA[Alerts]]></category>
+            <pubDate>Mon, 20 Apr 2026 20:06:49 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Shake to Report User Feedback on Mobile]]></title>
+            <description><![CDATA[Mobile SDKs now support a shake gesture to open the User Feedback form. When enabled, shaking the device triggers the feedback form using the platform's built-in accelerometer without additional permissions being required.]]></description>
+            <link>https://sentry.io/changelog/shake-to-report-user-feedback-on-mobile</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/shake-to-report-user-feedback-on-mobile</guid>
+            <pubDate>Thu, 16 Apr 2026 10:41:41 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Interval Selection on Dashboards]]></title>
+            <description><![CDATA[You can now change the intervals used for how time series data is bucketed on dashboards.]]></description>
+            <link>https://sentry.io/changelog/interval-selection-on-dashboards</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/interval-selection-on-dashboards</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Wed, 15 Apr 2026 19:14:05 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Bulk Code Mappings Upload via Sentry CLI]]></title>
+            <description><![CDATA[  Code mappings connect your stack traces to source code, enabling features like source context, suspect commits, and stack trace linking. Previously, you had to configure them one-by-one
+  through the Sentry UI — tedious for monorepos with dozens of modules. You can now upload code mappings in bulk using sentry-cli.]]></description>
+            <link>https://sentry.io/changelog/bulk-code-mappings-upload-via-sentry-cli</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/bulk-code-mappings-upload-via-sentry-cli</guid>
+            <category><![CDATA[ANDROID]]></category>
+            <category><![CDATA[JAVA]]></category>
+            <category><![CDATA[CI]]></category>
+            <category><![CDATA[CODE MAPPINGS]]></category>
+            <pubDate>Thu, 09 Apr 2026 10:03:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer can now trigger Claude to fix bugs.]]></title>
+            <description><![CDATA[Seer brings the root cause – Claude codes the fix.]]></description>
+            <link>https://sentry.io/changelog/seer-can-now-trigger-claude-to-fix-bugs</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-can-now-trigger-claude-to-fix-bugs</guid>
+            <category><![CDATA[INTEGRATIONS]]></category>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Wed, 08 Apr 2026 18:05:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI-Powered Dashboard Generation (Beta)]]></title>
+            <description><![CDATA[Generate custom dashboards with an LLM agent.]]></description>
+            <link>https://sentry.io/changelog/ai-powered-dashboard-generation-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-powered-dashboard-generation-beta</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Wed, 01 Apr 2026 21:00:09 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Markdown Widgets for Custom Dashboards]]></title>
+            <description><![CDATA[You can now add rich text markdown widgets to your custom dashboard.]]></description>
+            <link>https://sentry.io/changelog/markdown-widgets-for-custom-dashboards</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/markdown-widgets-for-custom-dashboards</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Mon, 30 Mar 2026 18:58:37 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Uptime Monitors: Expanded Alert Configuration]]></title>
+            <description><![CDATA[Uptime monitors now support custom configuration, so you can define what a successful check actually looks like. 
+]]></description>
+            <link>https://sentry.io/changelog/uptime-monitors-expanded-alert-configuration</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/uptime-monitors-expanded-alert-configuration</guid>
+            <category><![CDATA[UPTIME]]></category>
+            <pubDate>Mon, 16 Mar 2026 22:01:18 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Metrics Open Beta Now Supports Alerting]]></title>
+            <description><![CDATA[Metrics, currently in open beta, now support creating alerts.]]></description>
+            <link>https://sentry.io/changelog/metrics-beta-alerts</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/metrics-beta-alerts</guid>
+            <category><![CDATA[METRICS]]></category>
+            <category><![CDATA[Alerts]]></category>
+            <pubDate>Mon, 16 Mar 2026 21:16:02 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Improved chart legends]]></title>
+            <description><![CDATA[We've overhauled how custom dashboards render chart legends.]]></description>
+            <link>https://sentry.io/changelog/improved-chart-legends</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/improved-chart-legends</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Fri, 13 Mar 2026 21:27:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Better Native crash reporting for Android]]></title>
+            <description><![CDATA[We've added Tombstone support for enhanced Native crash reporting on Android ]]></description>
+            <link>https://sentry.io/changelog/better-native-crash-reporting-for-android</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/better-native-crash-reporting-for-android</guid>
+            <category><![CDATA[ERROR MONITORING]]></category>
+            <category><![CDATA[ANDROID]]></category>
+            <category><![CDATA[MOBILE]]></category>
+            <pubDate>Tue, 17 Feb 2026 13:47:49 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Metrics using .NET and Unity SDKs]]></title>
+            <description><![CDATA[Send Metrics using our .NET and Unity SDKs]]></description>
+            <link>https://sentry.io/changelog/send-metrics-using-net-and-unity-sdks</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-metrics-using-net-and-unity-sdks</guid>
+            <category><![CDATA[BETA]]></category>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Thu, 12 Feb 2026 20:44:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Logs using the Kotlin Multiplatform SDK]]></title>
+            <description><![CDATA[Send logs using the Kotlin Multiplatform SDK]]></description>
+            <link>https://sentry.io/changelog/send-logs-using-the-kotlin-multiplatform-sdk</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-logs-using-the-kotlin-multiplatform-sdk</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Wed, 11 Feb 2026 14:16:57 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Size Analysis is now Generally Available]]></title>
+            <description><![CDATA[Size Analysis is now generally available in Sentry. It helps you monitor and reduce your mobile app size so you can catch regressions before they reach end users. 
+]]></description>
+            <link>https://sentry.io/changelog/size-analysis-is-now-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/size-analysis-is-now-generally-available</guid>
+            <category><![CDATA[MOBILE]]></category>
+            <pubDate>Tue, 10 Feb 2026 22:43:23 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Organization-level Data Forwarding is now available]]></title>
+            <description><![CDATA[We've renewed first-party support for data forwarding and migrated users onto organization-level configuration. You can now forward your errors across projects to Splunk, Segment and Amazon SQS with a single settings change.]]></description>
+            <link>https://sentry.io/changelog/organization-level-data-forwarding-is-now-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/organization-level-data-forwarding-is-now-available</guid>
+            <category><![CDATA[INTEGRATIONS]]></category>
+            <category><![CDATA[BUSINESS]]></category>
+            <category><![CDATA[STATS]]></category>
+            <pubDate>Mon, 09 Feb 2026 20:24:33 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Cross-Event Querying in Trace Explorer (Beta)]]></title>
+            <description><![CDATA[Cross-Event querying allows you to refine your search for spans based on their relationship to other events in a distributed trace.]]></description>
+            <link>https://sentry.io/changelog/cross-event-querying-in-trace-explorer-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/cross-event-querying-in-trace-explorer-beta</guid>
+            <category><![CDATA[Tracing]]></category>
+            <pubDate>Thu, 05 Feb 2026 14:40:11 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Metrics using the Flutter SDK]]></title>
+            <description><![CDATA[Send Metrics using the Flutter SDK]]></description>
+            <link>https://sentry.io/changelog/send-metrics-using-the-flutter-sdk</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-metrics-using-the-flutter-sdk</guid>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Tue, 03 Feb 2026 23:11:22 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Metrics using the iOS SDK]]></title>
+            <description><![CDATA[Send metrics using the iOS SDK]]></description>
+            <link>https://sentry.io/changelog/send-metrics-using-the-ios-sdk</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-metrics-using-the-ios-sdk</guid>
+            <pubDate>Mon, 02 Feb 2026 22:05:25 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Saved Queries for Session Replay]]></title>
+            <description><![CDATA[Replay filters (events, tags, URLs, CSS selectors, etc.) can now be saved and reused later.]]></description>
+            <link>https://sentry.io/changelog/saved-queries-for-session-replay</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/saved-queries-for-session-replay</guid>
+            <category><![CDATA[REPLAY]]></category>
+            <pubDate>Fri, 30 Jan 2026 18:47:37 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Metrics using the Go SDK]]></title>
+            <description><![CDATA[Send Metrics using the Go SDK]]></description>
+            <link>https://sentry.io/changelog/send-metrics-using-the-go-sdk</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-metrics-using-the-go-sdk</guid>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Wed, 28 Jan 2026 18:51:25 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Build dashboard widgets for your Metrics - Open Beta]]></title>
+            <description><![CDATA[Create dashboard widgets directly from your Metrics queries]]></description>
+            <link>https://sentry.io/changelog/build-dashboard-widgets-for-your-metrics---open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/build-dashboard-widgets-for-your-metrics---open-beta</guid>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Wed, 28 Jan 2026 17:45:27 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer now debugs in every stage of development]]></title>
+            <description><![CDATA[Seer AI debugger now catches issues in PRs, explains what broke in prod, and fixes what you missed.]]></description>
+            <link>https://sentry.io/changelog/seer-now-debugs-in-every-stage-of-development</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-now-debugs-in-every-stage-of-development</guid>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Tue, 27 Jan 2026 20:27:52 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Metrics using Ruby and Java SDKs]]></title>
+            <description><![CDATA[Send Metrics using our Ruby, Rails, Java, Spring and Spring Boot SDKs]]></description>
+            <link>https://sentry.io/changelog/send-metrics-using-ruby-and-java-sdks</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-metrics-using-ruby-and-java-sdks</guid>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Tue, 20 Jan 2026 17:51:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Attribute Breakdowns and Automated Comparisons for Spans]]></title>
+            <description><![CDATA[See a breakdown of values across several attributes without manual querying. You can also compare breakdowns between any spike on your span based metric chart and the rest of the time range.]]></description>
+            <link>https://sentry.io/changelog/attribute-breakdowns-and-automated-comparisons-for-spans</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/attribute-breakdowns-and-automated-comparisons-for-spans</guid>
+            <pubDate>Mon, 05 Jan 2026 20:53:17 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[GitHub secret scanning notifications]]></title>
+            <description><![CDATA[Sentry is now a GitHub secret scanning partner.]]></description>
+            <link>https://sentry.io/changelog/github-secret-scanning</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/github-secret-scanning</guid>
+            <pubDate>Tue, 30 Dec 2025 12:27:13 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Vercel Logs and Traces Automatically to Sentry]]></title>
+            <description><![CDATA[You can now forward logs/traces from Vercel automatically via the Vercel Marketplace Integration]]></description>
+            <link>https://sentry.io/changelog/send-vercel-logs-and-traces-automatically-to-sentry</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-vercel-logs-and-traces-automatically-to-sentry</guid>
+            <category><![CDATA[INTEGRATIONS]]></category>
+            <category><![CDATA[Tracing]]></category>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Thu, 04 Dec 2025 19:04:32 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Metrics using PHP SDKs]]></title>
+            <description><![CDATA[You can send Metrics to Sentry using our PHP, Laravel and Symfony SDKs]]></description>
+            <link>https://sentry.io/changelog/send-metrics-using-php-sdks</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-metrics-using-php-sdks</guid>
+            <pubDate>Thu, 04 Dec 2025 16:09:06 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[UI Profiling support for Browser JavaScript and Electron]]></title>
+            <description><![CDATA[UI Profiling is now supported in the Sentry Browser JavaScript and Electron SDKs]]></description>
+            <link>https://sentry.io/changelog/ui-profiling-support-for-browser-javascript-and-electron</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ui-profiling-support-for-browser-javascript-and-electron</guid>
+            <category><![CDATA[PROFILING]]></category>
+            <pubDate>Mon, 01 Dec 2025 17:25:26 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Send Logs to Sentry via the OpenTelemetry Collector, Vector, or Fluent Bit]]></title>
+            <description><![CDATA[You can now forward logs from the OpenTelemetry Collector, Vector, or Fluent Bit to Sentry]]></description>
+            <link>https://sentry.io/changelog/send-logs-to-sentry-via-the-opentelemetry-collector-vector-or-fluent-bit</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/send-logs-to-sentry-via-the-opentelemetry-collector-vector-or-fluent-bit</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Mon, 01 Dec 2025 15:10:23 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Code Review Now Available in the EU]]></title>
+            <description><![CDATA[Code Review is now in beta for organizations using Sentry’s EU data region. Try it for free.]]></description>
+            <link>https://sentry.io/changelog/code-review-now-available-in-the-eu</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/code-review-now-available-in-the-eu</guid>
+            <category><![CDATA[Seer]]></category>
+            <category><![CDATA[code review]]></category>
+            <pubDate>Tue, 25 Nov 2025 14:32:37 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer can now trigger Cursor Agents to fix your bugs]]></title>
+            <description><![CDATA[We just launched our Cursor Cloud Agent integration. Now when Seer finds a bug, it can hand it off to Cursor—replete with all the context Sentry has about the issue—to write the fix and create a PR for you.]]></description>
+            <link>https://sentry.io/changelog/seer-can-now-trigger-cursor-agents-to-fix-your-bugs</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-can-now-trigger-cursor-agents-to-fix-your-bugs</guid>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Fri, 21 Nov 2025 22:50:09 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Ingestion IP Addresses are Changing]]></title>
+            <description><![CDATA[We are changing the list of IP addresses that are used for event ingestion]]></description>
+            <link>https://sentry.io/changelog/ingestion-ip-addresses-are-changing</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ingestion-ip-addresses-are-changing</guid>
+            <pubDate>Thu, 20 Nov 2025 13:39:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Metrics in Open Beta for JS and Python]]></title>
+            <description><![CDATA[Send counters, gauges, and distributions from your code to track things like email.sent, checkout.failed, queue.depth etc — and pivot directly into the related traces, logs, and errors when something looks off.]]></description>
+            <link>https://sentry.io/changelog/metrics-in-open-beta-for-js-and-python</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/metrics-in-open-beta-for-js-and-python</guid>
+            <category><![CDATA[PYTHON]]></category>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[METRICS]]></category>
+            <pubDate>Wed, 19 Nov 2025 17:23:58 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Session Replay – Quality of life updates]]></title>
+            <description><![CDATA[We’ve made a few changes to make replays easier to use and share.]]></description>
+            <link>https://sentry.io/changelog/session-replay--quality-of-life-updates</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/session-replay--quality-of-life-updates</guid>
+            <category><![CDATA[REPLAY]]></category>
+            <pubDate>Mon, 17 Nov 2025 19:43:49 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Log Drains for Cloudflare, Vercel, Heroku, and Supabase]]></title>
+            <description><![CDATA[You can now forward logs from platforms like Cloudflare, Vercel, Heroku, and Supabase to Sentry]]></description>
+            <link>https://sentry.io/changelog/log-drains-for-cloudflare-vercel-heroku-and-supabase</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/log-drains-for-cloudflare-vercel-heroku-and-supabase</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Mon, 10 Nov 2025 22:33:53 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Subscription Page Updates]]></title>
+            <description><![CDATA[We’ve refreshed the Subscription experience to make it easier to understand your usage, see upcoming billing cycles, and manage your plan. 
+]]></description>
+            <link>https://sentry.io/changelog/subscription-page-updates</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/subscription-page-updates</guid>
+            <category><![CDATA[BILLING AND SPEND]]></category>
+            <pubDate>Mon, 03 Nov 2025 18:18:03 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Custom Global Filters Available for Dashboards (Early Adopter)]]></title>
+            <description><![CDATA[Global filters can now be added for any of the same properties available when using widget builder.]]></description>
+            <link>https://sentry.io/changelog/custom-global-filters-available-for-dashboards-early-adopter</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/custom-global-filters-available-for-dashboards-early-adopter</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Tue, 28 Oct 2025 20:24:10 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[OTLP Ingestion Endpoints for Traces and Logs are in Open Beta]]></title>
+            <description><![CDATA[You can send your OTLP traces and logs directly to Sentry using our new ingestion endpoints]]></description>
+            <link>https://sentry.io/changelog/otlp-ingestion-endpoints-for-traces-and-logs-are-in-open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/otlp-ingestion-endpoints-for-traces-and-logs-are-in-open-beta</guid>
+            <pubDate>Wed, 22 Oct 2025 16:44:16 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry Ruby SDK 6.0.0]]></title>
+            <description><![CDATA[The new SDK allows ignoring status codes for Performance, setting a custom sampling interval for profiling and drops the async option.]]></description>
+            <link>https://sentry.io/changelog/ruby-v6</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ruby-v6</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[RUBY]]></category>
+            <category><![CDATA[Logs]]></category>
+            <category><![CDATA[RAILS]]></category>
+            <pubDate>Wed, 22 Oct 2025 10:43:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI-Powered User Feedback Summary and Categories in Open Beta]]></title>
+            <description><![CDATA[With the new AI-generated Feedback Summary, you’ll see a concise overview of your feedback trends, highlighting 2–3 recurring themes so you can quickly understand what users are saying, without reading every comment.
+]]></description>
+            <link>https://sentry.io/changelog/ai-powered-user-feedback-summary-and-categories-in-open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-powered-user-feedback-summary-and-categories-in-open-beta</guid>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[BETA]]></category>
+            <category><![CDATA[MOBILE]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <pubDate>Tue, 21 Oct 2025 15:22:26 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Serilog Integration for .NET ]]></title>
+            <description><![CDATA[Send your existing logs instrumented with Serilog to Sentry automatically]]></description>
+            <link>https://sentry.io/changelog/serilog-integration-for-net-</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/serilog-integration-for-net-</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Thu, 09 Oct 2025 16:31:04 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Pino and Consola SDK Integrations for Logs]]></title>
+            <description><![CDATA[You can send your existing Pino and Consola logger based logging to Sentry automatically]]></description>
+            <link>https://sentry.io/changelog/pino-and-consola-sdk-integrations-for-logs</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/pino-and-consola-sdk-integrations-for-logs</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Thu, 09 Oct 2025 15:06:54 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI code review is in open beta]]></title>
+            <description><![CDATA[AI code review helps you avoid shipping errors that will break production by bringing Sentry into your coding workflow. ]]></description>
+            <link>https://sentry.io/changelog/ai-code-review-is-in-open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-code-review-is-in-open-beta</guid>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[CI]]></category>
+            <pubDate>Tue, 23 Sep 2025 16:23:46 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[MCP Monitoring - Generally Available]]></title>
+            <description><![CDATA[Sentry's MCP server monitoring gives you visibility into protocol usage, client activity, traffic, tool calls, and performance. Now available for all Sentry plans. ]]></description>
+            <link>https://sentry.io/changelog/mcp-monitoring---generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/mcp-monitoring---generally-available</guid>
+            <pubDate>Mon, 22 Sep 2025 22:51:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Crash reporting for gaming consoles is now Generally Available]]></title>
+            <description><![CDATA[Crash reporting is now generally available for Xbox, PlayStation, and Nintendo Switch]]></description>
+            <link>https://sentry.io/changelog/crash-reporting-gaming-consoles</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/crash-reporting-gaming-consoles</guid>
+            <category><![CDATA[SDKS]]></category>
+            <pubDate>Mon, 08 Sep 2025 20:44:10 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Logs are Generally Available]]></title>
+            <description><![CDATA[Logs in Sentry are now GA—with live tailing, alerts, dashboards, and full trace context built in.
+]]></description>
+            <link>https://sentry.io/changelog/logs-are-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/logs-are-generally-available</guid>
+            <pubDate>Wed, 03 Sep 2025 15:08:31 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Inbound Filters for Logs]]></title>
+            <description><![CDATA[Business plan customers can specify server side inbound filtering rules to drop logs based on matching releases or logs messages]]></description>
+            <link>https://sentry.io/changelog/inbound-filters-for-logs</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/inbound-filters-for-logs</guid>
+            <pubDate>Fri, 08 Aug 2025 20:29:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Auto refresh your logs]]></title>
+            <description><![CDATA[Enable auto-refresh to see your logs come in live without needing to refresh the UX]]></description>
+            <link>https://sentry.io/changelog/auto-refresh-your-logs</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/auto-refresh-your-logs</guid>
+            <pubDate>Thu, 07 Aug 2025 15:27:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Query your traces using natural language - Available for Early Adopters]]></title>
+            <description><![CDATA[You can use our AI assistant to query your tracing and spans data with natural language text so you don't need to build a query to find relevant samples or compute your metrics]]></description>
+            <link>https://sentry.io/changelog/query-your-traces-using-natural-language---available-for-early-adopters</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/query-your-traces-using-natural-language---available-for-early-adopters</guid>
+            <pubDate>Wed, 06 Aug 2025 21:20:57 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Replay AI Summaries – Now Available for Early Adopters]]></title>
+            <description><![CDATA[Replay summaries, now available for early adopter let you quickly understand what happened in user sessions without having to watch the entire replay. Each summary provides a clear narrative and structured chapters, allowing you to jump straight to important moments and debug faster.]]></description>
+            <link>https://sentry.io/changelog/replay-ai-summaries--now-available-for-early-adopters</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/replay-ai-summaries--now-available-for-early-adopters</guid>
+            <category><![CDATA[REPLAY]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Tue, 05 Aug 2025 15:14:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Upgrades to Table Widget in Dashboards (Early Adopter)]]></title>
+            <description><![CDATA[We’ve rolled out an early adopter upgrade for table widgets in dashboards to improve the overall consistency and user experience.]]></description>
+            <link>https://sentry.io/changelog/upgrades-to-table-widget-in-dashboards-early-adopter</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/upgrades-to-table-widget-in-dashboards-early-adopter</guid>
+            <category><![CDATA[EARLY ACCESS]]></category>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Fri, 25 Jul 2025 17:17:56 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Trigger alerts and build dashboards for Logs (in beta)]]></title>
+            <description><![CDATA[You can now define alerts and build dashboards based on log queries — now available to all beta Logs users.
+]]></description>
+            <link>https://sentry.io/changelog/alerts-and-dashboards-support-for-logs</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/alerts-and-dashboards-support-for-logs</guid>
+            <category><![CDATA[Logs]]></category>
+            <pubDate>Wed, 23 Jul 2025 22:25:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Trace Waterfall View Improvements]]></title>
+            <description><![CDATA[Trace waterfall will now show standalone INP spans, a streamlined list of attributes attached to spans and also Logs that are linked to a particular span]]></description>
+            <link>https://sentry.io/changelog/trace-waterfall-view-improvements</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/trace-waterfall-view-improvements</guid>
+            <pubDate>Thu, 26 Jun 2025 16:46:08 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI Agent Monitoring — Open Beta]]></title>
+            <description><![CDATA[We've just given AI agent monitoring a major upgrade — bringing tracing, tool visibility, model performance, and deep context into one place so you can quickly see what broke, where, and why.]]></description>
+            <link>https://sentry.io/changelog/ai-agent-monitoring--open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-agent-monitoring--open-beta</guid>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[INSIGHTS]]></category>
+            <category><![CDATA[Tracing]]></category>
+            <pubDate>Thu, 26 Jun 2025 13:32:59 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry Flutter SDK 9.0]]></title>
+            <description><![CDATA[The Sentry Flutter SDK 9.0 comes with support for Session Replay for mobile (general availability), feature flags, Logs (open beta), Native JS errors and Release Health for Flutter Web, and improved linking between Traces and Errors. ]]></description>
+            <link>https://sentry.io/changelog/flutter-v9</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/flutter-v9</guid>
+            <category><![CDATA[SDKS]]></category>
+            <pubDate>Tue, 24 Jun 2025 18:27:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI PR Review and Test generation-- Now in Beta]]></title>
+            <description><![CDATA[Comment @sentry in your PR to generate any missing tests and get an automated review of your code.]]></description>
+            <link>https://sentry.io/changelog/ai-pr-review-and-test-generation-now-in-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-pr-review-and-test-generation-now-in-beta</guid>
+            <category><![CDATA[RELEASES]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <pubDate>Tue, 24 Jun 2025 15:56:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Optional change to Sentry GitHub App permissions]]></title>
+            <description><![CDATA[Sentry's GitHub App is being updated to request Check and Commit Status permissions. The new permissions are needed for upcoming feature launches.]]></description>
+            <link>https://sentry.io/changelog/optional-change-to-sentry-github-app-permissions</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/optional-change-to-sentry-github-app-permissions</guid>
+            <pubDate>Wed, 18 Jun 2025 16:43:15 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer, Sentry’s AI Debugger, is Generally Available]]></title>
+            <description><![CDATA[Seer helps you troubleshoot (with 94.5% accuracy) and fix errors and performance issues in your apps using all of the context available to Sentry]]></description>
+            <link>https://sentry.io/changelog/seer-sentrys-ai-debugger-is-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-sentrys-ai-debugger-is-generally-available</guid>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[AUTOFIX]]></category>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Tue, 17 Jun 2025 15:57:33 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Link multiple Sentry orgs to the same GitHub account]]></title>
+            <description><![CDATA[Users with multiple Sentry orgs can now link to the same GitHub account]]></description>
+            <link>https://sentry.io/changelog/github-multi-org-linking</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/github-multi-org-linking</guid>
+            <pubDate>Fri, 06 Jun 2025 17:04:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry's new Navigation and Issue Views — Generally Available]]></title>
+            <description><![CDATA[Sentry's new redesigned navigation and Issue Views are now generally available for users to opt in to. ]]></description>
+            <link>https://sentry.io/changelog/new-nav-issue-views-ga</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/new-nav-issue-views-ga</guid>
+            <category><![CDATA[FRONTEND]]></category>
+            <pubDate>Thu, 05 Jun 2025 17:40:30 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Anomaly Detection Alerts for Span based Metrics]]></title>
+            <description><![CDATA[You can now setup anomaly detection alerts for any span based query]]></description>
+            <link>https://sentry.io/changelog/anomaly-detection-alerts-for-span-based-metrics</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/anomaly-detection-alerts-for-span-based-metrics</guid>
+            <pubDate>Wed, 04 Jun 2025 14:23:15 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer (beta) context now includes application logs]]></title>
+            <description><![CDATA[Seer, Sentry's AI debugger, now references application logs too in its context, helping it find root causes more accurately]]></description>
+            <link>https://sentry.io/changelog/seer-beta-context-application-logs</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-beta-context-application-logs</guid>
+            <category><![CDATA[BETA]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[AUTOFIX]]></category>
+            <category><![CDATA[Logs]]></category>
+            <category><![CDATA[Seer]]></category>
+            <pubDate>Tue, 27 May 2025 23:40:03 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Improved Visibility Into App Hangs In Sentry Cocoa 8.50.0]]></title>
+            <description><![CDATA[We’ve overhauled app hang tracking in the Sentry Cocoa SDK to provide deeper visibility into the kinds of hangs impacting users.]]></description>
+            <link>https://sentry.io/changelog/apple-app-hangs-v2</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/apple-app-hangs-v2</guid>
+            <category><![CDATA[IOS]]></category>
+            <category><![CDATA[MOBILE]]></category>
+            <pubDate>Thu, 22 May 2025 22:46:07 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Insights Overview Page for Next.js Now Available (Early Adopter)]]></title>
+            <description><![CDATA[Get full-stack insights for Next.js projects and use the tree view to discover slow server-side-rendered components.]]></description>
+            <link>https://sentry.io/changelog/insights-overview-page-for-nextjs-now-available-early-adopter</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/insights-overview-page-for-nextjs-now-available-early-adopter</guid>
+            <category><![CDATA[EARLY ACCESS]]></category>
+            <category><![CDATA[INSIGHTS]]></category>
+            <pubDate>Wed, 21 May 2025 06:50:16 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Seer (beta) is now available to all Sentry users]]></title>
+            <description><![CDATA[We have made Seer, our AI debugger, available to all Sentry users for free, including those on a Developer plan]]></description>
+            <link>https://sentry.io/changelog/seer-beta-is-now-available-to-all-sentry-users</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/seer-beta-is-now-available-to-all-sentry-users</guid>
+            <category><![CDATA[Seer]]></category>
+            <category><![CDATA[BETA]]></category>
+            <category><![CDATA[TEAM]]></category>
+            <category><![CDATA[EARLY ACCESS]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[AUTOFIX]]></category>
+            <pubDate>Tue, 20 May 2025 17:34:34 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Logs in Sentry - Open Beta]]></title>
+            <description><![CDATA[You can now send logs directly to Sentry and view them alongside your traces, errors, and issues. This unlocks a unified workflow for debugging across all your telemetry — without leaving Sentry.]]></description>
+            <link>https://sentry.io/changelog/logs-in-sentry---open-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/logs-in-sentry---open-beta</guid>
+            <pubDate>Tue, 20 May 2025 17:13:13 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Trace Explorer with Span Metrics - Generally Available]]></title>
+            <description><![CDATA[Browse Span/Trace samples and aggregate any span based attribute to compute metrics on the fly without cardinality constraints]]></description>
+            <link>https://sentry.io/changelog/Span-Metrics</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/Span-Metrics</guid>
+            <pubDate>Tue, 13 May 2025 15:38:19 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Automatic Java Code Mappings and In-App Detection via GitHub]]></title>
+            <description><![CDATA[Java projects will automatically have their stack traces analyzed to connect their frames to GitHub repositories and mark them as in-app frames.
+]]></description>
+            <link>https://sentry.io/changelog/automatic-java-code-mappings-and-in-app-detection-via-github</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/automatic-java-code-mappings-and-in-app-detection-via-github</guid>
+            <pubDate>Thu, 01 May 2025 19:59:28 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Update to Default Event PII Fields for Data Scrubbing]]></title>
+            <description><![CDATA[We've updated Sentry Docs to better reflect the Event fields we apply data scrubbing by default when using our Require Using Default Scrubbers feature.
+]]></description>
+            <link>https://sentry.io/changelog/default-event-pii-fields-scrubbed</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/default-event-pii-fields-scrubbed</guid>
+            <category><![CDATA[REPLAY]]></category>
+            <category><![CDATA[SECURITY ADVISORY]]></category>
+            <pubDate>Wed, 30 Apr 2025 14:24:55 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Permissions Update for Seer]]></title>
+            <description><![CDATA[As part of our rollout of Seer, which powers Autofix, we’re making an update to how you grant permissions to enable generative AI features like Seer. Starting today, any member of your organization can enable Seer — no Owner role required.]]></description>
+            <link>https://sentry.io/changelog/permissions-update-for-seer</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/permissions-update-for-seer</guid>
+            <category><![CDATA[UI/UX UPDATE]]></category>
+            <category><![CDATA[BUSINESS]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <pubDate>Mon, 28 Apr 2025 18:32:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Continuous Profiling and UI Profiling]]></title>
+            <description><![CDATA[Continuous Profiling and UI Profiling are now generally available. These products replace our previous Profiling offering, and offer focused support for two key use cases: optimizing backend performance and infrastructure cost using Continuous Profiling, and improving the quality of frontend user experience on browser and mobile using UI Profiling. ]]></description>
+            <link>https://sentry.io/changelog/continuous-profiling-and-ui-profiling</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/continuous-profiling-and-ui-profiling</guid>
+            <pubDate>Fri, 18 Apr 2025 18:21:19 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry JavaScript SDK 9.13.0]]></title>
+            <description><![CDATA[Sentry's JavaScript SDK version 9.13.0 includes new features and fixes for Sentry Logging, MCP instrumentation, Cloudflare, Bun, and more!]]></description>
+            <link>https://sentry.io/changelog/sentry-javascript-sdk-9130</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentry-javascript-sdk-9130</guid>
+            <pubDate>Wed, 16 Apr 2025 14:26:54 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Track Release and Session Health from within Insights (Early Adopters)]]></title>
+            <description><![CDATA[Starting today Early Adopters can view Session Health data for their frontend and mobile applications inside Insights. This data is correlated with Releases to make it easier to investigate a metrics anomaly.
+]]></description>
+            <link>https://sentry.io/changelog/track-release-and-session-health-from-within-insights-early-adopters</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/track-release-and-session-health-from-within-insights-early-adopters</guid>
+            <category><![CDATA[EARLY ACCESS]]></category>
+            <category><![CDATA[UI/UX UPDATE]]></category>
+            <category><![CDATA[RELEASES]]></category>
+            <category><![CDATA[INSIGHTS]]></category>
+            <pubDate>Wed, 09 Apr 2025 21:07:52 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[View Distributions of Feature Flag evaluations inside Issue Details]]></title>
+            <description><![CDATA[We've created a view to show the distribution of Feature Flag values within an Issue. This feature is accessible from the tag drawer in the new issue details UI ("View all tags and feature flags" button).]]></description>
+            <link>https://sentry.io/changelog/view-distributions-of-feature-flag-evaluations-inside-issue-details</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/view-distributions-of-feature-flag-evaluations-inside-issue-details</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[PYTHON]]></category>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[UI/UX UPDATE]]></category>
+            <pubDate>Wed, 09 Apr 2025 20:46:17 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Autofix (Beta): end of March updates]]></title>
+            <description><![CDATA[Support for all major programming languages, trace context for debugging distributed systems, more thorough root cause analysis, and other improvements and fixes.]]></description>
+            <link>https://sentry.io/changelog/autofix-beta-end-of-march-2025-updates</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/autofix-beta-end-of-march-2025-updates</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[AUTOFIX]]></category>
+            <pubDate>Mon, 31 Mar 2025 20:02:52 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry JavaScript SDK 9.9.0]]></title>
+            <description><![CDATA[Sentry's JavaScript SDK version 9.9.0 includes new features for NextJS, support for upcoming Sentry features as well as performance improvements.]]></description>
+            <link>https://sentry.io/changelog/sentry-javascript-sdk-990</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentry-javascript-sdk-990</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <pubDate>Wed, 26 Mar 2025 07:53:25 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Anomaly detection simplifies alert configuration–now in beta]]></title>
+            <description><![CDATA[Anomaly alerts make metrics-based alerts easier to create and more flexible, by automatically detecting thresholds and adjusting them based on seasonality. They are now available in open beta.]]></description>
+            <link>https://sentry.io/changelog/anomaly-detection-metrics-alerts-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/anomaly-detection-metrics-alerts-beta</guid>
+            <category><![CDATA[Alerts]]></category>
+            <pubDate>Tue, 25 Mar 2025 19:31:16 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Performance Issues Enhanced with New Trace View]]></title>
+            <description><![CDATA[Performance issues have been upgraded with our new trace view.]]></description>
+            <link>https://sentry.io/changelog/performance-issues-enhanced-with-new-trace-view</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/performance-issues-enhanced-with-new-trace-view</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[PERFORMANCE]]></category>
+            <category><![CDATA[UI/UX UPDATE]]></category>
+            <pubDate>Tue, 25 Mar 2025 17:44:57 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Issue Stream UI Enhancements]]></title>
+            <description><![CDATA[We've refined the issue stream to enhance navigation, readability, and visual clarity.]]></description>
+            <link>https://sentry.io/changelog/issue-stream-ui-enhancements</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/issue-stream-ui-enhancements</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[UI/UX UPDATE]]></category>
+            <pubDate>Mon, 24 Mar 2025 20:21:05 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Autofix (Beta) updates for mid-March 2025]]></title>
+            <description><![CDATA[Automatic Autofix runs (limited preview), use Autofix without GitHub integration, updated models, and more fixes and improvements.]]></description>
+            <link>https://sentry.io/changelog/autofix-beta-updates-for-march-2025</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/autofix-beta-updates-for-march-2025</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[AUTOFIX]]></category>
+            <pubDate>Mon, 17 Mar 2025 17:31:54 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Improved dashboard widget creation]]></title>
+            <description><![CDATA[We’ve redesigned the Dashboards widget builder to make creating and editing widgets faster, allowing you to quickly visualize and refine your data without disrupting your workflow.]]></description>
+            <link>https://sentry.io/changelog/improved-dashboard-widget-creation</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/improved-dashboard-widget-creation</guid>
+            <pubDate>Thu, 13 Mar 2025 17:44:13 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Autofix (Beta) now available to Sentry users on paid plans]]></title>
+            <description><![CDATA[Autofix helps developers solve issues faster by identifying the root cause of an error, generating a potential fix and tests, and opening a pull request. 
+]]></description>
+            <link>https://sentry.io/changelog/autofix-beta-now-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/autofix-beta-now-available</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[AUTOFIX]]></category>
+            <pubDate>Mon, 03 Mar 2025 18:04:11 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry GitHub Action v3]]></title>
+            <description><![CDATA[Sentry's Release GitHub Action v3 is out with improved source maps support ]]></description>
+            <link>https://sentry.io/changelog/sentry-github-action-v3</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentry-github-action-v3</guid>
+            <pubDate>Mon, 03 Mar 2025 11:37:12 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry's GitHub Action has Improved Runtime Compatibility]]></title>
+            <description><![CDATA[Sentry's GitHub Action has improved runtime and compatibility for Linux based GitHub action runners while still supporting Mac OS and Windows runners.]]></description>
+            <link>https://sentry.io/changelog/sentrys-github-action-has-improved-runtime-compatibility</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentrys-github-action-has-improved-runtime-compatibility</guid>
+            <pubDate>Fri, 28 Feb 2025 15:10:19 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Compare Queries in Trace Explorer  (Early Adopters)]]></title>
+            <description><![CDATA[Compare several queries simultaneously to find correlations between span metrics ]]></description>
+            <link>https://sentry.io/changelog/compare-queries-in-trace-explorer--early-adopters</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/compare-queries-in-trace-explorer--early-adopters</guid>
+            <pubDate>Thu, 27 Feb 2025 23:11:52 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Laravel SDK 4.13.0]]></title>
+            <description><![CDATA[The latest version of the Laravel SDK added support for Laravel 12.0.]]></description>
+            <link>https://sentry.io/changelog/laravel-sdk-4130</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/laravel-sdk-4130</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[PHP]]></category>
+            <category><![CDATA[LARAVEL]]></category>
+            <pubDate>Tue, 18 Feb 2025 10:47:15 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Android/Java SDK v8.0.0]]></title>
+            <description><![CDATA[The latest release of the Sentry Java SDK is live with version 8.0.0. It includes improvements to automatically capture more data from popular libraries and frameworks.]]></description>
+            <link>https://sentry.io/changelog/androidjava-sdk-v800</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/androidjava-sdk-v800</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[PERFORMANCE]]></category>
+            <category><![CDATA[ANDROID]]></category>
+            <category><![CDATA[MOBILE]]></category>
+            <category><![CDATA[BACKEND]]></category>
+            <category><![CDATA[JAVA]]></category>
+            <pubDate>Tue, 18 Feb 2025 10:07:39 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Issue Views supports saving project, environment, and time range filters (Early Adopter)]]></title>
+            <description><![CDATA[Save filters for projects, environments, and time ranges in Issue Views (available for Early Adopters), for quicker access and greater control and customizability.]]></description>
+            <link>https://sentry.io/changelog/issue-views-early-adopter-save-filters</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/issue-views-early-adopter-save-filters</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[EARLY ACCESS]]></category>
+            <pubDate>Thu, 13 Feb 2025 17:00:41 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[JavaScript SDK v9]]></title>
+            <description><![CDATA[The Sentry JavaScript SDK just had the most boring major release ever.]]></description>
+            <link>https://sentry.io/changelog/javascript-sdk-v9</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/javascript-sdk-v9</guid>
+            <category><![CDATA[SDKS]]></category>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[NODE.JS]]></category>
+            <pubDate>Wed, 12 Feb 2025 07:54:23 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry Release GitHub Action Now Available On All Runners]]></title>
+            <description><![CDATA[Sentry's Release GitHub Action is now available for all GitHub-hosted runners.]]></description>
+            <link>https://sentry.io/changelog/sentry-release-github-action-now-available-on-all-runners</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentry-release-github-action-now-available-on-all-runners</guid>
+            <pubDate>Fri, 07 Feb 2025 09:24:21 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[New Issue Details UI Now Available]]></title>
+            <description><![CDATA[The revamped issue details page is now available to all users, with an improved UI which streamlines triage workflows and addresses usability concerns.]]></description>
+            <link>https://sentry.io/changelog/new-issue-details-ui-now-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/new-issue-details-ui-now-available</guid>
+            <pubDate>Thu, 06 Feb 2025 17:50:30 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[AI-powered Issue Grouping now Generally Available]]></title>
+            <description><![CDATA[We have updated the Sentry issue grouping algorithm to improve duplicate detection and reduce noise, resulting in 40% less issues and alerts.]]></description>
+            <link>https://sentry.io/changelog/ai-powered-issue-grouping-now-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/ai-powered-issue-grouping-now-generally-available</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <category><![CDATA[Alerts]]></category>
+            <pubDate>Wed, 05 Feb 2025 17:45:25 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Introducing the Mobile Vitals]]></title>
+            <description><![CDATA[We've introduced an opinionated Mobile Vitals landing page, summarizing your mobile metrics.]]></description>
+            <link>https://sentry.io/changelog/introducing-the-mobile-vitals</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/introducing-the-mobile-vitals</guid>
+            <category><![CDATA[PERFORMANCE]]></category>
+            <category><![CDATA[MOBILE]]></category>
+            <pubDate>Tue, 04 Feb 2025 20:52:04 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Trace Explorer with span based metrics available for Early Adopters]]></title>
+            <description><![CDATA[Aggregate any span based attribute to track metrics without cardinality constraints]]></description>
+            <link>https://sentry.io/changelog/span-based-metrics</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/span-based-metrics</guid>
+            <pubDate>Fri, 31 Jan 2025 22:09:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Simplified alert configuration with anomaly detection (Early Adopter)]]></title>
+            <description><![CDATA[Anomaly alerts, available for Early Adopters, automatically sets thresholds for metric alerts based on historical data, simplifying the configuration of new alerts]]></description>
+            <link>https://sentry.io/changelog/anomaly-alerts-early-adopter</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/anomaly-alerts-early-adopter</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[Alerts]]></category>
+            <pubDate>Thu, 30 Jan 2025 07:16:51 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Favorite Dashboards for Easier Access]]></title>
+            <description><![CDATA[ You can now favorite your most-used dashboards to keep them at the top of your dashboard list.]]></description>
+            <link>https://sentry.io/changelog/favorite-dashboards-for-easier-access</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/favorite-dashboards-for-easier-access</guid>
+            <pubDate>Wed, 29 Jan 2025 17:09:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry's Python SDK Supports Typer]]></title>
+            <description><![CDATA[Typer is a library for building user friendly CLI applications in Python. Now, with the 2.20.0 release of Sentry's Python SDK there is an official integration to support error tracking.]]></description>
+            <link>https://sentry.io/changelog/sentrys-python-sdk-supports-typer</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentrys-python-sdk-supports-typer</guid>
+            <pubDate>Thu, 16 Jan 2025 11:08:29 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry's Release GitHub Action has improved Sourcemaps Support]]></title>
+            <description><![CDATA[Sentry's Release GitHub Action has improved sourcemaps Support to ensure stacktraces of issues can be properly un-minified.]]></description>
+            <link>https://sentry.io/changelog/sentrys-release-github-action-has-improved-sourcemaps-support</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentrys-release-github-action-has-improved-sourcemaps-support</guid>
+            <pubDate>Wed, 15 Jan 2025 18:24:55 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Take control of your dashboards by managing edit access]]></title>
+            <description><![CDATA[You can now control who can edit or delete your dashboards by restricting permissions to owners or specific teams.]]></description>
+            <link>https://sentry.io/changelog/take-control-of-your-dashboards-by-managing-edit-access</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/take-control-of-your-dashboards-by-managing-edit-access</guid>
+            <category><![CDATA[DASHBOARDS]]></category>
+            <pubDate>Wed, 15 Jan 2025 17:48:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Session Replay for Mobile Is Now Generally Available]]></title>
+            <description><![CDATA[Session Replay for mobile is now generally available. It captures everything from device type, taps and swipes, to the cryptic gestures that somehow manage to crash your app.]]></description>
+            <link>https://sentry.io/changelog/session-replay-for-mobile-is-now-generally-available</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/session-replay-for-mobile-is-now-generally-available</guid>
+            <pubDate>Wed, 15 Jan 2025 16:32:52 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Unsupported Web Vitals measurements are now omitted in score calculation]]></title>
+            <description><![CDATA[Web Vitals Performance Scores now omit unsupported measurements.]]></description>
+            <link>https://sentry.io/changelog/missing-vitals-now-handled</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/missing-vitals-now-handled</guid>
+            <category><![CDATA[PERFORMANCE]]></category>
+            <category><![CDATA[FRONTEND]]></category>
+            <pubDate>Fri, 10 Jan 2025 17:11:23 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ Surface Sentry Context While Debugging Your Own Site with the Dev Toolbar]]></title>
+            <description><![CDATA[The Dev Toolbar, now in open beta, is a floating widget in your web app, offering meaningful Sentry insights for the specific page being viewed.   With three different **page-aware** panels: Issues, Feedback and Feature Flags, you can quickly surface relevant actionable issues when you have the most context for understanding them: as you browse your own site. 
+]]></description>
+            <link>https://sentry.io/changelog/-surface-sentry-context-while-debugging-your-own-site-with-the-dev-toolbar</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/-surface-sentry-context-while-debugging-your-own-site-with-the-dev-toolbar</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[BETA]]></category>
+            <pubDate>Mon, 16 Dec 2024 18:10:47 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Debug Issues Better with Feature Flag Context - Now in Beta]]></title>
+            <description><![CDATA[We've added feature flag context to issue details, providing deeper insight into the state of your application prior to an error. It can help you understand if a feature flag change is correlated with a new issue, as well as help you reproduce your users' application state at the time of an error. 
+
+
+Feature flag insights on your error events can help you understand if a feature flag change is correlated with a new issue as well as help you reproduce your users' application state at the time of an error. 
+
+]]></description>
+            <link>https://sentry.io/changelog/debug-issues-better-with-feature-flag-context---now-in-beta</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/debug-issues-better-with-feature-flag-context---now-in-beta</guid>
+            <pubDate>Thu, 12 Dec 2024 21:42:56 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Tree Compare tool for understanding Hydration Errors]]></title>
+            <description><![CDATA[The tree compare tool helps diagnose hydration errors in React by identifying and time stamping DOM mutations, with detailed context for debugging.]]></description>
+            <link>https://sentry.io/changelog/tree-compare-tool-for-understanding-hydration-errors</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/tree-compare-tool-for-understanding-hydration-errors</guid>
+            <category><![CDATA[JAVASCRIPT]]></category>
+            <category><![CDATA[REPLAY]]></category>
+            <pubDate>Thu, 21 Nov 2024 22:40:16 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Sentry AI now available for early adopters]]></title>
+            <description><![CDATA[Sentry AI helps you understand and fix errors faster. Issue Summary quickly orients you to what's going wrong. Autofix works together with you to find the root cause and fix it with a pull request.]]></description>
+            <link>https://sentry.io/changelog/sentry-ai-now-available-for-early-adopters</link>
+            <guid isPermaLink="true">https://sentry.io/changelog/sentry-ai-now-available-for-early-adopters</guid>
+            <category><![CDATA[ISSUES]]></category>
+            <category><![CDATA[BETA]]></category>
+            <category><![CDATA[AI/ML]]></category>
+            <pubDate>Tue, 19 Nov 2024 19:11:05 GMT</pubDate>
+        </item>
+</channel>
+</rss>

@@ -1,0 +1,27 @@
+Eres el ejecutor del Bloque 1 del proyecto Vigía (radar de cambios de proveedores cloud/SaaS). Trabajas en el worktree ~/Desktop/vigia-wt-bloque1 (rama feat/bloque-1-fuentes-y-esquema).
+
+PRIMERO lee, en este orden:
+1. AGENTS.md (reglas del proyecto)
+2. docs/superpowers/plans/2026-09-25-mvp.md — Tasks 0 y 1, y la sección "Revisión v2 (post-challenge)" que es VINCULANTE y modifica ambas tareas.
+
+EJECUTA SOLO Task 0 y Task 1:
+
+**Task 0 — Preflight de fuentes:**
+- Prueba CADA URL candidata real con curl/httpx: URL final tras redirects, código HTTP, content-type, robots.txt del host (urllib.robotparser), formato del contenido (RSS/Atom/HTML/JSON), y guarda un fixture real (recortado a <50KB) en tests/fixtures/ por fuente válida.
+- Candidatas (de la Revisión v2): Stripe changelog, AWS whats-new feed, Supabase changelog RSS, Sentry sentry.io/changelog/feed.xml, Cloudflare developers.cloudflare.com/changelog/rss/index.xml, GitHub github.blog/changelog/feed/, Twilio twilio.com/en-us/changelog.feed.xml, Google Cloud docs.cloud.google.com/feeds/gcp-release-notes.xml.
+- Si una URL falla, busca la alternativa oficial del proveedor (documentación) y prueba también esa.
+- Escribe el informe completo en docs/preflight-fuentes.md (tabla: fuente, URL final, código, content-type, robots, formato, fixture guardado, decisión IN/OUT y porqué). NO escribas en Wiki/ (la Wiki la actualiza el orquetizador).
+- Gate: si al final hay <4 proveedores con ≥8 fuentes válidas, pára e informa en el resultado final (no sigas a Task 1).
+
+**Task 1 — Esquema BD (TDD estricto):**
+- Según Task 1 del plan + enmiendas v2 punto 3: PRAGMA foreign_keys=ON, WAL, busy_timeout; tablas providers, sources, snapshots, entries (source_id, external_id, url, published_at, content_hash, content con UNIQUE(source_id, external_id)), changes (con old_excerpt, new_excerpt, source_url, model, prompt_version, review_status), digests. Columnas extra en sources: last_modified, last_checked_at, last_success_at, failure_count, last_error, robots_checked_at.
+- pyproject.toml con dependencias (httpx, feedparser, beautifulsoup4, pyyaml, pytest), .gitignore, estructura src/vigia/.
+- Tests primero (tests/test_db.py), verifica que fallan, implementa src/vigia/db.py, verifica que pasan.
+
+REGLAS:
+- Commits separados por tarea: `chore: preflight de fuentes` y `feat: sqlite schema with entries and pragmas`. No hagas push.
+- `pytest -v` verde antes de cada commit.
+- Sin secretos. User-Agent vigia/0.1 en las peticiones.
+- No toques Wiki/ ni tareas posteriores (2+).
+
+RESULTADO FINAL (tu último mensaje): lista de fuentes válidas IN/OUT con URL final, resultado de pytest, ficheros creados, y cualquier desviación del plan con su motivo. Máximo 15 líneas.

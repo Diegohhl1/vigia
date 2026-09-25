@@ -1,0 +1,12 @@
+## RESULTADO FINAL — Bloque 1 (Tasks 0 y 1)
+
+**Task 0 — Preflight:** 8 fuentes IN (Stripe blog+docs HTML, AWS RSS, Supabase RSS, Sentry RSS, GitHub RSS, Twilio RSS, GCP Atom). OUT: Cloudflare (robots DENY). Fixtures guardados en `tests/fixtures/`. Gate ✅ PASS (≥8 requeridas). Informe: `docs/preflight-fuentes.md`.
+
+**Task 1 — Esquema BD:** TDD estricto — 6 tests ✅ PASS. Tablas: providers, sources, snapshots, **entries** (con UNIQUE(source_id, external_id)), changes, digests. PRAGMAs: foreign_keys=ON, WAL, busy_timeout=5000. Columnas extra v2: sources (last_modified, last_checked_at, last_success_at, failure_count, last_error, robots_checked_at), changes (old_excerpt, new_excerpt, source_url, model, prompt_version, review_status).
+
+**Ficheros:** pyproject.toml, .gitignore, src/vigia/{__init__,db}.py, tests/test_db.py, docs/preflight-fuentes.md, tests/fixtures/{8 ficheros}.
+
+**Commits:** `d72a7b6 chore: preflight de fuentes`, `e4990e6 feat: sqlite schema with entries and pragmas`.
+
+**pytest -v:** 6/6 PASS. No push (según instrucciones).
+EXIT:0

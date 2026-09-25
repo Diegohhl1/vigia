@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>
+Changelog
+</title>
+<link>
+https://www.twilio.com/en-us/changelog
+</link>
+<description>
+
+</description>
+<atom:link rel="self" href="https://www.twilio.com/changelog.feed.xml">
+</atom:link>
+<language>
+en
+</language>
+<lastBuildDate>
+Fri, 25 Sep 2026 10:14:08 -0400
+</lastBuildDate>
+
+<item>
+<title>
+Conference list endpoint will default to in-progress conferences only on September 30, 2026
+</title>
+<description>
+&lt;p&gt;Starting September 30, 2026, the Conference list endpoint (GET /2010-04-01/Accounts/{AccountSid}/Conferences.json) will default to returning only in-progress conferences.&lt;/p&gt;
+
+</description>
+<pubDate>
+Wed, 23 Sep 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/conference-list-endpoint-july-2026
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/conference-list-endpoint-july-2026
+</guid>
+</item>
+
+<item>
+<title>
+Introducing Provider Failover and “Auto” mode Provider selection for Real-Time Transcriptions on October 22, 2026
+</title>
+<description>
+&lt;p&gt;Starting October 22, 2026, Twilio Real-Time Transcriptions automatically starts transcription sessions on a second speech provider when a customer’s primary provider doesn’t connect. Failover is enabled for all existing Real-Time Transcriptions accounts on that date, and it routes only within a customer’s existing region. Use of failover is optional and can be opted out of per sub-account in Console.&lt;/p&gt;
+
+</description>
+<pubDate>
+Tue, 22 Sep 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/real-time-transcriptions-october-2026
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/real-time-transcriptions-october-2026
+</guid>
+</item>
+
+<item>
+<title>
+Verify Events: Verification Attempt DLR event type will be discontinued
+</title>
+<description>
+&lt;p&gt;The Attempt DLR event type will be discontinued after September 22, 2026 at 10:00PM UTC. Learn more about using discontinued Event Types in &lt;a href="https://www.twilio.com/docs/events/event-types-lifecycle#discontinued"&gt;Discontinued Event Types&lt;/a&gt;.&amp;nbsp; From this point on, Twilio may stop sending new events for the Attempt DLR event types, even if you have a subscription to them. You will continue receiving events normally from any other Event Types in your subscriptions.&lt;/p&gt;
+
+</description>
+<pubDate>
+Tue, 22 Sep 2026 01:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/verify-events-verification-attempt-DLR-discontinued
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/verify-events-verification-attempt-DLR-discontinued
+</guid>
+</item>
+
+<item>
+<title>
+Voice Recording Storage billing updates
+</title>
+<description>
+&lt;p&gt;Twilio will begin migrating accounts to an updated Voice Recording Storage billing system.&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 17 Sep 2026 03:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/voice-recording-storage-billing-updates
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/voice-recording-storage-billing-updates
+</guid>
+</item>
+
+<item>
+<title>
+Twilio Heightened Awareness Period (HAP) – November 19, 2026  - January 4, 2027 
+</title>
+<description>
+&lt;p&gt;&lt;b&gt;Between Thursday, November 19, 2026 and Monday, January 4 2027, Twilio will enter a Heightened Awareness Period (HAP) to help ensure reliable message delivery during peak traffic times, such as Black Friday and Cyber Monday.&amp;nbsp;&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;During this period, message sending rates to U.S. destinations will be monitored and may be limited at the account level for toll-free, short code, and 10DLC numbers.&lt;/p&gt;
+&lt;p&gt;Accounts that send high volumes of messages from short codes or toll-free numbers may be temporarily migrated to &lt;a href="https://www.twilio.com/docs/messaging/guides/market-throughput-overview#twilio-docs-content-area"&gt;Market Throughput&lt;/a&gt; during the HAP. Customers will be notified via email if their account is affected. Market Throughput doesn’t affect 10DLC numbers, which will continue to live on &lt;a href="https://www.twilio.com/docs/messaging/guides/account-based-throughput-overview#twilio-docs-content-area"&gt;Account Based Throughput&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For more information on how throughput limits may be impacted and what actions to take, customers can reach out to their Twilio account team.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 17 Sep 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/hap-nov192026-jan42026
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/hap-nov192026-jan42026
+</guid>
+</item>
+
+<item>
+<title>
+Twilio integration with Salesforce Service Cloud Voice is now Omnichannel
+</title>
+<description>
+&lt;p&gt;We’re excited to announce that Twilio integration with Salesforce Service Cloud Voice now supports WhatsApp and SMS, alongside existing support for Voice and listed on the &lt;a href="https://appexchange.salesforce.com/appxListingDetail?listingId=1d792d9c-cbea-4452-93d9-66c79972b03d"&gt;AppExchange&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This release comes with the following enhancements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Route SMS and WhatsApp conversations through Twilio TaskRouter into the Salesforce Omni-Channel widget, using the same presence, skills, and capacity model as voice&lt;/li&gt;
+&lt;li&gt;Handle messaging conversations and voice calls concurrently in a single agent console, with agent presence synchronizing across all channels on work acceptance&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To learn more about setup, please see the &lt;a href="https://www.twilio.com/docs/flex/admin-guide/integrations/salesforce-byoccaas"&gt;setup guide&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 17 Sep 2026 01:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/twilio-integration-with-salesforce-service-cloud-voice-is-now-om
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/twilio-integration-with-salesforce-service-cloud-voice-is-now-om
+</guid>
+</item>
+
+<item>
+<title>
+ElevenLabs Voices for Say is now Public Beta
+</title>
+<description>
+&lt;p&gt;ElevenLabs voices are now available in Public Beta for &amp;lt;Say&amp;gt;, powered by the Flash v2 and Flash v2.5 models for fast, natural-sounding text-to-speech. Get started by specifying an ElevenLabs voice via the REST API or in a TwiML Bin.&lt;/p&gt;
+
+</description>
+<pubDate>
+Wed, 09 Sep 2026 03:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/elevenlabs-voices-for-say-is-now-public-beta
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/elevenlabs-voices-for-say-is-now-public-beta
+</guid>
+</item>
+
+<item>
+<title>
+Webhook Configuration API is now in Public Beta
+</title>
+<description>
+&lt;p&gt;Using the Webhook Configuration API, customers can configure how Twilio authenticates and delivers outbound webhooks, per URL. The API consists of two resources: Webhook Settings and Webhook Rules.&lt;/p&gt;
+&lt;p&gt;Webhook Settings hold the authentication and connection configuration. Customers can secure endpoints with OAuth 2.0. Twilio fetches an access token from the customer's authorization server using the client credentials flow and sends it as a Bearer token in the Authorization header of every webhook or with Shared Key signatures. Customers can also configure delivery behavior like timeouts and retries.&lt;/p&gt;
+
+</description>
+<pubDate>
+Tue, 08 Sep 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/webhook-configuration-api-public-beta
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/webhook-configuration-api-public-beta
+</guid>
+</item>
+
+<item>
+<title>
+International Call Forwarding  - Compliance Blocking for Spain &amp; France 
+</title>
+<pubDate>
+Fri, 04 Sep 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/international-call-forwarding----compliance-blocking-for-spain--
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/international-call-forwarding----compliance-blocking-for-spain--
+</guid>
+</item>
+
+<item>
+<title>
+Verify Custom Templates are now Generally Available
+</title>
+<description>
+&lt;p&gt;&lt;a href="https://www.twilio.com/docs/verify/verification-templates#custom-templates"&gt;Verify Custom Templates&lt;/a&gt; give you the flexibility and security to use custom SMS/RCS and Voice message templates beyond standard &lt;a href="https://www.twilio.com/docs/verify/verification-templates"&gt;defaults or pre-approved options&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To learn more about how to create a custom template for your business needs, check out our &lt;a href="https://help.twilio.com/articles/9960174409627-Is-it-Possible-to-Customize-the-Verification-Message-for-Verify-"&gt;support guide&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+</description>
+<pubDate>
+Wed, 02 Sep 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/verify-custom-templates-are-now-generally-available
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/verify-custom-templates-are-now-generally-available
+</guid>
+</item>
+
+<item>
+<title>
+Critical fix: Java Helper Library 13.0.0: fixes crash on unknown fields in nested API responses
+</title>
+<description>
+&lt;p&gt;&lt;b&gt;The Java Helper Library now handles unknown fields gracefully in nested response objects, but if customers are on an affected version, their integration is at risk until they upgrade.&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Versions 10.0.0 through 12.1.1 parse nested response types (profile, configuration, webhook, and others) with strict deserialization. When an API response comes back with a field the SDK doesn't recognize, the request fails with ApiConnectionException: Unable to deserialize response: Unrecognized field. Because Twilio APIs can add new optional fields at any time, this is a latent break. Customers’ integrations work today and can start failing without warning the moment a new field ships.&lt;/p&gt;
+&lt;p&gt;In 13.0.0, the Java Helper Library ignores unknown fields in all response objects, matching how every other Twilio Helper Library already behaves.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;What to do&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Upgrade to Java Helper Library 13.0.0 or later as soon as possible. Version 13 does include breaking changes so follow the &lt;a href="https://github.com/twilio/twilio-java/blob/main/UPGRADE.md#2026-08-26-12xx-to-13xx"&gt;upgrade guide&lt;/a&gt; to migrate safely. Once customers are on 13.0.0, their integration handles new optional fields in API responses without hitting deserialization errors.&lt;/p&gt;
+&lt;p&gt;The Python, Node.js, C#, Ruby, PHP, and Go Helper Libraries are not affected. They already handle unknown response fields the same way.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+</description>
+<pubDate>
+Wed, 02 Sep 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/Upgrade-Java-Helper-Library-13-0
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/Upgrade-Java-Helper-Library-13-0
+</guid>
+</item>
+
+<item>
+<title>
+Update to Twilio SendGrid Link Branding: Automatic SSL Certificate Provisioning
+</title>
+<description>
+&lt;p&gt;Twilio SendGrid has added automatic SSL certificate provisioning as a toggle within the standard link branding setup flow. When enabled, SendGrid provisions and hosts the SSL certificate needed to serve tracking and branded links over HTTPS, removing the need to purchase, install, and maintain a certificate through an external CDN or DNS provider.&lt;/p&gt;
+&lt;p&gt;Twilio SendGrid recommends activating this setting for all link branding domains. Gmail is rolling out warnings on non-HTTPS links by the end of October 2026, and tracking links without SSL will see reduced click-through as a result. Enabling automatic SSL requires adding two additional DNS records provided by SendGrid, alongside the CNAME records already used for link branding.&lt;/p&gt;
+&lt;p&gt;The Link Branding API now supports a new auto_ssl parameter when creating a branded link. Setting auto_ssl to true provisions the certificate automatically, returns the additional DNS records needed to complete setup, and reports certificate status through a new auto_ssl_available field once the certificate is issued and live. auto_ssl can only be set when a link is created and can't be changed afterward.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 27 Aug 2026 03:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/ssl-for-branded-links
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/ssl-for-branded-links
+</guid>
+</item>
+
+<item>
+<title>
+Verify tightens fraud prevention geo permissions for Italy and Argentina
+</title>
+<description>
+&lt;p&gt;Twilio has observed&amp;nbsp; a sudden rise in SMS Pumping fraud (aka SMS Artificially Inflated Traffic) targeting messages to Italy (IT) and Argentina (AR). To protect customers from this activity, Twilio Verify is tightening its fraud prevention posture for these two countries, effective August 19, 2026.&lt;/p&gt;
+&lt;p&gt;Specifically, Twilio is&amp;nbsp; updating the default Verify Geo Permissions setting for Italy and Argentina from &amp;quot;Allow all traffic&amp;quot; — the default state at account creation — to &amp;quot;Monitor all traffic for fraud.&amp;quot; This change applies to all existing&amp;nbsp; accounts where IT and/or AR remain in&amp;nbsp; the default &amp;quot;Allow all traffic&amp;quot; state.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;What this means for customers&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;If your account still has IT and/or AR set to the default &lt;b&gt;&amp;quot;Allow all traffic&amp;quot;&lt;/b&gt; permission, it will be updated to &lt;b&gt;&amp;quot;Monitor all traffic for fraud&amp;quot;&lt;/b&gt; starting August 19, 2026.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If you've already changed the geo permission for IT or AR away from the default “Allow all traffic” (to any other state), your configuration will not be modified by this update.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;The protection provided by &amp;quot;Monitor all traffic for fraud&amp;quot; requires that you have Fraud Guard enabled.&amp;nbsp;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;No action is required for customers with Fraud Guard enabled. This update happens automatically for in-scope accounts. Customers that revert the status back to “Allow all traffic” risk SMS Pumping fraud and are responsible for payment to all traffic to IT and AR.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;You can review or change your geo permissions at any time from the&lt;a href="https://www.twilio.com/console/verify/geo-permissions"&gt; Verify Geo Permissions page&lt;/a&gt; in the Twilio Console.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+<pubDate>
+Wed, 19 Aug 2026 14:30:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/Verify_Geo_Permission_Update
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/Verify_Geo_Permission_Update
+</guid>
+</item>
+
+<item>
+<title>
+Bulk Messaging Supports WhatsApp Content Templates
+</title>
+<description>
+&lt;p&gt;Customers can now send Content Templates to many recipients at once and personalize the template for each recipient using the Bulk Messaging API. This update enhances and simplifies sending notifications and marketing messages campaigns. With Bulk Messaging's configurable fallback, this release also enables new fallback strategies including WhatsApp to SMS and RCS to WhatsApp. &lt;a href="https://www.twilio.com/docs/bulk-messaging/send-whatsapp-messages-with-content-templates"&gt;Read the tutorial&lt;/a&gt; to get started today!&lt;/p&gt;
+
+</description>
+<pubDate>
+Fri, 14 Aug 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/bulk-messaging-supports-whatsapp-content-templates
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/bulk-messaging-supports-whatsapp-content-templates
+</guid>
+</item>
+
+<item>
+<title>
+Functions Classic is being deprecated and existing Functions (Classic) are moving to the new Functions
+</title>
+<description>
+&lt;p&gt;Twilio is retiring Functions Classic and automatically migrating all accounts to the new Functions. No action is required from customers.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;What's changing with Twilio Functions&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Starting September 13, 2026, customers won’t be able to create new Functions (Classic) and assets. Existing Functions (Classic) and assets will continue running, and customers can still edit and deploy existing code during this window.&lt;br&gt;
+&lt;/p&gt;
+&lt;p&gt;Between September 14 and October 26, 2026, Twilio will migrate all active Functions (Classic), existing URLs, function and asset names, environment variables, and deployed code to the new Functions.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Need a hand?&lt;/b&gt;&lt;br&gt;
+&lt;/p&gt;
+&lt;p&gt;These resources will help:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.twilio.com/docs/serverless/functions-assets/functions/migrating-functionsclassic-new-functions-editor"&gt;Migrating from Functions (Classic) to the new Functions Editor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://node.js"&gt;Upgrading Node.js for Twilio Functions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.twilio.com/docs/serverless/functions-assets/functions"&gt;Functions Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.twilio.com/docs/labs/serverless-toolkit"&gt;Serverless Toolkit&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+<pubDate>
+Thu, 13 Aug 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/functions-classic-deprecation
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/functions-classic-deprecation
+</guid>
+</item>
+
+<item>
+<title>
+Consent Management API Now Supports Toll-Free Network-Level Opt-Out Overrides
+</title>
+<description>
+&lt;p&gt;Customers can now use the Consent Management API to programmatically re-opt-in users on US and Canada Toll-Free numbers.&lt;/p&gt;
+&lt;p&gt;Previously, opt-outs on US/CA Toll free numbers were strictly enforced at the network level, meaning an opt out block could only be lifted if the user texted an opt-in keyword like &amp;quot;START&amp;quot;. Now, if a user provides valid re-opt-in consent outside of a messaging channel (e.g., via a web form, email, or in-app preference center), you can log their updated consent directly through the Consent Management API. Twilio will automatically pass this signal to downstream networks to clear the opt-out block and resume messaging.&lt;/p&gt;
+&lt;p&gt;Key Highlights:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Programmatic Re-Opt-In: Seamlessly restore message deliverability for users who re-consent via external channels.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Fewer Failed Sends: Eliminate &lt;a href="https://www.twilio.com/docs/api/errors/21610"&gt;21610 &lt;/a&gt;(Unsubscribed Recipient) and &lt;a href="https://www.twilio.com/docs/api/errors/30004"&gt;30004&lt;/a&gt; (Message Blocked) error codes for users who have re-consented to receive messages.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Centralized Compliance: Keep your Twilio messaging traffic perfectly synced with your CRM and internal omnichannel engagement and consent workflows.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For more information, see our &lt;a href="https://www.twilio.com/docs/messaging/features/consent-api"&gt;Consent Management API docs&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+<pubDate>
+Wed, 12 Aug 2026 14:30:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/consent-management-api-supports-tollfree-network-opt-out-override
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/consent-management-api-supports-tollfree-network-opt-out-override
+</guid>
+</item>
+
+<item>
+<title>
+Twilio end-user certificates for all REST API endpoints will be rotated on September 9, 2026
+</title>
+<description>
+&lt;p&gt;On September 9, 2026, Twilio will rotate the end-user TLS certificate for all REST API endpoints. Only the end-user certificate and certificate serial number will be renewed; root and intermediate certificates will remain the same.&lt;/p&gt;
+&lt;p&gt;This is a routine update that won’t impact most customers unless they’re pinning certificates or are managing them manually. Customers using the &lt;a href="https://www.twilio.com/docs/libraries/reference/"&gt;Twilio Helper Libraries&lt;/a&gt; don’t need to take any action since the change will be handled automatically.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Twilio recommends against certificate pinning because it creates potential security risks, can cause downtimes for services, and a higher probability of failed API requests.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;How to test your connection&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;The new certificate will be available for testing at https://tls-test.twilio.com starting August 12, 2026. If the request succeeds with a 200 OK, no further action is required.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Need a hand?&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;These resources have more detail:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://help.twilio.com/articles/226478767-Monitoring-Updates-to-Twilio-REST-API-Security-Settings"&gt;Monitoring Updates to Twilio REST API Security Settings&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.twilio.com/docs/usage/security"&gt;Security best practices&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+<pubDate>
+Wed, 12 Aug 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/REST-API-endpoints-rotated-September-9,-2026
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/REST-API-endpoints-rotated-September-9,-2026
+</guid>
+</item>
+
+<item>
+<title>
+New error codes provide clearer TFV and A2P 10DLC registration feedback launching September 15, 2026
+</title>
+<description>
+&lt;p&gt;On September 15, 2026, Twilio will add new error codes for Toll-Free Verification and A2P 10DLC campaign registration rejections.&amp;nbsp;&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 06 Aug 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/new-error-codes-provide-clearer-tfv-and-a2p-10dlc-registration-f
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/new-error-codes-provide-clearer-tfv-and-a2p-10dlc-registration-f
+</guid>
+</item>
+
+<item>
+<title>
+Dedicated IPs and IP Management for Twilio Email
+</title>
+<description>
+&lt;p&gt;Dedicated IPs are now available for Twilio Email, enabling streamlined control over email deliverability directly within the Twilio console. This functionality simplifies sending reputation management at scale.&lt;/p&gt;
+&lt;p&gt;To ensure deliverability from day one, newly provisioned dedicated IPs automatically enter a 41-day warm-up schedule, complete with shared pool overflow protection to smooth out volume spikes. Organizations can also segment traffic by grouping IPs into custom pools, assigning specific IPs directly to sub-accounts, and configuring flexible fallback options to maintain continuous email flow.&lt;/p&gt;
+&lt;p&gt;To learn more about how to manage your email reputation and IP warmup, see the &lt;a href="https://www.twilio.com/docs/email/concepts/reputation/establish-maintain-reputation"&gt;Twilio Docs&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 06 Aug 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/dedicated-ips
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/dedicated-ips
+</guid>
+</item>
+
+<item>
+<title>
+Twilio Voice JS SDK Noise Cancellation Reference Components
+</title>
+<description>
+&lt;p&gt;The Twilio Voice JavaScript SDK now includes noise cancellation reference components, giving you a production-ready starting point for either open-source RNNoise or commercially-licensed Krisp.&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 06 Aug 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/twilio-voice-js-sdk-noise-cancellation-reference-components
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/twilio-voice-js-sdk-noise-cancellation-reference-components
+</guid>
+</item>
+
+<item>
+<title>
+New Regional IP Address for Event Streams Webhooks in US East
+</title>
+<description>
+&lt;p&gt;On &lt;b&gt;September 15, 2026&lt;/b&gt;, Twilio is introducing a new regional IP address for Event Streams webhook traffic in US East (us-east-1). This is part of a move from a single shared IP range to dedicated regional addresses, bringing Event Streams in line with how the rest of the Twilio platform routes traffic.&lt;/p&gt;
+&lt;p&gt;This change only affects customers who validate incoming Event Streams webhook traffic by source IP address. If a setup doesn’t check the source IP, no action is needed.&lt;/p&gt;
+
+</description>
+<pubDate>
+Tue, 04 Aug 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/ip-addres-event-streams-webhooks-us-east
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/ip-addres-event-streams-webhooks-us-east
+</guid>
+</item>
+
+<item>
+<title>
+Update to SendGrid Domain Authentication: Send to Coworker Action Removed
+</title>
+<description>
+&lt;p&gt;Effective August 3, 2026, Twilio SendGrid has removed the Send to Coworker action from the Domain Authentication setup flow due to low usage. This simplification prioritizes only the most valuable paths for users to complete their domain authentication and get started with email.&lt;/p&gt;
+&lt;p&gt;Directing DNS records through automated email is no longer the optimal method for technical handoffs. DNS configurations are highly sensitive to formatting, and transferring this data via email can increase the risk of errors during the setup process. This change ensures that critical security records are managed through more intentional and reliable methods.&lt;/p&gt;
+&lt;p&gt;For users of the Send to Coworker action, Twilio SendGrid recommends reaching out directly to your IT or infrastructure teams via internal communication channels, such as Slack, Microsoft Teams, or internal ticketing systems. Sending DNS record update requests through internal communication channels ensures recipients trust the request. Utilizing these established workflows also delivers the necessary context and data in a format that aligns with an organization’s standard practices for updating DNS records.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+</description>
+<pubDate>
+Mon, 03 Aug 2026 03:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/update-to-sendgrid-domain-authentication--send-to-coworker-actio
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/update-to-sendgrid-domain-authentication--send-to-coworker-actio
+</guid>
+</item>
+
+<item>
+<title>
+WhatsApp Card &amp; Flows Support in Conversations (classic)
+</title>
+<description>
+&lt;p&gt;Conversations (classic) now supports the whatsapp/card and whatsapp/flows content types, letting you send WhatsApp Card templates and WhatsApp Flow templates directly through the Conversations API. Cards let you pair a message with tappable action buttons and optional media, while Flows let you launch an interactive, multi-step WhatsApp Flow from a single templated message — both previously only available via Programmable Messaging. Build these content types with the Content Template Builder and reference them by SID when sending a message in a Conversation.&lt;/p&gt;
+
+</description>
+<pubDate>
+Fri, 31 Jul 2026 03:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/whatsapp-card---flows-support-in-conversations--classic-
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/whatsapp-card---flows-support-in-conversations--classic-
+</guid>
+</item>
+
+<item>
+<title>
+Restricted API Keys, Conversations (classic) permissions
+</title>
+<description>
+&lt;p&gt;Restricted API Keys now support granular, resource-level permissions for Conversations (classic), covering actions like listing conversations, sending messages, managing participants, and configuring webhooks. This lets you scope a key to only the operations your integration needs — for example, granting read access to conversations while blocking any ability to delete users or roles — reducing the blast radius if a key is ever compromised. Configure these permissions when creating a Restricted API Key in the Twilio Console.&amp;nbsp;&lt;/p&gt;
+
+</description>
+<pubDate>
+Fri, 31 Jul 2026 03:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/restricted-api-keys--conversations--classic--permissions
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/restricted-api-keys--conversations--classic--permissions
+</guid>
+</item>
+
+<item>
+<title>
+US Branded Calling is now Generally Available
+</title>
+<description>
+&lt;p&gt;We are thrilled to announce that US Branded Calling is now Generally Available&amp;nbsp;for all customers. This feature helps you create a more trusted and recognizable voice experience by showing branded elements like your logo and call reason when you reach out to customers. Branded Calling is available on T-Mobile and Verizon.&lt;/p&gt;
+
+</description>
+<pubDate>
+Thu, 30 Jul 2026 14:30:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/us-enhanced-branded-calling-is-now-generally-available
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/us-enhanced-branded-calling-is-now-generally-available
+</guid>
+</item>
+
+<item>
+<title>
+Functions and Assets API date_created and date_updated timestamps will be corrected on September 1, 2026
+</title>
+<description>
+&lt;p&gt;On September 1, 2026, date_created and date_updated on Functions and Assets resources will be updated to return accurate UTC timestamps.&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;Currently, these fields return values shifted forward by the Pacific Standard Time time zone offset (+7 hours) despite the Z suffix indicating UTC. This is a presentation-layer bug introduced in 2023; the underlying data is correct.&lt;/p&gt;
+&lt;p&gt;The correction applies retroactively. Any request made on or after September 1 will return corrected UTC values, including for resources created before that date.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;What do you need to do?&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;Customers whose integrations depend on date_created or date_updated for sorting, filtering, display, time-range comparisons, or audit logic should review their implementation before September 1 to confirm it handles the corrected values.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;This resource will help:&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href="https://www.twilio.com/docs/serverless/functions-assets"&gt;Functions and Asset API documentation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+<pubDate>
+Thu, 30 Jul 2026 02:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/functions-assets-API-date-created-and-date-updated-timestamps
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/functions-assets-API-date-created-and-date-updated-timestamps
+</guid>
+</item>
+
+<item>
+<title>
+Real-time WhatsApp Template Approval and Category Updates via Event Streams
+</title>
+<description>
+&lt;p&gt;Twilio Event Streams now supports real-time notifications for &lt;b&gt;WhatsApp message template status and category updates&lt;/b&gt;.&lt;/p&gt;
+&lt;p&gt;Previously, tracking changes to WhatsApp content template approvals or re-classifications required periodic polling via the Content API or Senders API. With this release, you can subscribe to template lifecycle events through Event Streams and automatically trigger downstream workflows whenever Meta approves, rejects, or updates the category of a template.&lt;/p&gt;
+&lt;h3&gt;&amp;nbsp;&lt;/h3&gt;
+&lt;h3&gt;What’s New&lt;/h3&gt;
+&lt;p&gt;You can now subscribe to the event type com.twilio.messaging.template.approval.updated in your Event Streams sink configurations (Webhooks, Amazon Kinesis, Segment, etc.).&lt;/p&gt;
+&lt;p&gt;This event fires for two main template update types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;b&gt;status_update&lt;/b&gt;: Triggers when a template’s approval status changes (e.g., moving from pending to approved or rejected).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;b&gt;category_update&lt;/b&gt;: Triggers when Meta updates or re-categorizes a template (e.g., changing between &lt;i&gt;UTILITY&lt;/i&gt;, &lt;i&gt;MARKETING&lt;/i&gt;, or &lt;i&gt;AUTHENTICATION&lt;/i&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;&amp;nbsp;&lt;/h3&gt;
+&lt;h3&gt;Event Payload Overview&lt;/h3&gt;
+&lt;p&gt;When a status or category update occurs, Event Streams delivers a payload containing both the current state and the previous state of the template.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;h3&gt;Getting Started&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Go to the &lt;b&gt;Event Streams&lt;/b&gt; section in the Twilio Console.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create or edit an active &lt;b&gt;Subscription&lt;/b&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add the &lt;b&gt;com.twilio.messaging.template.approval.updated&lt;/b&gt; event type under the &lt;i&gt;Messaging&lt;/i&gt; category.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;For detailed field specifications and integration guides, review the &lt;a href="https://www.twilio.com/docs/whatsapp/api/events"&gt;Twilio Event Streams for WhatsApp documentation&lt;/a&gt; and the &lt;a href="https://www.twilio.com/docs/events/event-types/messaging/template-approval#updated"&gt;Template Approval Event Schema&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+<pubDate>
+Mon, 27 Jul 2026 03:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/real-time-whatsapp-template-approval-and-category-updates-via-ev
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/real-time-whatsapp-template-approval-and-category-updates-via-ev
+</guid>
+</item>
+
+<item>
+<title>
+Segment Profile Sync and Reverse ETL support for Microsoft Fabric DWH is live in Private Beta
+</title>
+<description>
+&lt;p&gt;We are excited to announce &lt;b&gt;Private Beta&lt;/b&gt; support for &lt;b&gt;Microsoft Fabric Data Warehouse&lt;/b&gt; across &lt;b&gt;Profiles Sync&lt;/b&gt; and &lt;b&gt;Reverse ETL (RETL)&lt;/b&gt;!&lt;/p&gt;
+&lt;p&gt;Microsoft Fabric is Microsoft’s flagship SaaS analytics platform built on a modern lakehouse architecture (&lt;b&gt;OneLake&lt;/b&gt;). This new integration allows you to seamlessly bridge Segment’s customer data platform with Microsoft’s AI-ready data platform using low-cost Parquet/Delta lake storage paired with enterprise-grade compute performance.&lt;/p&gt;
+&lt;h4&gt;&lt;b&gt;What’s Included in Private Beta:&lt;/b&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;Profiles Sync (Segment to Fabric):&lt;/b&gt; Sync identity-resolved profiles, traits, and events directly into your Microsoft Fabric Data Warehouse to power advanced analytics, retail media, and custom reporting.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Reverse ETL (Fabric to Segment):&lt;/b&gt; Query and extract datasets, audiences, and clean room data directly from Fabric models to activate them across downstream marketing, CRM, and ad destinations.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;&lt;b&gt;Availability &amp;amp; Access:&lt;/b&gt;&lt;/h4&gt;
+&lt;p&gt;This feature is currently available in &lt;b&gt;Private Beta&lt;/b&gt; via backend enablement. If you are actively migrating to Microsoft Fabric and would like early access, please contact your account manager or customer success team to join the beta cohort.&lt;/p&gt;
+
+</description>
+<pubDate>
+Wed, 22 Jul 2026 14:30:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/segment-profile-sync-and-reverse-etl-support-for-microsoft-fabri
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/segment-profile-sync-and-reverse-etl-support-for-microsoft-fabri
+</guid>
+</item>
+
+<item>
+<title>
+Error code 30915 now flags invalid Sole Proprietor classification for both A2P 10DLC and Toll-Free Verification
+</title>
+<description>
+&lt;p&gt;Error code 30915 now applies consistently to A2P 10DLC campaign registration and Toll-Free Verification. When a Sole Proprietor registration is submitted with a business&amp;nbsp; but the available information shows it is actually a registered legal entity (for example, an LLC or corporation) error code 30915 will be returned.&amp;nbsp;&lt;br&gt;
+&lt;br&gt;
+&lt;b&gt;What changed&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;30915 is now non-program specific; the same code and guidance apply whether you register via A2P 10DLC or submit for Toll-Free Verification.&lt;/li&gt;
+&lt;li&gt;In addition to a corporate identifier in the business or brand name (LLC, Inc., Corp.), 30915 can now be triggered when your website or public records indicate a registered corporation, or when tax documents or business registration documents reflect a legal structure that does not match a sole proprietorship.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;b&gt;What you should do if you receive 30915&lt;/b&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Update the submission to the correct business type. If your business is an LLC, corporation, partnership, or any other entity with an EIN or Canadian Business Number, register it as a Standard or Low-Volume Standard Brand (A2P 10DLC), or select the correct business type for Toll-Free Verification, not the Sole Proprietor flow.&lt;/li&gt;
+&lt;li&gt;Provide valid business registration documentation that matches your legal business entity.&lt;/li&gt;
+&lt;li&gt;Keep your details consistent. Make sure your business name, website, and supporting documentation align across the submission.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;b&gt;Learn more:&lt;/b&gt;&amp;nbsp;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.twilio.com/docs/api/errors/30915"&gt;Error 30915 reference&lt;/a&gt;&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.twilio.com/docs/messaging/compliance/a2p-10dlc/collect-business-info"&gt;A2P 10DLC: Gather the Required Business Information&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.twilio.com/docs/messaging/compliance/a2p-10dlc/transition-sole-proprietor-to-standard-brand"&gt;Transition from a Sole Proprietor to a Standard Brand&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+<pubDate>
+Fri, 17 Jul 2026 00:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/error-code-30915-now-flags-invalid-sole-proprietor-classificatio
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/error-code-30915-now-flags-invalid-sole-proprietor-classificatio
+</guid>
+</item>
+
+<item>
+<title>
+Lookup Line Status Public Beta is now available!
+</title>
+<description>
+&lt;p&gt;As of July 14, 2026 the Lookup Line Status Public Beta is now available!&lt;/p&gt;
+&lt;p&gt;Lookup’s Line Status package allows you to get the status information of a mobile phone number. Line Status provides statuses that lets you know if the mobile number is active, inactive, unreachable, reachable or unknown.&amp;nbsp; Validate phone numbers in your contact database to improve the efficiency of your campaigns.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://www.twilio.com/docs/lookup/v2-api/line-status"&gt;Additional Documentation on this feature can be found here&lt;/a&gt;&lt;/p&gt;
+
+</description>
+<pubDate>
+Tue, 14 Jul 2026 01:00:00 -0400
+</pubDate>
+<link>
+https://www.twilio.com/en-us/changelog/lookup-line-status
+</link>
+<guid>
+https://www.twilio.com/en-us/changelog/lookup-line-status
+</guid>
+</item>
+
+</channel>
+</rss>
+

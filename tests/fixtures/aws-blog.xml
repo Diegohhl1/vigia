@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" version="2.0">
+
+<channel>
+	<title>AWS News Blog</title>
+	<atom:link href="https://aws.amazon.com/blogs/aws/feed/" rel="self" type="application/rss+xml"/>
+	<link>https://aws.amazon.com/blogs/aws/</link>
+	<description>Announcements, Updates, and Launches</description>
+	<lastBuildDate>Thu, 24 Sep 2026 20:58:46 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+	<item>
+		<title>Introducing enhanced custom event buses in Amazon EventBridge for enterprise-scale event-driven applications</title>
+		<link>https://aws.amazon.com/blogs/aws/introducing-enhanced-custom-event-buses-in-amazon-eventbridge-for-enterprise-scale-event-driven-applications/</link>
+					
+		
+		<dc:creator><![CDATA[Micah Walter]]></dc:creator>
+		<pubDate>Thu, 24 Sep 2026 20:58:46 +0000</pubDate>
+				<category><![CDATA[Amazon EventBridge]]></category>
+		<category><![CDATA[Application Integration]]></category>
+		<category><![CDATA[Launch]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[Serverless]]></category>
+		<guid isPermaLink="false">219ec8af489642b8d1376bf298af0a210a58f33c</guid>
+
+					<description>Amazon EventBridge announces an enhanced custom event bus for organizations scaling event-driven applications across teams and accounts. Deploy a single event bus shared across all AWS accounts in your organization, with ordering guarantees, a simplified Subscriber resource, and improved economics at scale.</description>
+										<content:encoded>&lt;p&gt;Organizations building event-driven applications on &lt;a href="https://aws.amazon.com/eventbridge/"&gt;Amazon EventBridge&lt;/a&gt; typically start with a single custom event bus in one account. This works well when a single team owns the architecture. As adoption grows across the organization, though, things get complicated. AWS best practices recommend a multi-account structure, which means each team runs in its own account. To route events between them, teams create multiple event buses connected through cross-account rules or bus-to-bus configurations. This workaround reintroduces the operational complexity that serverless architectures are meant to eliminate. Platform teams lose visibility into who is subscribing to which events, cross-account and bus-to-bus routing charges compound quickly, and teams that need capabilities like event ordering are forced to build complex workarounds or adopt entirely different technologies.&lt;/p&gt;
+&lt;p&gt;Today, we are announcing an enhanced custom event bus in Amazon EventBridge, purpose-built for organizations scaling event-driven applications across teams and accounts. With the new enhanced custom event bus, you can deploy a single, centralized event bus shared across all AWS accounts in your organization, with ordering guarantees, a simplified Subscriber resource, and a new pricing model that delivers improved economics at scale and cost allocation for publishers and subscribers.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Let’s try it out
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;To get started with an enhanced custom event bus, I navigated to the EventBridge console in the &lt;a href="https://aws.amazon.com/console/"&gt;AWS Management Console&lt;/a&gt; and opened the Create custom event bus page. I selected Custom event bus, the recommended option labeled New. The page also offered Custom event bus – classic, which continues to receive events and route them with rules and targets. Below the selection, EventBridge showed how the new bus works. One shared bus serves every team in the organization. Publishers send events, subscribers consume only what they need, and EventBridge handles ordering, retention, routing, and delivery.&lt;/p&gt;
+&lt;p&gt;&lt;img class="aligncenter size-large wp-image-105480" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/01/image-01-1024x806.png" alt="" width="1024" height="806"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The Create custom event bus page. Custom event bus is the recommended new option, with ordered delivery, filter patterns, event replay, and sharing across your AWS organization. Custom event bus – classic remains available for existing workloads.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Next, I configured resource sharing. I turned on Enable event bus sharing and selected Allow sharing only within your organization. I chose AWS account ID as the principal type. I could also share with an organization, an organizational unit, or an &lt;a href="https://aws.amazon.com/iam/"&gt;AWS Identity and Access Management (IAM)&lt;/a&gt; role or user. Sharing uses &lt;a href="https://aws.amazon.com/ram/"&gt;AWS Resource Access Manager (AWS RAM)&lt;/a&gt;, so I did not have to set up cross-account permissions or bus-to-bus routing myself.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105481" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/01/image-02-1024x463.png" alt="" width="1024" height="463"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Resource sharing on the new custom event bus. I enabled sharing within my organization through AWS RAM and selected an AWS account as the principal, which is how teams publish and subscribe on the same bus without extra routing.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Organization-wide sharing
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;With the new enhanced custom event bus, you can create a single event bus and share it across all AWS accounts in your organization. Platform teams deploy one bus and establish it as the central event backbone, eliminating the need to configure cross-account permissions or bus-to-bus routing. Application teams across your organization can publish and subscribe to events on the same bus without waiting for infrastructure provisioning.&lt;/p&gt;
+&lt;p&gt;Publishers send events without needing to know which teams consume them, and subscribers create their own Subscriptions independently. Platform teams maintain visibility into all event flows and fine-grained control over who can publish and consume events. The new enhanced custom event bus has a default quota of 10,000 Subscribers per bus, and you can request a higher quota. That reduces the fragmentation that occurs when subscriber limits force you to split across multiple buses.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Event ordering
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;Event-driven architectures work best when consumers are designed around asynchronous patterns, where the order of events does not matter. There are a few cases where order does matter. In a logistics application, driver location updates must arrive in sequence. Out-of-sequence events cause routing algorithms to make decisions based on stale data.&lt;/p&gt;
+&lt;p&gt;The enhanced custom event bus supports both patterns on the same bus. Publishers can include an EventGroupId when sending events. EventBridge delivers events that share the same EventGroupId in sequence to Subscribers that chose ordered delivery. Other subscribers on that bus can receive the same events without ordering. You can keep events for each driver in the correct order without building complex workarounds, while the rest of your consumers stay fully asynchronous.&lt;/p&gt;
+&lt;p&gt;To support ordered processing, the enhanced custom event bus includes synchronous invocation for targets like &lt;a href="https://aws.amazon.com/lambda/"&gt;AWS Lambda&lt;/a&gt;. Synchronous mode confirms successful processing before acknowledging the event, eliminating the common pattern of placing &lt;a href="https://aws.amazon.com/sqs/"&gt;Amazon Simple Queue Service (Amazon SQS)&lt;/a&gt; between an event bus and Lambda to ensure reliability.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Subscriptions
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;The enhanced custom event bus introduces the Subscriber resource, which combines event filtering, target configuration, retry policies, and dead-letter destinations into a single, manageable unit. Today, achieving the same outcome with EventBridge requires configuring separate rules, targets, and retry settings across multiple resources. Subscribers simplify this by giving each consumer one resource that defines what events they want, where to deliver them, and how to handle failures.&lt;/p&gt;
+&lt;p&gt;Subscribers also include variable start time options, making it easier for teams to onboard new consumers or replay events to recover from application errors or hydrate new applications.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Event evaluation
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;Publishers can turn on content-based deduplication so EventBridge detects and drops retries of the same event from the payload itself. You do not have to generate and track a deduplication ID when a timeout or a partial failure sends the same event twice. EventBridge hashes the meaningful parts of the event and collapses matches that arrive within five minutes, which gives those retries exactly-once delivery semantics instead of EventBridge’s usual at-least-once model. If you already stamp your own idempotency token, keep using it. Content-based deduplication is for sources that cannot reliably identify the same event on a retry.&lt;/p&gt;
+&lt;p&gt;Subscribers can use JSONata expressions to reshape an event before it reaches a target, extracting fields, renaming them, or computing new values when a downstream API expects a different shape. If you already produce Apache Avro or Protocol Buffers events, EventBridge can deserialize those payloads to JSON, allowing subscribers fine grained filtering and routing on the full event payload without having to consume, deserialize, and match or discard on their own.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;New pricing model
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;The enhanced custom event bus uses a new ingress and egress throughput pricing model. Publishers pay for events ingested, and subscribers pay for events delivered. This replaces the per-event model where cross-account and bus-to-bus routing charges compound in multi-bus architectures. For pricing details, visit the &lt;a href="https://aws.amazon.com/eventbridge/pricing/"&gt;EventBridge pricing page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Existing EventBridge custom event buses continue to work as they do today with no changes required. They now appear as Custom event bus – classic. The enhanced custom event bus is a new resource that you adopt at your own pace. In the console, it appears as Custom event bus.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Now available
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;The enhanced custom event bus is available today in the US East (N. Virginia, Ohio), US West (Oregon), Europe (Ireland, Frankfurt, Stockholm, Spain), and Asia Pacific (Hong Kong, Malaysia, Mumbai, Singapore, Sydney, Thailand, Tokyo) &lt;a href="https://aws.amazon.com/about-aws/global-infrastructure/regions_az/"&gt;Regions&lt;/a&gt;. You can create your first enhanced custom event bus through the AWS Management Console, &lt;a href="https://aws.amazon.com/cli/"&gt;AWS Command Line Interface (AWS CLI)&lt;/a&gt;, or EventBridge APIs. To get started, visit the &lt;a href="https://docs.aws.amazon.com/eventbridge/"&gt;EventBridge documentation&lt;/a&gt; or try it out directly in the &lt;a href="https://console.aws.amazon.com/events/"&gt;EventBridge console&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+					
+					
+			
+		
+		
+			</item>
+		<item>
+		<title>Introducing Amazon CloudWatch Omni: collaborative AI-powered observability for your applications</title>
+		<link>https://aws.amazon.com/blogs/aws/introducing-amazon-cloudwatch-omni-collaborative-ai-powered-observability-for-your-applications/</link>
+					
+		
+		<dc:creator><![CDATA[Daniel Abib]]></dc:creator>
+		<pubDate>Tue, 22 Sep 2026 22:23:14 +0000</pubDate>
+				<category><![CDATA[Amazon CloudWatch]]></category>
+		<category><![CDATA[Launch]]></category>
+		<category><![CDATA[Management Tools]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">4fedaed1301f65781a8d0cf0c10d6af080cb9c4c</guid>
+
+					<description>Amazon CloudWatch Omni is the next evolution of CloudWatch — unified observability that brings your applications and AI agents into one reimagined experience, with auto-discovered topology, natural language queries, and AI-guided investigation powered by AWS DevOps Agent.</description>
+										<content:encoded>&lt;p&gt;&lt;a href="https://aws.amazon.com/cloudwatch/omni/"&gt;Amazon CloudWatch&lt;/a&gt; now offers CloudWatch Omni, an AI-powered observability experience for the applications and AI agents you run together. You reach Omni through a dedicated URL for your organization and sign in with the identities you already manage, so working in Omni does not require access to the AWS Management Console. Omni is built on OpenTelemetry: the telemetry you already send to CloudWatch appears in Omni with nothing to reconfigure, and any other workload you instrument with OpenTelemetry sends its telemetry to an OpenTelemetry Protocol (OTLP) endpoint.&lt;/p&gt;
+&lt;p&gt;CloudWatch Omni offers both agent observability and application observability in a single experience. In &lt;a href="https://aws.amazon.com/blogs/aws/introducing-amazon-cloudwatch-omni-ai-powered-observability-for-generative-ai-and-agentic-workloads/"&gt;our companion post&lt;/a&gt;, we introduced the agent observability capabilities of Omni for generative AI and agentic workloads. In this post, we present the application observability experience.&lt;/p&gt;
+&lt;p&gt;Engineering teams spend a significant portion of their observability time maintaining dashboards, tuning thresholds, and switching between tools to piece together what happened during an incident. When an issue crosses team boundaries, context gets lost in Slack threads and screenshots rather than flowing naturally to the next engineer. CloudWatch Omni changes this by organizing observability around your applications rather than individual signals, and bringing your whole team into the same workspace.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What CloudWatch Omni brings&lt;/strong&gt;
+ &lt;br&gt;
+ CloudWatch Omni addresses three problems that engineering teams told us they face today.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;One collaborative experience for your whole team.&lt;/strong&gt; Every engineer accesses CloudWatch Omni through a single URL with enterprise SSO (via &lt;a href="https://aws.amazon.com/iam/identity-center/"&gt;IAM Identity Center&lt;/a&gt;, supporting Okta, EntraID, and other providers). No AWS Console access is required. SREs, developers, database engineers, and managers share the same data and investigation context. When an investigation escalates, the next person joins the same session with full context already in front of them.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The system adapts as your applications evolve.&lt;/strong&gt; CloudWatch Omni discovers your services, maps dependencies, and adjusts alarms automatically. Instead of manually curating dashboards and tuning thresholds, you declare what matters (availability targets, latency budgets, error rate thresholds) and Omni adapts as your system changes. When you deploy new services, Omni updates the application topology automatically.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AI-powered investigation with Amazon DevOps Agent.&lt;/strong&gt; &lt;a href="https://aws.amazon.com/devops-agent/"&gt;Amazon DevOps Agent&lt;/a&gt; participates alongside your team in investigation sessions, correlating signals and suggesting next steps. The agent works from the same telemetry your engineers see, so its suggestions are grounded in the actual state of your application. It identifies correlated events across services, traces root cause paths through your dependency graph, and maintains investigation history for post-incident review.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;How an investigation works&lt;/strong&gt;
+ &lt;br&gt;
+ When something breaks, CloudWatch Omni opens an investigation session pre-loaded with context. Here is a typical incident workflow:&lt;/p&gt;
+&lt;p&gt;An alarm fires on elevated error rates in your checkout service. Omni opens a session showing the service topology, correlated signals (a deployment 10 minutes earlier, increased latency from a downstream payment API), and DevOps Agent’s initial analysis.&lt;/p&gt;
+&lt;p&gt;Your on-call SRE confirms the deployment correlation, pulls in the trace view to identify failing endpoints, and checks if the payment API latency correlates with a capacity limit.&lt;/p&gt;
+&lt;p&gt;The SRE escalates to the payments team. The payments engineer joins the same session and sees everything found so far, plus DevOps Agent’s correlation with a configuration change in the payment provider’s API gateway. They identify the root cause and roll back.&lt;/p&gt;
+&lt;p&gt;The entire investigation history is captured automatically. No separate incident report needed.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Walkthrough: setting up your first Space&lt;/strong&gt;
+ &lt;br&gt;
+ To set up CloudWatch Omni for your team, open the CloudWatch console and click “Try CloudWatch Omni.”&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105724" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/21/cloudwatch-omni-console-1800.png" alt="" width="1800" height="1024"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 1. CloudWatch console — Omni setup page&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;Next, connect your identity provider through &lt;a href="https://aws.amazon.com/iam/identity-center/"&gt;IAM Identity Center&lt;/a&gt; (supporting Okta, Azure AD, and other SAML 2.0 providers). Once connected, your team members access Omni directly at your dedicated URL without needing AWS Console credentials.&lt;/p&gt;
+&lt;p&gt;Create a Space for your team. A Space groups the applications your team owns and the telemetry associated with them.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105744" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/21/cloudwatch-omni-home-1800-1.png" alt="" width="1800" height="1049"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 2. CloudWatch Omni Home — your team’s workspace with application monitoring, analytics, and agent observability&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;Once created, Omni discovers your services automatically and maps the dependencies between them. You see your application topology immediately.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105726" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/21/cloudwatch-omni-application-map-1800.png" alt="" width="1800" height="1169"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 3. Application topology — services and dependencies mapped automatically&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;You can ask CloudWatch Omni any question about your applications in plain English, and Omni will analyze your telemetry data and surface insights.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-full wp-image-105727" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/21/cloudwatch-omni-application-map-investigation-1800.png" alt="" width="1800" height="1105"&gt;&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;em&gt;Figure 4. Interact with your telemetry in natural language&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;You can also set up service health alerts, configure what matters to your team, and trigger an AWS DevOps agent investigation to identify the root cause and develop a mitigation plan.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105734" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/21/cloudwatch-omni-investigation-session-1800.png" alt="" width="1800" height="956"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 5. Investigation session — DevOps Agent identifies root causes and suggests next steps&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Application-centric organization&lt;/strong&gt;
+ &lt;br&gt;
+ CloudWatch Omni organizes telemetry by application rather than by infrastructure component. The system automatically discovers services from the telemetry data and &lt;a href="https://aws.amazon.com/config/"&gt;AWS Config&lt;/a&gt; resource discovery, maps dependencies, and lets you see your application as a connected system rather than a collection of isolated resources.&lt;/p&gt;
+&lt;p&gt;Each team gets a Space that contains the applications they own. A Space points at existing CloudWatch data (logs, metrics, traces, and alarms) with no additional data movement required. Dynamic views replace the maintenance burden of static dashboards, providing ongoing visibility into SLOs and application health.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Getting started&lt;/u&gt;&lt;/strong&gt;
+ &lt;br&gt;
+ Getting started takes minutes and doesn’t require reconfiguration of your existing CloudWatch setup.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;If you’re an existing CloudWatch customer:&lt;/strong&gt; Click “Try CloudWatch Omni” in the CloudWatch console. All your existing telemetry (logs, metrics, traces, and alarms) is immediately available. Workloads are discovered automatically, and you can start an investigation or browse your application topology right away.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For organization-wide deployment:&lt;/strong&gt; An administrator configures a domain, connects your identity provider via IAM Identity Center, defines Spaces for teams and environments, and invites users. Each Space points at existing CloudWatch data with no additional data movement required.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For applications in other environments:&lt;/strong&gt; CloudWatch Omni provides connectors that make it easy to bring in telemetry from additional environments. All ingested telemetry appears alongside your AWS data in the same Spaces and investigation sessions.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;For generative AI and agentic workloads:&lt;/strong&gt; The same CloudWatch Omni experience delivers purpose-built observability for AI agents, including trace exploration, evaluation frameworks, and real-time monitoring. In our companion post, we introduced the agent observability capabilities of Omni; for that walkthrough, see &lt;a href="https://aws.amazon.com/blogs/aws/introducing-amazon-cloudwatch-omni-ai-powered-observability-for-generative-ai-and-agentic-workloads/" data-agent-id="145"&gt;Introducing Amazon CloudWatch Omni: AI-powered observability for generative AI and agentic workloads&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Things to know&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;CloudWatch Omni extends CloudWatch. Existing alarms, dashboards, APIs, and console workflows continue unchanged.&lt;/li&gt;
+ &lt;li&gt;Access is through a dedicated web application with enterprise SSO. Engineers don’t need AWS Console access to use it.&lt;/li&gt;
+ &lt;li&gt;Once you setup, DevOps Agent is enabled by default in every Omni investigation session.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Pricing and availability&lt;/strong&gt;
+ &lt;br&gt;
+ Amazon CloudWatch Omni is now available. Existing CloudWatch customers can try it directly from the CloudWatch console. For pricing details, visit the &lt;a href="https://aws.amazon.com/cloudwatch/pricing/" data-agent-id="146"&gt;Amazon CloudWatch pricing page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To get started, visit &lt;a href="https://aws.amazon.com/cloudwatch/omni/" data-agent-id="147"&gt;Amazon CloudWatch Omni&lt;/a&gt; or click “Try CloudWatch Omni” in the &lt;a href="https://console.aws.amazon.com/cloudwatch/" data-agent-id="148"&gt;Amazon CloudWatch console&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you want to call APIs, search documentation, find regional availability, and check troubleshooting about this feature, try using the &lt;a href="https://docs.aws.amazon.com/agent-toolkit/latest/userguide/getting-started-aws-mcp-server.html" data-agent-id="149"&gt;AWS MCP Server&lt;/a&gt; and &lt;a href="https://docs.aws.amazon.com/agent-toolkit/latest/userguide/plugins.html" data-agent-id="150"&gt;plugins&lt;/a&gt; with your preferred AI tool. Share your feedback on &lt;a href="https://repost.aws/" data-agent-id="151"&gt;AWS re:Post&lt;/a&gt; or reach out through your usual &lt;a href="https://aws.amazon.com/support/" data-agent-id="152"&gt;AWS Support&lt;/a&gt; contacts.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;9/24/2026 – Editor’s note: Azure AD has been renamed to Microsoft Entra ID.&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;— Daniel Abib&lt;/p&gt;</content:encoded>
+					
+					
+			
+		
+		
+			</item>
+		<item>
+		<title>Introducing Amazon CloudWatch Omni: AI-powered observability for generative AI and agentic workloads</title>
+		<link>https://aws.amazon.com/blogs/aws/introducing-amazon-cloudwatch-omni-ai-powered-observability-for-generative-ai-and-agentic-workloads/</link>
+					
+		
+		<dc:creator><![CDATA[Daniel Abib]]></dc:creator>
+		<pubDate>Tue, 22 Sep 2026 22:21:13 +0000</pubDate>
+				<category><![CDATA[Amazon CloudWatch]]></category>
+		<category><![CDATA[Launch]]></category>
+		<category><![CDATA[Management Tools]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">3f3cdf7764c9ed9c135b98890bec5b260beeb5ae</guid>
+
+					<description>Learn how Amazon CloudWatch Omni delivers AI-powered observability purpose-built for generative AI and agentic workloads. Trace, evaluate, and experiment with AI agents across any framework—directly from your IDE or a standalone web experience—using open standards and built-in evaluators for quality, correctness, and coherence.</description>
+										<content:encoded>&lt;p&gt;Today, &lt;a href="https://aws.amazon.com/cloudwatch/omni/"&gt;Amazon CloudWatch&lt;/a&gt; introduces CloudWatch Omni, a unified observability experience for application and AI workloads that is app-centric, AI-powered, built on open standards, and delivered off-console. CloudWatch Omni is a purpose-built observability, evaluation, and experimentation solution for AI agents. It helps teams design, evaluate, and operate AI agents across any model provider, framework, or runtime, with an eval-driven workflow, support for the tools you already use, and observability delivered where you work: directly in your IDE and through a standalone web experience, separate from the AWS Management Console.&lt;/p&gt;
+&lt;p&gt;Organizations deploying agentic AI systems face observability challenges that traditional monitoring can’t address. Agent behavior is non-deterministic: a prompt change can degrade response quality even when standard metrics show no errors. Teams spend hours manually reviewing logs across multiple systems, unable to pinpoint what changed or why. Existing tools force teams to choose between siloed generative AI monitoring or fragmented solutions requiring constant context-switching between their coding environment and browser-based dashboards.&lt;/p&gt;
+&lt;p&gt;CloudWatch Omni captures every trace and includes built-in evaluators for correctness, coherence, retrieval quality, and tool selection, among others. You can compare prompt versions side by side in the playground, build test datasets from production traffic, run experiments across different configurations, and detect regressions automatically.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Two surfaces for development and operations&lt;/strong&gt;
+ &lt;br&gt;
+ CloudWatch Omni delivers observability through two complementary surfaces. Developers get a native extension inside VS Code and Kiro (the currently supported IDEs), where traces appear as you run your agent with a playground and evaluators a click away. Operators get a standalone web experience, separate from the AWS Management Console to monitor the fleet, accessible through SSO with no AWS console needed. Both share the same data: the trace a developer debugs is the trace an operator investigates.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;Cloud Login&lt;/strong&gt; feature connects your local IDE environment to your AWS account, enabling you to send telemetry data to Amazon CloudWatch for persistent storage, share traces with your team, and access production dashboards. This connection is optional. You can use CloudWatch Omni entirely locally during development, then connect to the cloud when you are ready to monitor agents in production.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Getting started&lt;/u&gt;&lt;/strong&gt;
+ &lt;br&gt;
+ CloudWatch Omni offers two ways to get started: through the IDE extension (for VS Code and Kiro) or directly through the cloud experience, where you can start sending telemetry data to CloudWatch without installing any IDE extension. In this walkthrough, I install the extension, create an agent, run it, and explore the traces and evaluation tools from my IDE.&lt;/p&gt;
+&lt;p&gt;After installing the CloudWatch Omni extension from the &lt;a href="https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.amazon-cloudwatch-omni"&gt;VS Code Marketplace&lt;/a&gt;, the CloudWatch Omni icon appears in the Activity Bar. From the welcome screen, I selected &lt;strong&gt;Get started with Sample Project&lt;/strong&gt; to load a pre-configured agent with sample trace data or use shortcut to Command Palette using Command + Shift + P (on macOS) or Ctrl + Shift + P (on Windows/Linux) and select Omni: Create a new Project&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105552" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/Triton-Figure-1-Welcome-Screen.png" alt="CloudWatch Omni welcome screen and create new project in VS Code" width="1800" height="974"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 1. CloudWatch Omni welcome screen &amp;amp; create new project in VS Code&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;The sample project comes with an agent implementation and example datasets. Part of the getting-started experience is adding OpenTelemetry instrumentation, and CloudWatch Omni guides you through each step. You can also create a new agent from scratch. CloudWatch Omni walks you through the process using an interactive chat where you define the agent’s purpose, select a model provider, and configure tools. All data is stored locally by default. You can optionally connect to AWS to send data to Amazon CloudWatch.&lt;/p&gt;
+&lt;p&gt;After verifying the configuration, I started the local dev server and sent a question to the agent. What makes this different from a typical chatbot interface is what happens next: selecting &lt;strong&gt;View Trace&lt;/strong&gt; shows exactly how the agent processed the request.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105553" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/Triton-Figure-2-Setup-Agent-Response.png" alt="CloudWatch Omni guides your AI code assistant to configure the development environment" width="1800" height="978"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 2. CloudWatch Omni guides your AI code assistant to configure the local development environment for testing&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;CloudWatch Omni integrates with AI code assistants such as Kiro, Claude Code, and Codex to streamline the setup process. These assistants can configure the Dev Server, install dependencies, and set up instrumentation on your behalf, so you can go from installation to running your first traced agent session in minutes without manual configuration.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105554" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/Triton-Figure-3-Test-Agent-Chat.png" alt="Interacting with the agent and viewing traces" width="1800" height="981"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 3. Interacting with the agent and viewing traces&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;Traces are essential for understanding AI agent behavior. Unlike traditional request-response systems, agents make multiple decisions per invocation: choosing tools, composing prompts, and chaining sub-calls. Without full trace visibility, diagnosing why an agent produced an incorrect answer or took an unexpected path becomes guesswork. CloudWatch Omni records every step in a structured timeline so you can pinpoint exactly where behavior diverged.&lt;/p&gt;
+&lt;p&gt;The Trace Explorer shows a detailed breakdown of every step the agent took (LLM calls, tool invocations, and reasoning steps) in a structured, hierarchical timeline. I could drill into any span to inspect inputs, outputs, token usage, and latency.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105555" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/Triton-Figure-4-Trace-Explorer.png" alt="Trace Explorer showing the agent execution timeline" width="1800" height="977"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 4. Trace Explorer showing the agent’s execution timeline&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;The Trace Explorer also supports &lt;strong&gt;Compare mode&lt;/strong&gt;, which places two traces side by side to see how different prompts or configurations affect behavior. Compare mode is especially helpful when debugging regressions. And with &lt;strong&gt;Ask Assistant&lt;/strong&gt;, an AI agent analyzes your traces to surface patterns and anomalies, answering questions like “Why did the agent call this tool twice?”&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105556" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/Triton-Figure-5-Compare-Traces.png" alt="Comparing two traces side by side" width="1800" height="977"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 5. Comparing two traces side by side&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;Evaluation is what turns observability into actionable quality improvement for generative AI. Traditional metrics like latency and error rate cannot tell you whether an agent’s response was helpful, coherent, or factually correct. Evaluators score each response against quality dimensions, letting you measure what users actually experience and catch regressions that standard monitoring misses entirely.&lt;/p&gt;
+&lt;p&gt;CloudWatch Omni includes 17 built-in evaluators for metrics like coherence, helpfulness, faithfulness, and routing correctness. I selected traces from the Trace Explorer, chose evaluators, and ran an evaluation, getting per-example scores and aggregate metrics without building any custom evaluation framework.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105557" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/Triton-Figure-6-Run-Evaluations.png" alt="Running evaluations on traces" width="1800" height="979"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 6. Running evaluations on traces&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;From there, I used the &lt;strong&gt;Playground&lt;/strong&gt; to test different system prompts side by side, comparing multiple model and prompt configurations in real time to see how each variation affects output quality before committing changes. With the Experiments view, I could run the same dataset against two agent variants and compare their evaluation scores, latency, and token usage side by side to pick the best-performing configuration.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-full wp-image-105741" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/21/cloudwatch-omni-experiments-1800.png" alt="" width="1800" height="1060"&gt;&lt;/p&gt;
+&lt;p style="text-align: center"&gt;Figure 7. Comparing evaluations across agent variants in the Omni Experiments console&lt;/p&gt;
+&lt;p&gt;With &lt;strong&gt;Prompt Management&lt;/strong&gt;, you can version and track prompt configurations over time, making it easy to roll back when a new version underperforms.&lt;/p&gt;
+&lt;p&gt;CloudWatch Omni also provides a &lt;strong&gt;Session Explorer&lt;/strong&gt; to review full conversation histories and understand how agents handle multi-turn interactions, along with an &lt;strong&gt;Agent Topology&lt;/strong&gt; view that visualizes the architecture of your agent system, including sub-agents, tools, and their interconnections. You can drill into any node to inspect performance and identify bottlenecks.&lt;/p&gt;
+&lt;p&gt;CloudWatch Omni also offers a dedicated web experience accessible from any browser without an IDE. Teams can access all capabilities collaboratively, including application monitoring, analytics, agent observability, and AI-powered investigations.&lt;/p&gt;
+&lt;div style="text-align: center"&gt;
+ &lt;img loading="lazy" class="aligncenter size-full wp-image-105560" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/Triton-Figure-7-Web-Experience.png" alt="CloudWatch Omni web experience with application monitoring, analytics, and agent observability" width="1800" height="928"&gt;
+ &lt;br&gt;
+ &lt;em&gt;Figure 8. CloudWatch Omni web experience with application monitoring, analytics, and agent observability&lt;/em&gt;
+&lt;/div&gt;
+&lt;p&gt;I curated traces into &lt;strong&gt;golden datasets&lt;/strong&gt; for structured experimentation. The &lt;strong&gt;Experiment&lt;/strong&gt; function runs the agent against a dataset and automatically scores results, creating benchmarks for regression testing whenever prompts or agent logic change.&lt;/p&gt;
+&lt;p&gt;If you already have an agent built with a supported framework, CloudWatch Omni provides two paths to add instrumentation: &lt;strong&gt;Auto-instrument with Kiro&lt;/strong&gt;, which detects your framework and configures tracing automatically, or &lt;strong&gt;manual instrumentation&lt;/strong&gt; with ready-to-use code snippets for Python and TypeScript. For detailed instrumentation guides, see the &lt;a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/omni-monitor-ai-agents.html"&gt;CloudWatch Omni documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Supported frameworks and open standards&lt;/strong&gt;
+ &lt;br&gt;
+ The walkthrough above uses the sample project, but CloudWatch Omni works with the agent frameworks teams are already using: LangChain, LangGraph, CrewAI, OpenAI SDK, Strands, Vercel AI SDK, and more, in both Python and TypeScript. It also provides native observability for agents built with &lt;a href="https://aws.amazon.com/bedrock/"&gt;Amazon Bedrock&lt;/a&gt; &lt;a href="https://aws.amazon.com/bedrock/agentcore/"&gt;AgentCore&lt;/a&gt;, and uses AgentCore’s evaluation capabilities to assess agent quality directly within the Omni workflow.&lt;/p&gt;
+&lt;p&gt;Instrumentation uses open standards (OpenInference and ADOT), whether your agents run on Lambda, ECS, EKS, or other clouds. For evaluation, Omni integrates with third-party evaluators including AutoEval and DeepEval alongside built-in datasets, a playground, and batch experiments. No re-platforming required.&lt;/p&gt;
+&lt;p&gt;CloudWatch Omni brings agent observability and application observability together in a single experience. For the application observability experience, read the companion post Introducing &lt;a href="https://aws.amazon.com/blogs/aws/introducing-amazon-cloudwatch-omni-collaborative-ai-powered-observability-for-your-applications/"&gt;Amazon CloudWatch Omni: collaborative AI-powered observability for your applications&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pricing and availability&lt;/strong&gt;
+ &lt;br&gt;
+ Amazon CloudWatch Omni is now generally available. The IDE extension is free to use. You don’t need an AWS account to get started. You only need AWS credentials for Amazon Bedrock models, or API keys for other providers like OpenAI or Anthropic. Get started today by installing the extension from the &lt;a href="https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.amazon-cloudwatch-omni"&gt;VS Code Marketplace&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To explore all capabilities and get started quickly, visit &lt;a href="https://builder.aws.com/connect/space/491576d3-d1d9-3d4a-bc90-342f4e3d07bb/aws-cloud-operations"&gt;CloudWatch on AWS Builder Center&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you want to call APIs, search documentation, find regional availability, and check troubleshooting about this feature, try using the &lt;a href="https://docs.aws.amazon.com/agent-toolkit/latest/userguide/getting-started-aws-mcp-server.html"&gt;AWS MCP Server&lt;/a&gt; and &lt;a href="https://docs.aws.amazon.com/agent-toolkit/latest/userguide/plugins.html"&gt;plugins&lt;/a&gt; with your preferred AI tool. Share your feedback on &lt;a href="https://repost.aws/"&gt;AWS re:Post&lt;/a&gt; or reach out through your usual &lt;a href="https://aws.amazon.com/support/"&gt;AWS Support&lt;/a&gt; contacts.&lt;/p&gt;
+&lt;p&gt;Happy building!&lt;/p&gt;
+&lt;p&gt;— Daniel Abib&lt;/p&gt;</content:encoded>
+					
+					
+			
+		
+		
+			</item>
+		<item>
+		<title>AWS Weekly Roundup: AWS Builder Center mobile apps, Amazon Connect Talent GA, Amazon Corretto 27, and more (September 21, 2026)</title>
+		<link>https://aws.amazon.com/blogs/aws/aws-weekly-roundup-aws-builder-center-mobile-apps-amazon-connect-talent-ga-amazon-corretto-27-and-more-september-14-2026/</link>
+					
+		
+		<dc:creator><![CDATA[Esra Kayabali]]></dc:creator>
+		<pubDate>Mon, 21 Sep 2026 16:11:24 +0000</pubDate>
+				<category><![CDATA[Amazon Bedrock]]></category>
+		<category><![CDATA[Amazon Bedrock AgentCore]]></category>
+		<category><![CDATA[Amazon Connect]]></category>
+		<category><![CDATA[Amazon Corretto]]></category>
+		<category><![CDATA[Amazon EC2]]></category>
+		<category><![CDATA[AWS Elastic Beanstalk]]></category>
+		<category><![CDATA[AWS Well-Architected Framework]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[Week in Review]]></category>
+		<guid isPermaLink="false">efef7c6cb4883104326929e4006dcf8d1349cb2d</guid>
+
+					<description>Living in the Netherlands, I spend a fair amount of time on trains, and that is usually where I catch up on what the builder community is writing. Until now, that meant opening a laptop or squinting at a browser tab on my phone. This week I found myself scrolling through trending articles and checking […]</description>
+										<content:encoded>&lt;p&gt;Living in the Netherlands, I spend a fair amount of time on trains, and that is usually where I catch up on what the builder community is writing. Until now, that meant opening a laptop or squinting at a browser tab on my phone. This week I found myself scrolling through trending articles and checking a workshop from the AWS Builder Center mobile app while waiting for a delayed train, and it made those spare twenty minutes very useful. That is why I am glad to open this week with the Builder Center mobile app.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="alignnone wp-image-105703 size-full" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/20/2026-09-21-WIR.png" alt="" width="1521" height="590"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://builder.aws.com/"&gt;AWS Builder Center&lt;/a&gt; is now available as a &lt;a href="https://builder.aws.com/content/3Ht0WRTgZ8pFJpYlNovLAPQg5KG/introducing-the-aws-builder-app"&gt;mobile app on iOS and Android&lt;/a&gt;, extending the experience beyond desktop and web. Using your AWS Builder ID, you stay signed in across sessions and can browse trending articles, access 600+ AWS Skill Builder courses, and manage hands-on workshops with free sandbox environments from your mobile device. You can follow AWS Heroes, Community Builders, and User Group Leaders, check Builder Loft event calendars on the go, and receive push notifications for subscribed topics and communities. The app also supports the Wishlist feature for submitting product feedback directly to AWS teams. It is available worldwide on the Apple App Store and Google Play Store.&lt;/p&gt;
+&lt;p&gt;Builder Center also added two features this week. &lt;a href="https://builder.aws.com/content/3JNtXeZax1v5f73FkGvm6EBoQrz/introducing-polls-on-aws-builder-center" target="_blank" rel="noopener noreferrer nofollow"&gt;Polls&lt;/a&gt; give you a way to ask the community a question from the Home feed: write a question, add 2 to 5 answer options, set a deadline, and people vote, with results updating live and discussion happening in the comments. Votes are anonymous, and creators see aggregate counts and percentages only. Separately, the &lt;a href="https://builder.aws.com/build/hackathons/e83e84e5-4f4c-383b-bbe9-4a15ac195d55/zero-to-shipped" target="_blank" rel="noopener noreferrer nofollow"&gt;Zero to Shipped&lt;/a&gt; hackathon is open from September 18 to October 2. You connect your coding agent to AWS, build a real application, and ship it live on AWS for a chance to win a share of a $28,000 prize pool. Five winning projects each receive $5,000 in AWS credits and an AWS Builder swag bundle.&lt;/p&gt;
+&lt;p id="last-week-39-s-launches"&gt;&lt;strong&gt;&lt;span style="text-decoration: underline"&gt;Last week’s launches
+   &lt;br&gt; &lt;/span&gt;&lt;/strong&gt;Here is what else happened this week.&lt;strong&gt;&lt;span style="text-decoration: underline"&gt;
+   &lt;br&gt; 
+  &lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-connect-talent/"&gt;Amazon Connect Talent is now generally available&lt;/a&gt; – Amazon Connect Talent is an AI-powered hiring solution for talent acquisition teams managing hiring at scale. Informed by decades of Amazon hiring science, it uses AI agents to conduct structured voice interviews, administer evidence-based assessments, and score candidates consistently, so recruiters can focus on final decisions. Candidates interview 24/7 from any device, and recruiters review scores, transcripts, and detailed evaluations the next morning. All candidate data is anonymized during AI evaluation, each competency is scored against a rubric with every score tied to specific evidence from the interview, and recruiters keep final decision authority over every hire. General availability includes competency-based assessments, AI-led voice interviews with adaptive questioning, a brand-customizable mobile-first candidate portal, and admin onboarding tools.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/about-aws/whats-new/2026/09/amazon-corretto-27-generally-available/"&gt;Amazon Corretto 27 is now generally available&lt;/a&gt; – Amazon Corretto 27, a Feature Release version of the no-cost, multi-platform distribution of OpenJDK, is now available for download on Linux, Windows, and macOS, with support through April 2027. Notable features include G1 as the default garbage collector across all environments (JEP 523), post-quantum hybrid key exchange for TLS 1.3 (JEP 527), compact object headers by default for a smaller memory footprint (JEP 534), and JFR in-process data redaction to remove sensitive data from Java Flight Recorder recordings before they leave the JVM (JEP 536). It also continues previews of enhanced pattern matching, structured concurrency, and lazy constants, along with the Vector API incubator.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/about-aws/whats-new/2026/09/moonshot-ai-kimi-k3-on-amazon-bedrock/"&gt;Kimi K3 by Moonshot AI is now generally available on Amazon Bedrock&lt;/a&gt; – Kimi K3 is now available on Amazon Bedrock for coding and knowledge work. According to Moonshot AI, Kimi K3 is its most capable model and the first open model to reach 2.8 trillion parameters. It combines native vision capabilities with a 1-million-token context window, making it well suited to long-running coding sessions across large repositories, multi-document analysis, and extended agent workflows. Moonshot AI reports an approximate 2.5x improvement in scaling efficiency over Kimi K2. Kimi K3 is the first open-weight model on Amazon Bedrock to support explicit prompt caching, which helps reduce latency and input costs when reusing context across model calls.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/blogs/aws/aws-reimagines-the-getting-started-experience/"&gt;AWS reimagines the getting started experience&lt;/a&gt; – We announced a new simplified experience for builders starting a new project. Instead of completing configuration tasks first, you start with sensible defaults: sign up using an existing identity from providers including Google, GitHub, and Apple, and for most new customers no credit card is required, with $100 in free credits as part of the AWS Free Tier. AWS organizes your work in a project, which contains an AWS account and sharing settings, and applies security controls for you. You can invite collaborators by email without setting up IAM users, set a monthly spend limit starting at $20, and activate advanced AWS features later at no additional cost with no migration. The experience is gradually rolling out to new customers.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/blogs/aws/new-low-cost-burstable-amazon-ec2-t8i-instances-are-generally-available/"&gt;New low-cost burstable Amazon EC2 T8i instances are generally available&lt;/a&gt; – Amazon EC2 T8i instances, powered by custom sixth-generation Intel Xeon Scalable processors (Granite Rapids), are among the lowest-cost EC2 instances and deliver up to 30% better price performance over previous-generation T3 instances. They are designed for low-to-moderate CPU utilization workloads such as microservices, low-traffic websites, development and testing environments, and small databases. T8i instances deliver up to 70% higher compute performance, up to 1.25x higher network bandwidth, and up to 2.4x higher Amazon EBS bandwidth compared to T3, and they use the same CPU credit system, so upgrading from T3 is straightforward.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/blogs/aws/aws-elastic-beanstalk-introduces-cluster-mode/"&gt;AWS Elastic Beanstalk introduces Cluster Mode&lt;/a&gt; – AWS Elastic Beanstalk Cluster Mode is a new fully managed option for teams running a portfolio of applications on shared infrastructure powered by Amazon EKS. Instead of operating each application in isolation, you run multiple applications through one experience with a single operational baseline, so per-application cost decreases as your portfolio grows. You can upload source code in Java, .NET, Python, Node.js, PHP, Ruby, or Go, and Elastic Beanstalk handles containerization automatically through Cloud Native Buildpacks when needed. Cluster Mode includes production-grade deployment strategies with automatic rollback, event-driven autoscaling, AWS Secrets Manager integration, native OpenTelemetry observability, and AI-powered troubleshooting. Standard and Cluster Mode environments run side by side within the same application, so teams can migrate one environment at a time.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a full list of AWS announcements, be sure to keep an eye on the &lt;a href="https://aws.amazon.com/new/"&gt;What’s New with AWS&lt;/a&gt; page.&lt;/p&gt;
+&lt;p id="other-aws-news"&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Other AWS news
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;Here are some additional posts you may find useful:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;Building in the AWS European Sovereign Cloud – Two new posts cover building on the AWS European Sovereign Cloud, an independent cloud for Europe that runs as a distinct partition with its own control plane, IAM, billing, console, and service endpoints, and its first Region in Brandenburg, Germany. The first post walks through &lt;a href="https://aws.amazon.com/blogs/security/architecting-a-secure-landing-zone-in-the-aws-european-sovereign-cloud/" target="_blank" rel="noopener noreferrer nofollow"&gt;architecting a secure landing zone&lt;/a&gt;, covering account structure and governance, identity as infrastructure as code, centralized logging, data protection, and partition-aware ARN construction that works across AWS partitions. The second announces the &lt;a href="https://aws.amazon.com/blogs/security/run-open-weight-models-on-aws-bedrock-in-aws-european-sovereign-cloud/" target="_blank" rel="noopener noreferrer nofollow"&gt;general availability of Gemma 4 open-weight models&lt;/a&gt; on the Amazon Bedrock next-generation inference engine in the AWS European Sovereign Cloud, with inference staying entirely within eusc-de-east-1 under a zero data retention and zero operator access model.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/blogs/machine-learning/the-new-agentcore-runtime-elastic-optimized-and-consistently-fast-starts/"&gt;The new AgentCore runtime: elastic, optimized, and consistently fast starts&lt;/a&gt; – We announced a new version of the Amazon Bedrock AgentCore runtime, the managed compute layer for running agents. The new runtime reclaims memory as a session releases it rather than holding it at the peak, so the bill tracks real usage over the life of a session. It also delivers consistent cold start times regardless of container image size or concurrency by preparing the environment once, snapshotting it, and restoring that snapshot for each new instance. In testing with an empty echo agent, the new runtime delivered a P75 cold start of about 2 seconds from a 200 MB image up to 2 GB, compared to roughly 5.4 to nearly 30 seconds for the original runtime.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/blogs/media/introducing-the-updated-aws-well-architected-streaming-media-lens/"&gt;Introducing the updated AWS Well-Architected Streaming Media Lens&lt;/a&gt; – We published a revised Streaming Media Lens, which provides architectural best practices for video streaming workloads. The revision expands from the original 2021 version to cover five streaming scenarios, including interactive live streaming with Amazon IVS Real-Time Streaming for up to 25,000 concurrent viewers, low-latency live streaming, and ad-supported content monetization, alongside enhanced video-on-demand and live streaming guidance. It also adds new sustainability best practices focused on reducing carbon footprint, expanded observability and incident-response frameworks, and advanced content protection with multi-layered DRM and forensic watermarking. The lens whitepaper and custom lens are available now.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a full list of AWS blog posts, be sure to keep an eye on the &lt;a href="https://aws.amazon.com/blogs/"&gt;AWS Blogs&lt;/a&gt; page.&lt;/p&gt;
+&lt;p id="upcoming-aws-events"&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Upcoming AWS events&lt;/strong&gt;&lt;/span&gt;
+ &lt;br&gt;
+ Check your calendar and sign up for upcoming AWS events:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/events/reinvent/"&gt;AWS re:Invent&lt;/a&gt; – AWS re:Invent returns to Las Vegas from November 30 to December 4. 2, 200+ session times, locations, and speakers are live. Reserved seating for AWS re:Invent opens October 6. &lt;a href="https://registration.awsevents.com/flow/awsevents/reinvent2026/reg"&gt;Register now&lt;/a&gt; and be ready to claim your spot in chalk talks, workshops, and builders’ sessions when reserved seating opens.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/events/summits/"&gt;AWS Summits&lt;/a&gt; – AWS Summits are free in-person events covering cloud and AI. With re:Invent on the horizon, the Summits are coming to an end for the year. The last Summit is &lt;a href="https://aws.amazon.com/events/summits/dubai/" target="_blank" rel="noopener noreferrer nofollow"&gt;Dubai&lt;/a&gt; (September 30) at the Dubai World Trade Center, with 60+ sessions, an AWS Village, and hands-on workshops.&lt;/li&gt;
+ &lt;li&gt;&lt;a href="https://aws.amazon.com/events/community-day/"&gt;AWS Community Days&lt;/a&gt; – Community-led conferences planned and delivered by community leaders. Upcoming events include &lt;a href="https://www.meetup.com/aws-ug-lb/events/315764768/" target="_blank" rel="noopener noreferrer nofollow"&gt;Lebanon&lt;/a&gt; (September 26), &lt;a href="https://konfhub.com/checkout/aws-community-day-my-2026?ticketId=95298" target="_blank" rel="noopener noreferrer nofollow"&gt;Malaysia, Kuala Lumpur&lt;/a&gt; (September 26), &lt;a href="https://awsug.ph/#" target="_blank" rel="noopener noreferrer nofollow"&gt;Cebu, Philippines&lt;/a&gt; (September 26), &lt;a href="https://events.awsugdavao.ph/aws-community-day-davao-2026" target="_blank" rel="noopener noreferrer nofollow"&gt;Davao, Philippines&lt;/a&gt; (September 26), &lt;a href="https://www.comsum.co.uk/" target="_blank" rel="noopener noreferrer nofollow"&gt;ComSum Manchester, UK&lt;/a&gt; (October 1), and &lt;a href="https://www.awscommunityday.it/" target="_blank" rel="noopener noreferrer nofollow"&gt;Italy, Rome&lt;/a&gt; (October 2).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Summer has officially given way to September, but the weather where I am has not quite caught up. The days are still unusually warm, and I suspect these are the last mild afternoons before autumn settles in for good. I am making the most of them while they last. Come back next week for more!&lt;/p&gt;
+&lt;a href="https://www.linkedin.com/in/esrakayabali/"&gt;— Esra&lt;/a&gt;</content:encoded>
+					
+					
+			
+		
+		
+			</item>
+		<item>
+		<title>New low-cost burstable Amazon EC2 T8i instances are generally available</title>
+		<link>https://aws.amazon.com/blogs/aws/new-low-cost-burstable-amazon-ec2-t8i-instances-are-generally-available/</link>
+					
+		
+		<dc:creator><![CDATA[Channy Yun (윤석찬)]]></dc:creator>
+		<pubDate>Thu, 17 Sep 2026 21:11:48 +0000</pubDate>
+				<category><![CDATA[Amazon EC2]]></category>
+		<category><![CDATA[Compute]]></category>
+		<category><![CDATA[Launch]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">e54808ff9073a2b426d2baf919a0236eb2f63e40</guid>
+
+					<description>AWS introduces new low-cost burstable Amazon EC2 T8i instances powered by custom sixth generation Intel Xeon Scalable Processors (Granite Rapids), available only on AWS. T8i instances are among the lowest-cost EC2 instances and deliver up to 30% better price performance over previous generation T3 instances.</description>
+										<content:encoded>&lt;p&gt;Today, we’re announcing the general availability of new low-cost burstable &lt;a href="https://aws.amazon.com/ec2/instance-types/t8i/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;Amazon EC2 T8i instances&lt;/a&gt; powered by custom sixth generation Intel Xeon Scalable Processors (Granite Rapids), available only on AWS. T8i instances are among the lowest-cost EC2 instances and deliver up to 30% better price performance over previous generation &lt;a href="https://aws.amazon.com/blogs/aws/new-t3-instances-burstable-cost-effective-performance/"&gt;T3 instances&lt;/a&gt;. These instances are designed to run a variety of low-to-moderate CPU utilization workloads such as freemium services, training and demo environments, staging and development, data processing, microservices, low-traffic websites, and login gateways.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;T8i instances&lt;/u&gt;&lt;/strong&gt;
+ &lt;br&gt;
+ Thousands and thousands of customers run various lightweight workloads on T3 instances that require small, cost-effective compute configurations. These include microservices architectures, low-traffic websites, development and testing environments, small databases, data processing jobs, and short-duration compute tasks. Many of these customers like T family’s burstable performance model, which provides a baseline level of CPU performance with the ability to burst above the baseline when needed using CPU credits.&lt;/p&gt;
+&lt;p&gt;As customers modernize their infrastructure, migrate from on-premises environments, adopt event-driven and microservices architectures, and experiment with AI inference workloads, they have asked for newer generation cost-optimized small instances, better price performance to reduce their total cost of ownership, and a seamless migration path that leverages their existing knowledge and tooling.&lt;/p&gt;
+&lt;p&gt;T8i instances address each of these requests:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;strong&gt;Up to 30% better price performance. &lt;/strong&gt;Powered by the &lt;a href="https://aws.amazon.com/ec2/nitro/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS Nitro System&lt;/a&gt; and custom sixth generation Intel Xeon Scalable Processors (Granite Rapids), T8i instances enable customers to lower their total cost of ownership with up to 30% better price performance.&lt;/li&gt;
+ &lt;li&gt;&lt;strong&gt;Up to 70% higher compute performance. &lt;/strong&gt;T8i instances deliver up to 70% higher compute performance, up to 1.25x higher network bandwidth, and up to 2.4x higher EBS bandwidth compared to T3 instances.&lt;/li&gt;
+ &lt;li&gt;&lt;strong&gt;Seamless upgrade from T3. &lt;/strong&gt;For existing T3 customers, upgrading to T8i is straightforward. The instances offer the same CPU credit system and the same familiar lightweight compute options customers already know. Customers simply select T8i instead of T3 and immediately benefit from improved price performance.&lt;/li&gt;
+ &lt;li&gt;&lt;strong&gt;Cost-effective entry point for new customers. &lt;/strong&gt;For customers new to AWS or migrating from on-premises, T8i instances provide one of the most cost-effective entry points to run workloads that need low-to-moderate CPU utilization or for running short-duration compute tasks such as batch processing, event-driven functions, or CI/CD pipelines.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Instance specifications
+  &lt;br&gt; &lt;/strong&gt;T8i instances offer four sizes, each with two vCPU offered as a single core. The following table summarizes the specifications.&lt;/p&gt;
+&lt;table style="border: 2px solid black;border-collapse: collapse;margin-left: auto;margin-right: auto"&gt;
+ &lt;thead&gt;
+  &lt;tr style="border-bottom: 1px solid black;background-color: #e0e0e0"&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;Instance size&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;vCPUs&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;Memory (GiB)&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;&lt;span class="rgtb_8711ccd9 rgtb_7047aa37 rgtb_b97b7b3b" data-rg-n="TitleText"&gt;Baseline Performance /vCPU&lt;/span&gt; (%)&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;CPU credits earned / hour&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;Network &lt;span class="rgtb_8711ccd9 rgtb_7047aa37 rgtb_b97b7b3b" data-rg-n="TitleText"&gt;burst&lt;/span&gt; bandwidth (Gbps)&lt;/strong&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+  &lt;tr style="border-bottom: 1px solid black"&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;t8i.nano&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;2&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;0.5&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;5&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;3&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;Up to 6.25&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style="border-bottom: 1px solid black"&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;t8i.micro&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;2&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;1&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;10&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;6&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;Up to 6.25&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style="border-bottom: 1px solid black"&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;t8i.small&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;2&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;2&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;20&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;12&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;Up to 6.25&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr style="border-bottom: 1px solid black"&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;&lt;strong&gt;t8i.medium&lt;/strong&gt;&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;2&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;4&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;20&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;12&lt;/td&gt;
+   &lt;td style="border-right: 1px solid black;padding: 4px;text-align: center"&gt;Up to 6.25&lt;/td&gt;
+  &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Like T3, T8i instances offer unique vCPU-to-memory ratios such as 1:0.25, 1:0.5, and 1:1 that are not offered by other EC2 instances. Like T3, T8i instances utilize the CPU credit system along with the &lt;a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-standard-mode-concepts.html"&gt;Standard&lt;/a&gt; and &lt;a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances-unlimited-mode.html"&gt;Unlimited&lt;/a&gt; credit configuration modes. Unlimited mode is the default on T8i.&lt;/p&gt;
+&lt;p&gt;For workloads that need larger instance sizes above T8i offerings (&lt;code&gt;nano&lt;/code&gt;, &lt;code&gt;micro&lt;/code&gt;, &lt;code&gt;small&lt;/code&gt;, and &lt;code&gt;medium&lt;/code&gt;), I recommend &lt;a href="https://aws.amazon.com/blogs/aws/new-general-purpose-amazon-ec2-m8i-and-m8i-flex-instances-are-now-available/"&gt;M8i Flex instances&lt;/a&gt; that offer up to 30% better price performance than equivalent previous generation T3 instances along with the flexibility to scale up to &lt;code&gt;16xlarge&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Now available&lt;/u&gt;&lt;/strong&gt;
+ &lt;br&gt;
+ &lt;a href="https://aws.amazon.com/ec2/instance-types/t8i/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;Amazon EC2 T8i instances&lt;/a&gt; are available today in the following AWS Regions: US East (N. Virginia, Ohio), US West (Oregon, N. California), Asia Pacific (Hyderabad, Malaysia, Mumbai, Seoul, Singapore, Sydney, Tokyo), Canada (Central), and Europe (Frankfurt, Ireland, London, Paris). For Regional availability and upcoming Region expansion, search the instance type in the &lt;strong&gt;CloudFormation&lt;/strong&gt; resources tab of &lt;a href="https://builder.aws.com/build/capabilities/explore?tab=cfn-resources&amp;amp;trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS Capabilities by Region&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can purchase T8i instances via&amp;nbsp;&lt;a href="https://aws.amazon.com/ec2/pricing/on-demand/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;On-Demand instances&lt;/a&gt;, and &lt;a href="https://aws.amazon.com/ec2/spot/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;Spot instances&lt;/a&gt; with Savings Plan option coming soon. T8i instances support shared tenancy only and do not support Dedicated tenancy or Dedicated Hosts. &lt;code&gt;t8i.micro&lt;/code&gt; and &lt;code&gt;t8i.small&lt;/code&gt; instances are also available under the &lt;a href="https://aws.amazon.com/free/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS Free Tier&lt;/a&gt;. To learn more, visit the &lt;a href="https://aws.amazon.com/ec2/pricing/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;Amazon EC2 Pricing page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Try T8i instances in the &lt;a href="https://console.aws.amazon.com/ec2/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;Amazon EC2 console&lt;/a&gt; and send feedback to &lt;a href="https://repost.aws/tags/TAO-wqN9fYRoyrpdULLa5y7g/amazon-ec-2?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS re:Post for EC2&lt;/a&gt; or through your usual AWS Support contacts.&lt;/p&gt;
+&lt;p&gt;— &lt;a href="https://linkedin.com/in/channy/"&gt;Channy&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Updated on September 18&lt;/strong&gt; — Corrected the memory size for each instance type.&lt;/p&gt;</content:encoded>
+					
+					
+			
+		
+		
+			</item>
+		<item>
+		<title>AWS Elastic Beanstalk introduces Cluster Mode</title>
+		<link>https://aws.amazon.com/blogs/aws/aws-elastic-beanstalk-introduces-cluster-mode/</link>
+					
+		
+		<dc:creator><![CDATA[Channy Yun (윤석찬)]]></dc:creator>
+		<pubDate>Thu, 17 Sep 2026 19:20:21 +0000</pubDate>
+				<category><![CDATA[AWS Elastic Beanstalk]]></category>
+		<category><![CDATA[Compute]]></category>
+		<category><![CDATA[Launch]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">871c44b03c81444dbf2768f2c7efdf2a156c5808</guid>
+
+					<description>Run an application on AWS Elastic Beanstalk Cluster Mode without provisioning or operating the compute underneath it. You provide a container image or source code; Elastic Beanstalk with service-operated compute creates and operates the environment that runs it.</description>
+										<content:encoded>&lt;p&gt;Since the &lt;a href="https://aws.amazon.com/blogs/aws/introducing-elastic-beanstalk/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;first launch of AWS Elastic Beanstalk&lt;/a&gt; in 2011, customers have deployed full-stack applications in Java, .NET, Python, Node.js, PHP, Ruby, and Go, trusting Elastic Beanstalk to manage deployment and infrastructure operations so they could focus on business logic. Fifteen years later, that trust has only deepened, and the service has been rebuilt to match it. Now, &lt;a href="https://aws.amazon.com/elasticbeanstalk/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS Elastic Beanstalk&lt;/a&gt; is the application management service on AWS that takes full operational responsibility for your production environments. Bring applications however they exist today: source code, Dockerfiles, or container images. Elastic Beanstalk creates and manages the production environment underneath. You manage your application. AWS manages everything else, deploying, scaling, patching, monitoring, and maintaining it continuously. That operational responsibility stays with AWS, for the life of the application.&lt;/p&gt;
+&lt;p&gt;We have been rebuilding the operational engine underneath and delivering a series of capabilities that make it more powerful than ever. Elastic Beanstalk now uses &lt;a href="https://aws.amazon.com/about-aws/whats-new/2026/04/elastic-beanstalk-ai-analysis-windows/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AI-powered environment analysis&lt;/a&gt; to diagnose health issues and recommend fixes automatically. A &lt;a href="https://aws.amazon.com/about-aws/whats-new/2026/02/aws-elastic-beanstalk-github-action?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;new official GitHub Action&lt;/a&gt; lets teams deploy directly from their existing CI/CD workflows with a single YAML configuration. And we rebuilt the infrastructure foundation to deliver OpenTelemetry-based observability, traffic-splitting deployments with automatic rollback, event-driven autoscaling, secrets management through &lt;a href="https://aws.amazon.com/secrets-manager/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS Secrets Manager&lt;/a&gt;, and HTTPS by default via &lt;a href="https://aws.amazon.com/acm/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS Certificate Manager&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Today, we’re announcing the next chapter of AWS Elastic Beanstalk: a new fully-managed Cluster Mode that deploys, scales, patches, monitors, and upgrades your applications continuously for the life of the workload. You bring your application. AWS runs it.&lt;/p&gt;
+&lt;p&gt;A new Cluster Mode is built for teams running a portfolio of applications. Instead of operating each application in isolation, you run multiple applications that share infrastructure powered by &lt;a href="https://aws.amazon.com/eks/"&gt;Amazon Elastic Kubernetes Service (Amazon EKS)&lt;/a&gt;, fully managed with a single operational baseline. Multiple applications share resources, so per-application cost decreases as your portfolio grows without adding operational complexity. Whether you run ten applications or a hundred, you manage them through one experience, with the same operational guarantees across every stack.&lt;/p&gt;
+&lt;p&gt;Elastic Beanstalk Cluster Mode benefits for your workloads:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;strong&gt;Source code to production, any runtime&lt;/strong&gt;. Upload source code in Java, .NET, Python, Node.js, PHP, Ruby, or Go. Elastic Beanstalk handles containerization automatically through Cloud Native Buildpacks when needed. No Dockerfile and no rearchitecting required. You can bring legacy applications from on-premises or deploy new services in any supported language.&lt;/li&gt;
+ &lt;li&gt;&lt;strong&gt;Enterprise compliance built in&lt;/strong&gt;.&amp;nbsp;Elastic Beanstalk is HIPAA eligible, PCI DSS compliant, and aligned to SOC 1/2/3 with no additional configuration, so teams in regulated industries can deploy production workloads with the compliance posture they already require.&lt;/li&gt;
+ &lt;li&gt;&lt;strong&gt;Production-grade deployment strategies&lt;/strong&gt;. All-at-once, rolling, immutable, and traffic-splitting deployments with automatic rollback on failure. Event-driven autoscaling. &lt;a href="https://aws.amazon.com/secrets-manager/"&gt;AWS Secrets Manager&lt;/a&gt; integration. All native OpenTelemetry enabling easy integration with most observability backends, including &lt;a href="https://aws.amazon.com/cloudwatch"&gt;Amazon CloudWatch&lt;/a&gt;.&lt;/li&gt;
+ &lt;li&gt;&lt;strong&gt;AI-powered troubleshooting&lt;/strong&gt;. When something goes wrong, Elastic Beanstalk collects service-side logs and provides AI-generated recommendations to help you resolve issues faster without digging through infrastructure.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;A first look of Elastic Beanstalk Cluster Mode&lt;/u&gt;&lt;/strong&gt;
+ &lt;br&gt;
+ To get started, go to the &lt;a href="https://console.aws.amazon.com/elasticbeanstalk/"&gt;Elastic Beanstalk console&lt;/a&gt;, create a new environment, and choose the &lt;strong&gt;Cluster &lt;/strong&gt;in the &lt;strong&gt;Deployment type&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter wp-image-105549 size-full" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/2026-eb-eks-1-1.jpg" alt="" width="1800" height="645"&gt;&lt;/p&gt;
+&lt;p&gt;Elastic Beanstalk accepts source code, docker file, or container image to deploy your application. For example, you can provide the application code for your environment by selecting &lt;strong&gt;Local file&lt;/strong&gt; and specifying container image build options. For the rest of the sections, the default values should be good for most scenarios.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter wp-image-105488 size-full" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/02/2026-eb-eks-2.jpg" alt="" width="1800" height="1675"&gt;&lt;/p&gt;
+&lt;p&gt;Choose &lt;strong&gt;Create&lt;/strong&gt; button and the deployment will begin! Note that the first deployment for a given set of subnets triggers EKS cluster creation, which takes about ten-ish minutes. Subsequent deployments are faster because they reuse an existing EKS cluster.&lt;/p&gt;
+&lt;p&gt;Here’s what it looks like when deployment is successful:&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter wp-image-105550 size-full" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/09/11/2026-eb-eks-temp-2.jpg" alt="" width="1800" height="965"&gt;&lt;/p&gt;
+&lt;p&gt;You can also use &lt;a href="https://aws.amazon.com/cli"&gt;AWS Command Line Interface (AWS CLI)&lt;/a&gt;, the &lt;a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html"&gt;EB CLI&lt;/a&gt;, or &lt;a href="https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html"&gt;AWS SDKs&lt;/a&gt;. For example, consider deploying an application made up of several microservices to Kubernetes. Create an application first.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="lang-bash"&gt;aws elasticbeanstalk create-application \
+    --application-name "my-microservice" \
+    --description "Multi-services demo" \&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Each microservice may have pre-built images in &lt;a href="https://aws.amazon.com/ecr"&gt;Amazon Elastic Container Registry (Amazon ECR)&lt;/a&gt;. Register them as application versions:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="lang-bash"&gt;IMAGES=(
+    "frontend-v1|public.ecr.aws/my-microservices/frontend:v1"
+    "cartservice-v1|public.ecr.aws/my-microservices/cart:v1"
+    "paymentservice-v1|public.ecr.aws/my-microservices/payment:v1"
+    "shippingservice-v1|public.ecr.aws/my-microservices/shipping:v1"
+)
+
+for entry in "${IMAGES[@]}"; do
+    IFS='|' read -r label uri &amp;lt;&amp;lt;&amp;lt; "$entry"
+    aws elasticbeanstalk create-application-version \
+        --application-name $APP_NAME \
+        --version-label "$label" \
+        --image-configuration Source="{Uri=$uri}" \
+	--region "us-west-2
+    echo "Registered: $label"
+done&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can set and deploy the corresponding service options for each service. For example, the frontend service is the only service that needs a public internet interface such as &lt;a href="https://aws.amazon.com/elasticloadbalancing/application-load-balancer/"&gt;Application Load Balancer&lt;/a&gt; and also sets a health check path since it’s an HTTP service:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="lang-json"&gt;[
+    {"Namespace": "aws:elasticbeanstalk:eks", "OptionName": "cluster-role", "Value": "arn:aws:iam::0123456789012:rol&amp;lt;...&amp;gt;"},
+    {"Namespace": "aws:elasticbeanstalk:eks", "OptionName": "node-role", "Value": "arn:aws:iam::0123456789012:role/E&amp;lt;...&amp;gt;"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment", "OptionName": "observability-role", "Value": "arn:aws:iam::0123456&amp;lt;...&amp;gt;"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment", "OptionName": "subnets", "Value": "subnet-1,subnet-2,subnet-3,&amp;lt;...&amp;gt;"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment:autoscaling", "OptionName": "min-replica", "Value": "1"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment:autoscaling", "OptionName": "max-replica", "Value": "2"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment", "OptionName": "cpu", "Value": "0.5"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment", "OptionName": "memory", "Value": "256Mi"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment", "OptionName": "memory-limit", "Value": "512Mi"},
+    {"Namespace": "aws:elasticbeanstalk:eks:environment", "OptionName": "service-port", "Value": "8080"},
+    {"Namespace": "aws:elasticbeanstalk:eks:alb", "OptionName": "scheme", "Value": "internet-facing"},
+    {"Namespace": "aws:elasticbeanstalk:eks:alb", "OptionName": "healthcheck-path", "Value": "/_healthz"}
+] #frontend-options.json namespaces&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, create the frontend service environment with these options. You can continue to deploy each service environment in a similar manner.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="lang-bash"&gt;aws elasticbeanstalk create-environment \
+    --application-name my-microservice \
+    --environment-name frontend \
+    --version-label frontend-v1 \
+    --tier Name=Cluster,Type=EKS \
+    --option-settings file:///tmp/frontend-options.json \&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here’s a look at the console once all services are deployed:&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-full wp-image-105098" style="border: solid 1px #ccc" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/07/20/2026-eb-eks-temp-4.jpg" alt="" width="1800" height="591"&gt;&lt;/p&gt;
+&lt;p&gt;Elastic Beanstalk Standard powered by &lt;a href="https://aws.amazon.com/ec2"&gt;Amazon Elastic Compute Cloud (EC2)&lt;/a&gt; continues to be fully supported. Standard and Cluster Mode environments run side by side within the same Elastic Beanstalk application, enabling teams to migrate one environment at a time at their own pace. Validation checks confirm compatibility before any changes are made, so no environment is forced to move.&lt;/p&gt;
+&lt;p&gt;Elastic Beanstalk Standard Mode remains the best fit for:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;Single applications or single-environment use cases&lt;/li&gt;
+ &lt;li&gt;Windows/.NET Framework workloads on IIS&lt;/li&gt;
+ &lt;li&gt;Applications that cannot be containerized&lt;/li&gt;
+ &lt;li&gt;Workloads spending under $500/month where the EKS control plane fee and EKS Auto Mode premium add overhead that a single application cannot offset through bin-packing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To learn more about how to deploy and manage your applications in the Cluster Mode, visit the &lt;a href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/beanstalk-cluster.html?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;Elastic Beanstalk Cluster Mode documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Now available&lt;/u&gt;&lt;/strong&gt;
+ &lt;br&gt;
+ AWS Elastic Beanstalk Cluster Mode is generally available today in all AWS Regions that Elastic Beanstalk is available. For Regional availability and a future roadmap, visit the &lt;a class="c-link" href="https://builder.aws.com/build/capabilities/explore?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el" target="_blank" rel="noopener noreferrer" data-stringify-link="https://builder.aws.com/capabilities/" data-sk="tooltip_parent"&gt;AWS Capabilities by Region&lt;/a&gt;. If you want to call APIs, search documentation, find regional availability, and troubleshooting about this new feature, try using the &lt;a href="https://docs.aws.amazon.com/agent-toolkit/latest/userguide/getting-started-aws-mcp-server.html?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el" target="_blank" rel="noopener noreferrer"&gt;AWS MCP Server&lt;/a&gt; and &lt;a href="https://docs.aws.amazon.com/agent-toolkit/latest/userguide/plugins.html?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el" target="_blank" rel="noopener noreferrer"&gt;plugins&lt;/a&gt; with your preferred AI tool.&lt;/p&gt;
+&lt;p&gt;There is no additional charge for Elastic Beanstalk Cluster Mode. You pay only for the underlying AWS resources your applications consume, including the EKS control plane fee, EKS Auto Mode compute, Amazon ECR, and Amazon CloudWatch. Note Elastic Beanstalk Cluster Mode is not AWS Free Tier eligible. To learn more, visit the &lt;a href="https://aws.amazon.com/elasticbeanstalk/pricing/?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS Elastic Beanstalk Pricing page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Give it a try in the &lt;a href="https://console.aws.amazon.com/elasticbeanstalk/"&gt;Elastic Beanstalk console&lt;/a&gt;&amp;nbsp;and send feedback to &lt;a href="https://repost.aws/tags/TAhZCjgK8eQvuM45ihyzqV6g/aws-elastic-beanstalk?trk=d8ec3b19-0f37-4f8c-8c12-189f913e205c&amp;amp;sc_channel=el"&gt;AWS re:Post for AWS Elastic Beanstalk&lt;/a&gt; or through your usual AWS Support contacts.&lt;/p&gt;
+&lt;p&gt;— &lt;a href="https://linkedin.com/in/channy"&gt;Channy&lt;/a&gt;&lt;/p&gt;</content:encoded>
+					
+					
+			
+		
+		
+			</item>
+		<item>
+		<title>AWS reimagines the getting started experience</title>
+		<link>https://aws.amazon.com/blogs/aws/aws-reimagines-the-getting-started-experience/</link>
+					
+		
+		<dc:creator><![CDATA[Micah Walter]]></dc:creator>
+		<pubDate>Wed, 16 Sep 2026 17:50:14 +0000</pubDate>
+				<category><![CDATA[Announcements]]></category>
+		<category><![CDATA[AWS Management Console]]></category>
+		<category><![CDATA[Launch]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">08498470152ce637e9283653fce2e1e7198f87fb</guid>
+
+					<description>AWS has reimagined the getting started experience with smart and sensible defaults to help developers get started fast so that they can focus on building. New customers can sign up and get started right away with $100 in Free Tier credits, managed project environments, and simplified team and resource permissions. If their workload evolves, customers can activate advanced features to access the full breadth and depth of AWS in one step, with no migration required.</description>
+										<content:encoded>&lt;p&gt;Amazon Web Services (AWS) started with a handful of foundational infrastructure services such as &lt;a href="https://aws.amazon.com/s3/"&gt;Amazon Simple Storage Service (Amazon S3)&lt;/a&gt;, &lt;a href="https://aws.amazon.com/ec2/"&gt;Amazon Elastic Compute Cloud (Amazon EC2)&lt;/a&gt;, and &lt;a href="https://aws.amazon.com/sqs/"&gt;Amazon Simple Queue Service (Amazon SQS)&lt;/a&gt;, so that anyone with an idea could start building. As the world’s largest companies and governments adopted AWS, they asked for features to optimize their configuration for a range of global business contexts, security requirements, and operational needs. To meet these needs, AWS expanded globally through new &lt;a href="https://aws.amazon.com/about-aws/global-infrastructure/regions_az/"&gt;Regions&lt;/a&gt; and added breadth and depth of services in security, networking, governance, and cost controls, so those customers could operate wherever they needed and at the scale they require. That combination of global reach, breadth, and depth remains essential for those customers, but if you are at the start of a new idea, every configuration option is effort standing in the way of shipping your dream product fast.&lt;/p&gt;
+&lt;p&gt;Today, we’re announcing a new simplified experience on AWS for builders who are working at the pace of AI. Instead of having to complete configuration tasks before you can work on your project, you start with sensible defaults and simple administration. You sign up using an existing identity from providers including Google, GitHub, and Apple. For most new customers, no credit card is required to start and you receive $100 in free credits as part of the &lt;a href="https://aws.amazon.com/free/"&gt;AWS Free Tier&lt;/a&gt;. You can build immediately in your first project. As you continue to work, you can invite collaborators with just an email address, without learning about &lt;a href="https://aws.amazon.com/iam/"&gt;AWS Identity and Access Management (IAM)&lt;/a&gt; or &lt;a href="https://aws.amazon.com/iam/identity-center/"&gt;AWS IAM Identity Center&lt;/a&gt;. When your project grows beyond the free credits, you can set a spend limit so you stay within your budget on the paid plan. If you grow to need additional customization, you can activate advanced AWS features to access the full breadth and depth of AWS without migrating.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;How it works
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;When you sign up, AWS organizes your work in a project. A project contains an AWS account, where you create resources, and settings for sharing with team members. AWS creates that structure for you and applies additional security controls so you can start building your idea. After signing in, you get a prompt to paste into your coding agent that conﬁgures it to work with your new AWS environment. From there, your agent can deploy resources, run workloads, and iterate on your application following best practices for working with AWS.&lt;/p&gt;
+&lt;p&gt;You can create another project with a click. When you want to work with an additional team member, you send an invitation to their email address. Identity permissions are handled for you, so there are no IAM users to create; each person you invite only gets access to the projects you specify. Console workﬂows and coding agents also conﬁgure permissions between supported services and resources automatically, so you do not have to set up or troubleshoot resource permissions by hand.&lt;/p&gt;
+&lt;p&gt;When you’re ready to move beyond free credits, you can upgrade to a paid plan by entering your payment method. You can set a monthly spend limit on a project based on your usage trends, starting at $20 per month. The spend limit is the ceiling for that project’s costs, and you pay for what you actually use up to that amount. For example, if you set a $50 spend limit and your project incurs $32 in charges that month, you pay $32 (plus taxes). AWS will suggest a spend limit based on your usage, and you can accept that recommendation or set a custom amount if you are planning to further scale your usage. If your project approaches the limit, you ﬁrst receive notiﬁcations. If spend reaches the limit, AWS pauses your project rather than accumulating charges, and you can resume working on it when you raise the limit. Each project has its own spend limit so you can give a larger budget to a workload that is gaining traction while keeping a smaller budget on an experimental idea.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Let’s try it out
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;To get started, I went to &lt;a href="https://aws.amazon.com/"&gt;aws.amazon.com&lt;/a&gt; and chose &lt;strong&gt;Create account&lt;/strong&gt;. I signed in with my Google account and within seconds had a new project ready to go, as shown in the following screenshot.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105361" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-01-1024x648.png" alt="" width="1024" height="648"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The Sign up for AWS page, with options to continue with email or sign in using Google, GitHub, Apple, or Amazon.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The first thing I saw was a prompt to configure my coding agent. I copied the prompt and pasted it into my agent. The agent set up the &lt;a href="https://aws.amazon.com/cli/"&gt;AWS Command Line Interface (AWS CLI)&lt;/a&gt; and the &lt;a href="https://aws.amazon.com/products/developer-tools/agent-toolkit-for-aws/"&gt;Agent Toolkit for AWS&lt;/a&gt;, logged me into AWS, and created a CLAUDE.md file in my project with guidance for the new experience.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105364" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-03-1024x828.png" alt="" width="1024" height="828"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The Setup Agent Toolkit for AWS dialog, with a prompt to copy and paste into your coding agent.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;With the agent connected, I gave it a short prompt: build an API that returns a new unique sequential ID on every request. The agent created an &lt;a href="https://aws.amazon.com/lambda/"&gt;AWS Lambda&lt;/a&gt; function, an &lt;a href="https://aws.amazon.com/dynamodb/"&gt;Amazon DynamoDB&lt;/a&gt; table, and an &lt;a href="https://aws.amazon.com/api-gateway/"&gt;Amazon API Gateway&lt;/a&gt; API, then deployed them for me. I did not have to configure resource permissions by hand. Within a few minutes I had a public endpoint that returned a newly minted ID on each request. My project started with $100 in free credits, and I received an additional $20 when the Lambda function was deployed.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105365" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-04-1024x135.png" alt="" width="1024" height="135"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;A coding agent prompt to build an API that returns a unique sequential ID on every request.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105367" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-06-1024x260.png" alt="" width="1024" height="260"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The coding agent presents architecture options for the sequential ID API, with AWS Lambda and Amazon DynamoDB selected.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105368" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-07-1024x453.png" alt="" width="1024" height="453"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The coding agent confirms the API is live and lists the Amazon DynamoDB table, AWS Lambda function, and Amazon API Gateway API it deployed.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;From the project, I could manage settings, invite team members by email, and monitor billing, as shown in the following screenshots.&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105369" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-08-1024x633.png" alt="" width="1024" height="633"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The Projects page, showing remaining free-plan days, credits, and a project.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105370" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-09-1024x587.png" alt="" width="1024" height="587"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The project Members page, with the option to invite a new team member by email.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading="lazy" class="aligncenter size-large wp-image-105371" src="https://d2908q01vomqb2.cloudfront.net/da4b9237bacccdf19c0760cab7aec4a8359010b0/2026/08/19/image-10-1024x448.png" alt="" width="1024" height="448"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;The Billing page, showing a $0.00 balance on the free plan, remaining credits, and cost by project.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Activating advanced features
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;If you reach the point where you need multiple Regions, or governance features like custom policies in AWS Organizations, you can activate advanced features at no additional cost. You’ll find yourself in a fully configured AWS Organization built according to best practices, with no migration and no downtime. Everything you configured previously is preserved and reflected in the underlying AWS services.&lt;/p&gt;
+&lt;p&gt;&lt;span style="text-decoration: underline"&gt;&lt;strong&gt;Now rolling out
+   &lt;br&gt; &lt;/strong&gt;&lt;/span&gt;We’ve heard from builders that they do not want to spend their first hours configuring an AWS environment. They want to build what they came to build, and we listened. AWS began as a place where anyone with an idea could start building, and this new simplified experience brings that starting point back, with sensible defaults so you can begin immediately, and with the global reach, breadth, and depth of AWS still there when your idea needs it. We are gradually rolling this experience out to new customers. We cannot wait to see what you build, and we want your feedback on the experience.&lt;/p&gt;
+&lt;p&gt;To try the new experience, &lt;a href="https://signin.aws.amazon.com/signup?request_type=builderId"&gt;create a new AWS account&lt;/a&gt;. To learn more, see the&lt;a href="https://docs.aws.amazon.com/accounts/latest/reference/sign-in-new.html"&gt; AWS Sign up user documentation&lt;/a&gt;.&lt;/p&gt;</content:encoded>
+					
+					
+			
+		
+		
+			</item>
+</channel>
+</rss>
