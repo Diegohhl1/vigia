@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Archive: 2026 - GitHub Changelog</title>
+	<atom:link href="https://github.blog/changelog/feed/" rel="self" type="application/rss+xml" />
+	<link>https://github.blog/changelog/</link>
+	<description>Updates, ideas, and inspiration from GitHub to help developers build and design software.</description>
+	<lastBuildDate>Fri, 25 Sep 2026 17:12:24 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=7.1.2</generator>
+
+<image>
+	<url>https://github.blog/wp-content/uploads/2019/01/cropped-github-favicon-512.png?fit=32%2C32</url>
+	<title>Archive: 2026 - GitHub Changelog</title>
+	<link>https://github.blog/changelog/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">153214340</site>	<item>
+		<title>GitHub Copilot weekly releases — September 21</title>
+		<link>https://github.blog/changelog/2026-09-25-github-copilot-weekly-releases-september-21</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Fri, 25 Sep 2026 16:42:48 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-25-github-copilot-weekly-releases-september-21</guid>
+
+					<description><![CDATA[<p>This week&#8217;s releases add new models to Copilot, local sandboxing in the Copilot app, and updates to Copilot in Slack, Microsoft Teams, JetBrains, and VS Code. GitHub Copilot Claude Opus&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-25-github-copilot-weekly-releases-september-21">GitHub Copilot weekly releases — September 21</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>This week&rsquo;s releases add new models to Copilot, local sandboxing in the Copilot app, and updates to Copilot in Slack, Microsoft Teams, JetBrains, and VS Code.</p>
+<h3 id="github-copilot" id="github-copilot" ><a class="heading-link" href="#github-copilot">GitHub Copilot<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<ul>
+<li>Claude Opus 5.5 is available to Copilot Pro+, Max, Business, and Enterprise plans.</li>
+<li>GPT-6 Sol is available to Copilot Pro+, Max, Business, and Enterprise plans.</li>
+<li>GPT-6 Luna is available to Copilot Pro, Pro+, Max, Business, and Enterprise plans.</li>
+<li>Grok 4.7 is available to Copilot Pro, Pro+, Max, Business, and Enterprise plans.</li>
+</ul>
+<h3 id="github-copilot-app" id="github-copilot-app" ><a class="heading-link" href="#github-copilot-app">GitHub Copilot app<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<ul>
+<li>Limit agents&rsquo; access to files, networks, and credentials with local sandboxing, now in public preview.</li>
+<li>Track agent activity in your existing monitoring tools with OpenTelemetry, configured through enterprise-managed settings.</li>
+</ul>
+<p>Download <a href="https://github.com/features/ai/github-app?utm_source=download-app-09-07&amp;utm_medium=changelog&amp;utm_campaign=weekly-copilot-launches-aug-2026">the Copilot app</a>.</p>
+<h3 id="github-copilot-in-slack-and-microsoft-teams" id="github-copilot-in-slack-and-microsoft-teams" ><a class="heading-link" href="#github-copilot-in-slack-and-microsoft-teams">GitHub Copilot in Slack and Microsoft Teams<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<ul>
+<li>Choose the best model for each task. Switch models mid-conversation, and Copilot keeps your choice for the rest of the thread. In Slack, you can also set channel defaults.</li>
+<li>Avoid duplicate issues since Copilot now checks for similar existing issues before creating a new one.</li>
+<li>Follow longer-running tasks more easily with clearer implementation-plan status, better recovery from interrupted or stale replies, and more predictable reconnection when a conversation goes idle.</li>
+<li>Give Copilot more context in Slack by sharing supported files, attachments, and message links.</li>
+</ul>
+<p>Learn more about GitHub Copilot public previews in <a href="https://docs.github.com/copilot/how-tos/copilot-integrations/integrate-cloud-agent-with-slack">Slack</a> and <a href="https://docs.github.com/copilot/how-tos/copilot-integrations/integrate-cloud-agent-with-teams">Teams</a>.</p>
+<h3 id="github-copilot-in-jetbrains" id="github-copilot-in-jetbrains" ><a class="heading-link" href="#github-copilot-in-jetbrains">GitHub Copilot in JetBrains<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<ul>
+<li>Assisted approvals, now in public preview for Copilot agent sessions, automatically approve low-risk tool calls while prompting you for higher-risk actions.</li>
+<li>Edit an earlier message to redirect an agent session and Copilot rewinds both the conversation and file changes before sending the replacement request.</li>
+<li>Shared organization and enterprise skills, along with organization-managed custom instructions, now work in local and Copilot agent sessions.</li>
+</ul>
+<p>Learn more in the <a href="https://github.blog/changelog/2026-09-22-new-features-and-improvements-in-copilot-for-jetbrains/">full Copilot in JetBrains changelog</a>.</p>
+<h3 id="github-copilot-in-vs-code-1-139-release" id="github-copilot-in-vs-code-1-139-release" ><a class="heading-link" href="#github-copilot-in-vs-code-1-139-release">GitHub Copilot in VS Code 1.139 release<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<ul>
+<li>Run agents in Dev Containers on SSH, Tunnel, and WSL hosts, using your remote project&rsquo;s tools and dependencies. Support is rolling out gradually.</li>
+<li>Keep busy session lists organized with Compact View, filters to hide empty groups, and the ability to rename sessions and chats directly in the list.</li>
+<li>Choose between separate chat tabs or a single active-chat view within a session, without losing your conversations. This layout option is now in preview.</li>
+</ul>
+<p>Explore everything that&rsquo;s new in the <a href="https://code.visualstudio.com/updates/v1_139">full release notes</a>.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-25-github-copilot-weekly-releases-september-21">GitHub Copilot weekly releases — September 21</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Release]]></category>
+<category domain="changelog-label"><![CDATA[copilot]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99075</post-id>	</item>
+		<item>
+		<title>Updates to GitHub Copilot for Slack and Microsoft Teams</title>
+		<link>https://github.blog/changelog/2026-09-25-updates-to-github-copilot-for-slack-and-microsoft-teams</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Fri, 25 Sep 2026 16:33:42 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-25-updates-to-github-copilot-for-slack-and-microsoft-teams</guid>
+
+					<description><![CDATA[<p>GitHub Copilot in Slack and Microsoft Teams now gives you more context, more control, and a clearer path from conversation to GitHub work. Whether you&#8217;re sharing files in Slack or&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-25-updates-to-github-copilot-for-slack-and-microsoft-teams">Updates to GitHub Copilot for Slack and Microsoft Teams</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>GitHub Copilot in Slack and Microsoft Teams now gives you more context, more control, and a clearer path from conversation to GitHub work.</p>
+<p>Whether you&rsquo;re sharing files in Slack or images and forwarded messages in Teams, Copilot can use more of the context already in your conversation. We&rsquo;ve also improved how Copilot creates GitHub work and connects it back to the source discussion, so teams can more quickly see the context behind a decision.</p>
+<h3 id="better-context-for-the-work-youre-already-doing" id="better-context-for-the-work-youre-already-doing" ><a class="heading-link" href="#better-context-for-the-work-youre-already-doing">Better context for the work you&rsquo;re already doing<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<p>You can now use supported Slack files, attachments, and message links as context. In Teams, Copilot can work with inline images, forwarded-message context, and channel and thread history. Copilot also checks for similar issues before creating a new one, includes direct links to the resulting work, and keeps a link back to the originating conversation so the context remains easy to trace.</p>
+<h3 id="more-control-over-how-you-work" id="more-control-over-how-you-work" ><a class="heading-link" href="#more-control-over-how-you-work">More control over how you work<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<p>You can switch models for the next message and keep that choice throughout the conversation. In Slack, you can also set default owners and repositories. This makes it easier to keep work moving across repositories and shared conversations.</p>
+<h3 id="bug-fixes-and-reliability-improvements" id="bug-fixes-and-reliability-improvements" ><a class="heading-link" href="#bug-fixes-and-reliability-improvements">Bug fixes and reliability improvements<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<p>We&rsquo;ve improved how Copilot handles longer-running tasks, including clearer implementation-plan status, better handling of interrupted or stale replies, and more predictable reconnection behavior when a conversation goes idle. In Microsoft Teams, Copilot now more reliably retains channel-thread history, avoids duplicate answers, correctly handles Teams-converted images, and works more consistently with user-owned repositories and large channels. In Slack, we improved implementation-plan recovery, fixed repository picker and code-channel issues, and made repository switching safer so superseded sessions cannot continue acting in the old repository. Across both experiences, Copilot now provides more accurate messages when a task stalls, a connection is interrupted, or access settings prevent work from continuing.</p>
+<h3 id="availability" id="availability" ><a class="heading-link" href="#availability">Availability<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<p>The public preview is available to organizations on GitHub Copilot Business and GitHub Copilot Enterprise plans. Usage counts against your existing Copilot entitlements and can be managed with existing Copilot cloud agent budgets. Some capabilities are rolling out gradually and may not yet be available in every workspace.</p>
+<h3 id="get-started-in-slack" id="get-started-in-slack" ><a class="heading-link" href="#get-started-in-slack">Get started in Slack<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<ol>
+<li>Make sure an administrator has enabled the Copilot cloud agent policy for your organization.
+</li>
+<li>
+<p>Install or upgrade the GitHub app for Slack.</p>
+</li>
+<li>
+<p>Link your GitHub account and mention @GitHub in a conversation.</p>
+</li>
+</ol>
+<p>For setup details and supported workflows, see <a href="https://docs.github.com/copilot/how-tos/use-copilot-agents/coding-agent/integrate-coding-agent-with-slack">how to use Copilot coding agent with Slack.</a></p>
+<h3 id="get-started-in-microsoft-teams" id="get-started-in-microsoft-teams" ><a class="heading-link" href="#get-started-in-microsoft-teams">Get started in Microsoft Teams<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h3>
+<ol>
+<li>Make sure an administrator has enabled GitHub Copilot cloud agent and cloud sandboxes.
+</li>
+<li>
+<p>Install or upgrade the GitHub app for Microsoft Teams.</p>
+</li>
+<li>
+<p>In Teams, mention @GitHub and follow the prompts to connect your GitHub account.</p>
+</li>
+</ol>
+<p>For setup details and supported workflows, see <a href="https://docs.github.com/copilot/how-tos/copilot-integrations/integrate-cloud-agent-with-teams">how to integrate GitHub Copilot cloud agent with Microsoft Teams.</a></p>
+<p>Join the discussion within <a href="https://github.com/orgs/community/discussions/categories/copilot-conversations">GitHub Community</a>.<br>
+<img decoding="async" src="https://github.com/user-attachments/assets/ce7455b5-e89a-479a-8460-6ac0b003d6fb" alt="social"></p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-25-updates-to-github-copilot-for-slack-and-microsoft-teams">Updates to GitHub Copilot for Slack and Microsoft Teams</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Improvement]]></category>
+<category domain="changelog-label"><![CDATA[collaboration tools]]></category>
+<category domain="changelog-label"><![CDATA[copilot]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99070</post-id>	</item>
+		<item>
+		<title>CodeQL 2.27.1 adds C and C++ query and Kotlin 2.4.20 support</title>
+		<link>https://github.blog/changelog/2026-09-25-codeql-2-27-1-adds-c-and-c-query-and-kotlin-2-4-20-support</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Fri, 25 Sep 2026 09:55:23 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-25-codeql-2-27-1-adds-c-and-c-query-and-kotlin-2-4-20-support</guid>
+
+					<description><![CDATA[<p>CodeQL 2.27.1 adds new queries for C/C++ and C#, support for Kotlin 2.4.20, and query-accuracy improvements. CodeQL is the static analysis engine behind GitHub code scanning, which helps you find&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-25-codeql-2-27-1-adds-c-and-c-query-and-kotlin-2-4-20-support">CodeQL 2.27.1 adds C and C++ query and Kotlin 2.4.20 support</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p><a href="https://codeql.github.com/docs/codeql-overview/codeql-changelog/codeql-cli-2.27.1/">CodeQL 2.27.1</a> adds new queries for C/C++ and C#, support for Kotlin 2.4.20, and query-accuracy improvements. CodeQL is the static analysis engine behind GitHub code scanning, which helps you find and remediate security issues in your code.</p>
+<h2 id="language-and-framework-support" id="language-and-framework-support" ><a class="heading-link" href="#language-and-framework-support">Language and framework support<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p><strong>C/C++</strong></p>
+<ul>
+<li>We&rsquo;ve added taint flow models for <code>boost::asio::ip::basic_resolver::resolve</code>, flow summaries for Bloomberg Development Environment&rsquo;s <code>BloombergLP::bdlbb::Blob</code> segmented byte buffer, and flow summaries for the Protocol Buffers <code>google::protobuf::MessageLite</code> C++ API.</li>
+</ul>
+<p><strong>Go</strong></p>
+<ul>
+<li>We&rsquo;ve added or improved data flow models for Go 1.27 standard-library APIs, including <code>bytes.CutLast</code>, <code>database/sql.ConvertAssign</code>, <code>database/sql/driver.RowsColumnScanner.ScanColumn</code>, <code>net/url.URL.Clone</code>, <code>net/url.Values.Clone</code>, <code>strings.CutLast</code>, and the new <code>encoding/json/jsontext</code> package.</li>
+<li>We&rsquo;ve expanded data flow models for the <code>strings</code> package, including <code>Clone</code>, <code>Cut</code>, <code>CutPrefix</code>, <code>CutSuffix</code>, <code>Fields</code>, <code>FieldsFunc</code>, <code>Join</code>, <code>Builder</code>, <code>Reader</code>, and <code>Replacer</code> APIs.</li>
+</ul>
+<p><strong>Java/Kotlin</strong></p>
+<ul>
+<li>CodeQL now supports Kotlin 2.4.20.</li>
+<li>We&rsquo;ve fixed extraction of <code>Foo::class.java</code> arguments when using the Kotlin K2 compiler. This reduces false positives in queries such as <code>java/android/implicit-pendingintents</code>.</li>
+</ul>
+<p><strong>JavaScript/TypeScript</strong></p>
+<ul>
+<li>CodeQL now recognizes Fastify servers configured through chainable methods such as <code>fastify().withTypeProvider()</code> and <code>fastify().setValidatorCompiler(...)</code>. This improves route attribution, which may add results for queries such as <code>js/missing-rate-limiting</code> and remove false positives when globally registered plugins protect routes.</li>
+</ul>
+<p><strong>Rust</strong></p>
+<ul>
+<li>We&rsquo;ve fixed path resolution for <code>m::{self}</code> paths when <code>m</code> is a trait.</li>
+<li>We&rsquo;ve added data flow models for <code>core::fmt::Write</code>, improving detection of vulnerabilities where tainted data is written to formatted output buffers.</li>
+<li>The Rust extractor now uses <code>rust-analyzer</code> version 0.0.347. This updates the Rust library AST with new node types and accessor APIs. See the <a href="https://codeql.github.com/docs/codeql-overview/codeql-changelog/codeql-cli-2.27.1/">CodeQL 2.27.1 changelog</a> for migration details.</li>
+</ul>
+<h2 id="query-changes" id="query-changes" ><a class="heading-link" href="#query-changes">Query changes<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p><strong>C/C++</strong></p>
+<ul>
+<li>We&rsquo;ve added the <code>cpp/ambiguous-assignment-of-comparison</code> query to detect potentially ambiguous expressions that assign a comparison result to a variable and use the assignment as a truth value.</li>
+</ul>
+<p><strong>C#</strong></p>
+<ul>
+<li>We&rsquo;ve added the <code>cs/linq/missed-firstordefault</code> query, which identifies <code>foreach</code> loops that can be expressed more clearly with LINQ&rsquo;s <code>FirstOrDefault</code> method.</li>
+<li>The <code>cs/linq/missed-*</code> queries no longer suggest lambda rewrites that capture <code>in</code>, <code>out</code>, or <code>ref</code> parameters, preventing suggestions that wouldn&rsquo;t compile.</li>
+<li>The <code>cs/web/missing-token-validation</code> query now recognizes ASP.NET Core&rsquo;s <code>AutoValidateAntiforgeryTokenAttribute</code> when you register it as a global MVC filter through <code>AddControllersWithViews</code> and related methods. This reduces false positives for protected actions.</li>
+</ul>
+<p><strong>GitHub Actions</strong></p>
+<ul>
+<li>The <code>actions/unpinned-tag</code> query no longer reports actions pinned by a structurally valid <code>.github/workflows/actions.lock</code> entry for the enclosing workflow.</li>
+<li>The <code>actions/unpinned-tag</code> query no longer reports <code>$/</code> self-repository references, such as <code>uses: $/path/to/action</code>, because they resolve to the same repository at the running commit and are inherently pinned.</li>
+</ul>
+<h2 id="other-improvements" id="other-improvements" ><a class="heading-link" href="#other-improvements">Other improvements<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p><strong>C#</strong></p>
+<ul>
+<li>Private NuGet registries with the <strong>Replaces base</strong> option enabled in the organization-level private registry configuration now replace default NuGet feeds whenever CodeQL downloads dependencies, including when a project explicitly configures default feeds.</li>
+</ul>
+<p>For full details, see the <a href="https://codeql.github.com/docs/codeql-overview/codeql-changelog/codeql-cli-2.27.1/">CodeQL 2.27.1 changelog</a>. GitHub automatically deploys every new CodeQL version to users of GitHub code scanning on github.com. GitHub Enterprise Server (GHES) 3.24 will include the new functionality in CodeQL 2.27.1. If you use an older version of GHES, you can <a href="https://docs.github.com/enterprise-server@3.22/admin/managing-code-security/managing-github-advanced-security-for-your-enterprise/configuring-code-scanning-for-your-appliance#configuring-codeql-analysis-on-a-server-without-internet-access">manually upgrade your CodeQL version</a>.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-25-codeql-2-27-1-adds-c-and-c-query-and-kotlin-2-4-20-support">CodeQL 2.27.1 adds C and C++ query and Kotlin 2.4.20 support</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Improvement]]></category>
+<category domain="changelog-label"><![CDATA[application security]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99066</post-id>	</item>
+		<item>
+		<title>Default Enablement of Copilot features for Copilot Business and Enterprise</title>
+		<link>https://github.blog/changelog/2026-09-24-default-enablement-of-copilot-features-for-copilot-business-and-enterprise</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Fri, 25 Sep 2026 03:13:23 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-24-default-enablement-of-copilot-features-for-copilot-business-and-enterprise</guid>
+
+					<description><![CDATA[<p>We&#8217;re introducing a new global default policy for generally available GitHub Copilot features and supported client capabilities in enterprise and organization Copilot settings. For the next 28 days, you can&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-24-default-enablement-of-copilot-features-for-copilot-business-and-enterprise">Default Enablement of Copilot features for Copilot Business and Enterprise</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>We&rsquo;re introducing a new global default policy for generally available GitHub Copilot features and supported client capabilities in enterprise and organization Copilot settings. For the next 28 days, you can configure this policy, but it won&rsquo;t affect feature access for your users yet.</p>
+<h2 id="whats-changing" id="whats-changing" ><a class="heading-link" href="#whats-changing">What&rsquo;s changing<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p>Today, you can configure the new policy by going to the &ldquo;AI Controls&rdquo; page, opening the &ldquo;Copilot&rdquo; subpage, and selecting an option under &ldquo;Default policy for new features&rdquo;. This policy applies to eligible features managed on your enterprise&rsquo;s &ldquo;Features &amp; clients&rdquo; page (i.e., https://github.com/enterprises/YOUR-ENTERPRISE-SLUG/ai-controls/copilot/features), as well as the Copilot Code Review policy on the &ldquo;Agents&rdquo; page and the MCP servers in Copilot policy. For feature eligibility and exceptions, see <a href="https://docs.github.com/copilot/concepts/enterprise/default-availability">our docs on default availability</a>.</p>
+<p>You can choose from the following settings:</p>
+<ul>
+<li><strong>Enabled</strong>: Current and future eligible features will be available to users by default.</li>
+<li><strong>Disabled</strong>: Current eligible features will remain unavailable, and future eligible features will require administrator approval.</li>
+<li><strong>Let organizations decide</strong>: Organization administrators can choose whether to enable or disable eligible features.</li>
+</ul>
+<p>Starting October 22, the policy takes effect. At that point:</p>
+<ul>
+<li>Eligible generally available features and capabilities left <strong>Unconfigured</strong> will follow your selected global default of enabled, disabled, or let organizations decide.</li>
+<li>Explicit decisions are preserved. If you&rsquo;ve explicitly enabled or disabled a feature, we won&rsquo;t override that choice.</li>
+<li>Preview features remain opt-in. If you opt into a preview and it later becomes generally available, your existing choice will be preserved. </li>
+</ul>
+<p>Join the discussion within <a href="https://github.com/orgs/community/discussions/208757">GitHub Community</a>.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-24-default-enablement-of-copilot-features-for-copilot-business-and-enterprise">Default Enablement of Copilot features for Copilot Business and Enterprise</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Improvement]]></category>
+<category domain="changelog-label"><![CDATA[copilot]]></category>
+<category domain="changelog-label"><![CDATA[enterprise management tools]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99060</post-id>	</item>
+		<item>
+		<title>Require proof of presence for high-impact actions</title>
+		<link>https://github.blog/changelog/2026-09-24-require-proof-of-presence-for-high-impact-actions</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Thu, 24 Sep 2026 20:28:33 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-24-require-proof-of-presence-for-high-impact-actions</guid>
+
+					<description><![CDATA[<p>You can now require an interactive re-authentication or a multi-factor challenge before members take high-impact actions on GitHub Enterprise Cloud accounts. Proof of presence is an expansion of GitHub&#8217;s sudo&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-24-require-proof-of-presence-for-high-impact-actions">Require proof of presence for high-impact actions</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>You can now require an interactive re-authentication or a multi-factor challenge before members take high-impact actions on GitHub Enterprise Cloud accounts. Proof of presence is an expansion of GitHub&rsquo;s sudo mode for enterprises, enforcing a higher security bar when it&rsquo;s needed. This public preview is only scoped to managed user (EMU) enterprises on github.com and GHEC-DR that use Microsoft Entra ID as their SSO identity provider (IdP), via SAML or OIDC.</p>
+<p>Stolen session cookies and long-lived authentication tokens have shown up in several recent supply chain attacks. Proof of presence confirms that a real, authorized person is acting at the moment the high-impact action happens, not just that a valid session or token was used. We validate this by sending the user back to their IdP to check, allowing you to set custom IdP policies to govern the actions taken on GitHub. This improves security posture by blocking the use of compromised or hijacked credentials or agents going an extra step without your knowledge. It also helps regulated customers meet compliance requirements for fresh authentication before sensitive operations from frameworks like FDA Part 11.</p>
+<p>With proof of presence enabled:</p>
+<ul>
+<li>When an enterprise member attempts a high-impact action (e.g., creating a token, editing webhooks, changing organization security settings, viewing recovery codes) GitHub redirects them to their IdP to satisfy a specific authentication policy. This might mean performing multi-factor authentication, checking for device compliance, or just signing in again to prove freshness.</li>
+<li>GitHub only allows the action to proceed if the user comes back from the IdP with proof they satisfied the required policy.</li>
+</ul>
+<p>Proof of presence uses the same session model as sudo mode. After a successful challenge, the user can continue performing high-impact actions in that browser session for two hours without performing another proof of presence check.</p>
+<p>If your enterprise uses Entra ID for SSO, you can configure proof of presence to add this extra layer of verification through one of these requirements:</p>
+<ol>
+<li><strong>Re-authentication</strong>: The member authenticates again with your IdP. Depending on your IdP policy, a password may satisfy this.</li>
+<li><strong>MFA</strong>: The member authenticates again and satisfies an additional multi-factor challenge (e.g., authenticator app, biometric) as configured in your IdP.</li>
+</ol>
+<p>Support for proof of presence before pull request merges is coming soon.</p>
+<p>Learn more about <a href="https://docs.github.com/enterprise-cloud@latest/admin/configuring-settings/hardening-security-for-your-enterprise/configuring-proof-of-presence">how to configure proof of presence</a> and <a href="https://docs.github.com/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/sudo-mode">sudo mode</a>, or join the conversation in <a href="https://github.com/orgs/community/discussions/64212">GitHub Community</a>.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-24-require-proof-of-presence-for-high-impact-actions">Require proof of presence for high-impact actions</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Release]]></category>
+<category domain="changelog-label"><![CDATA[account management]]></category>
+<category domain="changelog-label"><![CDATA[application security]]></category>
+<category domain="changelog-label"><![CDATA[enterprise management tools]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99054</post-id>	</item>
+		<item>
+		<title>Expired GitHub Actions artifacts no longer shown in UI and API</title>
+		<link>https://github.blog/changelog/2026-09-24-expired-github-actions-artifacts-no-longer-shown-in-ui-and-api</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Thu, 24 Sep 2026 19:13:02 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-24-expired-github-actions-artifacts-no-longer-shown-in-ui-and-api</guid>
+
+					<description><![CDATA[<p>Expired artifacts are no longer displayed in the GitHub Actions run summary or returned by the REST API. Previously, an expired artifact remained visible with an &#8220;Expired&#8221; pill, even though&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-24-expired-github-actions-artifacts-no-longer-shown-in-ui-and-api">Expired GitHub Actions artifacts no longer shown in UI and API</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>Expired artifacts are no longer displayed in the GitHub Actions run summary or returned by the REST API. Previously, an expired artifact remained visible with an &ldquo;Expired&rdquo; pill, even though the underlying files had already been deleted from storage.</p>
+<p>That leftover pill left some users unsure whether they were still being billed for storing artifacts that no longer existed. To remove that ambiguity, expired artifacts will not be shown when viewing run data, including:</p>
+<ul>
+<li>The list of artifacts on a workflow run summary page.</li>
+<li>The <a href="https://docs.github.com/rest/actions/artifacts#list-artifacts-for-a-repository">list artifacts for a repository</a> and <a href="https://docs.github.com/rest/actions/artifacts#get-an-artifact">get an artifact</a> REST API endpoints.</li>
+</ul>
+<p>If you need to know which artifacts a workflow run produced after they&rsquo;ve expired, you can still find that information in the run&rsquo;s logs. This change doesn&rsquo;t affect artifact retention settings or billing&mdash;it only changes how expired artifacts are displayed.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-24-expired-github-actions-artifacts-no-longer-shown-in-ui-and-api">Expired GitHub Actions artifacts no longer shown in UI and API</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Improvement]]></category>
+<category domain="changelog-label"><![CDATA[actions]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99049</post-id>	</item>
+		<item>
+		<title>More ways to request and configure Copilot code reviews</title>
+		<link>https://github.blog/changelog/2026-09-23-copilot-code-review-more-ways-to-request-and-configure-reviews</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Wed, 23 Sep 2026 21:25:58 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-23-copilot-code-review-more-ways-to-request-and-configure-reviews</guid>
+
+					<description><![CDATA[<p>GitHub Copilot code review now offers additional personal configurations to an expanded set of Copilot plans and an enterprise-level default setting. These improvements are now generally available: A dedicated personal&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-23-copilot-code-review-more-ways-to-request-and-configure-reviews">More ways to request and configure Copilot code reviews</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>GitHub Copilot code review now offers additional personal configurations to an expanded set of Copilot plans and an enterprise-level default setting. These improvements are now generally available:</p>
+<ul>
+<li>A dedicated personal settings page for automatic review and your default review effort</li>
+<li>An enterprise-wide default review effort setting for organization-owned repositories</li>
+</ul>
+<h2 id="%e2%9a%99%ef%b8%8f-manage-your-personal-review-settings" id="%e2%9a%99%ef%b8%8f-manage-your-personal-review-settings" ><a class="heading-link" href="#%e2%9a%99%ef%b8%8f-manage-your-personal-review-settings">&#9881;&#65039; Manage your personal review settings<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p>Previously, personal Copilot code review settings were available only with Copilot Pro, Pro+, and Max on the &ldquo;Copilot features&rdquo; page. They covered a single automatic review setting without separate controls for draft pull requests or new pushes.</p>
+<p>Under <strong>your profile &rarr; Copilot settings</strong>, a dedicated &ldquo;code review&rdquo; page under <strong>Copilot</strong> is now available on every Copilot plan, including Copilot Business and Copilot Enterprise. From this page you can:</p>
+<ul>
+<li>Turn on automatic reviews from Copilot, which will trigger when you create a pull request, coauthor a pull request, or move a pull request out of draft state.</li>
+<li>Turn on automatic review for new pushes and for draft pull requests you create or coauthor.</li>
+<li>Set your default review effort, shown today as <strong>Lite</strong> or <strong>Balanced</strong>.</li>
+</ul>
+<p>Your default effort applies to reviews you request, including reviews configured to automatically review your pull request. When manually requesting a review from Copilot via the pull request page under &ldquo;Reviewers&rdquo;, you can still select a different review effort before requesting.</p>
+<p><img decoding="async" alt="Screenshot of personal Copilot code review settings page including Automatic review and review effort level settings" src="https://github.com/user-attachments/assets/4a8323f5-a0e7-4bb2-b6ce-a7ba744cfd85"></p>
+<h2 id="%f0%9f%8f%a2-set-an-enterprise-default-review-effort" id="%f0%9f%8f%a2-set-an-enterprise-default-review-effort" ><a class="heading-link" href="#%f0%9f%8f%a2-set-an-enterprise-default-review-effort">&#127970; Set an enterprise default review effort<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p>Authorized enterprise administrators can now set one default review effort (i.e., <strong>Lite</strong>, <strong>Balanced</strong>, or the GitHub default) for the whole enterprise. The default applies to organization-owned repositories through inheritance. Organizations and repositories can still set their own overrides.</p>
+<p><img decoding="async" alt="screenshot of Copilot code review enterprise settings depicting review effort level setting" src="https://github.com/user-attachments/assets/a6c708a2-0d52-4848-94c4-96a1228ad74b"></p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-23-copilot-code-review-more-ways-to-request-and-configure-reviews">More ways to request and configure Copilot code reviews</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-label"><![CDATA[copilot]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99014</post-id>	</item>
+		<item>
+		<title>Node 20 is no longer available in GitHub Actions</title>
+		<link>https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Wed, 23 Sep 2026 20:46:07 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions</guid>
+
+					<description><![CDATA[<p>This is the final notification that Node 20 is no longer available on GitHub Actions runners. Runners now use Node 24 for JavaScript actions. The temporary ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION opt-out is no&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions">Node 20 is no longer available in GitHub Actions</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>This is the final notification that Node 20 is no longer available on GitHub Actions runners. Runners now use Node 24 for JavaScript actions. The temporary <code>ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION</code> opt-out is no longer available.</p>
+<p>If you maintain a JavaScript action, update its <code>runs.using</code> value to <code>node24</code> and publish a new release as soon as possible. For details, see the <a href="https://docs.github.com/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-javascript-actions">metadata syntax for JavaScript actions</a>.</p>
+<p>If you use JavaScript actions in your workflows, update to the latest versions of those actions that support Node 24. For details, see <a href="https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions">using versions for actions</a>.</p>
+<p>The newest versions of all first-party actions were updated to use Node 24 as referenced in our <a href="https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/">announcement changelog</a>.</p>
+<p>Node 24 is incompatible with macOS 13.4 and earlier, and it doesn&rsquo;t officially support ARM32. Self-hosted runners using these operating systems or architectures are no longer supported. This change applies to github.com and GitHub with Data Residency.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions">Node 20 is no longer available in GitHub Actions</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Retired]]></category>
+<category domain="changelog-label"><![CDATA[actions]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">99010</post-id>	</item>
+		<item>
+		<title>Local sandboxing in the GitHub Copilot app</title>
+		<link>https://github.blog/changelog/2026-09-23-local-sandboxing-in-the-github-copilot-app</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Wed, 23 Sep 2026 15:00:57 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-22-local-sandboxing-in-the-github-copilot-app</guid>
+
+					<description><![CDATA[<p>Local sandboxing helps reduce the potential impact of unintended commands by limiting access to files, network resources, and credentials on your machine. In the GitHub Copilot app, you configure it&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-23-local-sandboxing-in-the-github-copilot-app">Local sandboxing in the GitHub Copilot app</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>Local sandboxing helps reduce the potential impact of unintended commands by limiting access to files, network resources, and credentials on your machine. In the GitHub Copilot app, you configure it per project for local repository and working tree sessions.</p>
+<p>The project&rsquo;s sandbox settings include:</p>
+<ul>
+<li>Filesystem: Additional read/write, additional read-only, and denied folder lists.</li>
+<li>Network: Outbound internet and local network settings.</li>
+<li>Credentials: Git credentials for authenticated HTTPS git operations, and GitHub CLI credentials for GitHub CLI authentication.</li>
+</ul>
+<p>These project settings describe the policy that the app requests when a sandboxed session starts. The effective policy can be more restrictive when enterprise-managed settings apply.</p>
+<p>If your operating system cannot enforce the requested policy, the sandboxed shell fails with an error rather than running without a sandbox.</p>
+<h2 id="get-started" id="get-started" ><a class="heading-link" href="#get-started">Get started<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p>Local sandboxing is off by default. Open the app settings, select your project, and turn on <strong>Sandbox new sessions</strong> under &ldquo;Sandbox&rdquo;. This applies to new sessions in the project, not sessions already running. Changes to filesystem, network, and credential settings apply to new sessions or when an existing session restarts.</p>
+<p>To enable sandboxing for an active local session, enter <code>/sandbox on</code>. This changes that session without changing the project default.</p>
+<p>Local sandboxing does not apply to cloud sandbox sessions or sessions running on a remote host. GitHub Copilot app and Copilot CLI sandbox settings are configured separately.</p>
+<p>Local sandboxing is in public preview and subject to change.</p>
+<p>Learn more about <a href="https://gh.io/github-app-local-sandboxing">configuring local sandboxing in the GitHub Copilot app</a>.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-23-local-sandboxing-in-the-github-copilot-app">Local sandboxing in the GitHub Copilot app</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Release]]></category>
+<category domain="changelog-label"><![CDATA[copilot]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">98992</post-id>	</item>
+		<item>
+		<title>OpenTelemetry in the GitHub Copilot app</title>
+		<link>https://github.blog/changelog/2026-09-22-opentelemetry-in-the-github-copilot-app</link>
+		
+		<dc:creator><![CDATA[Allison]]></dc:creator>
+		<pubDate>Wed, 23 Sep 2026 02:14:54 +0000</pubDate>
+				<guid isPermaLink="false">https://github.blog/changelog/2026-09-22-opentelemetry-in-the-github-copilot-app</guid>
+
+					<description><![CDATA[<p>Understand how Copilot agents perform and interact with models and tools. The GitHub Copilot app now supports OpenTelemetry (OTel) configuration through enterprise-managed settings. OTel is an open source observability framework.&#8230;</p>
+<p>The post <a href="https://github.blog/changelog/2026-09-22-opentelemetry-in-the-github-copilot-app">OpenTelemetry in the GitHub Copilot app</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body><p>Understand how Copilot agents perform and interact with models and tools. The GitHub Copilot app now supports OpenTelemetry (OTel) configuration through enterprise-managed settings.<br>
+OTel is an open source observability framework. Administrators can use it to send agent activity data to their organization&rsquo;s compatible monitoring tools. This helps teams:</p>
+<ul>
+<li><strong>Analyze agent sessions:</strong> Follow the flow of a session, including requests to AI models and the tools an agent uses.</li>
+<li><strong>Investigate unexpected behavior:</strong> Review step-by-step traces of agent execution in their existing monitoring tools.</li>
+<li><strong>Manage monitoring centrally:</strong> Apply telemetry settings across teams instead of requiring each developer to individually configure them.</li>
+</ul>
+<p><img decoding="async" src="https://github.com/user-attachments/assets/27220bc7-5d8e-48b6-8ec3-09459ec17b4d" alt="Animated screen recording showing a GitHub Copilot conversation in Copilot app, followed by Splunk Observability Cloud&rsquo;s Trace Analyzer displaying a selected trace, expanded span hierarchy, and span details."></p>
+<h2 id="get-started" id="get-started" ><a class="heading-link" href="#get-started">Get started<span class="heading-hash pl-2 text-italic text-bold" aria-hidden="true"></span></a></h2>
+<p>Configure the <code>telemetry</code> property in your enterprise&rsquo;s <code>managed-settings.json</code> file to enable export and specify the endpoint that will receive the data. Prompt and response content is excluded by default&mdash;review your content-capture settings before enabling it.</p>
+<p>Learn more about <a href="https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/enterprise/opentelemetry">OpenTelemetry for agent monitoring</a> and <a href="https://docs.github.com/copilot/how-tos/administer-copilot/manage-for-enterprise/use-managed-settings/get-started">configuring enterprise-managed settings</a>.</p>
+</body></html>
+<p>The post <a href="https://github.blog/changelog/2026-09-22-opentelemetry-in-the-github-copilot-app">OpenTelemetry in the GitHub Copilot app</a> appeared first on <a href="https://github.blog">The GitHub Blog</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<category domain="changelog-type"><![CDATA[Release]]></category>
+<category domain="changelog-label"><![CDATA[copilot]]></category>
+<post-id xmlns="com-wordpress:feed-additions:1">98994</post-id>	</item>
+	</channel>
+</rss>
