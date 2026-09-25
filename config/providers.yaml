@@ -1,0 +1,51 @@
+# Proveedores y fuentes validadas — Bloque 1
+# Preflight: 2026-09-25
+
+providers:
+  - slug: aws
+    name: AWS
+    sources:
+      - kind: rss
+        url: https://aws.amazon.com/about-aws/whats-new/recent/feed/
+        enabled: true
+      - kind: rss
+        url: https://aws.amazon.com/blogs/aws/feed/
+        enabled: true
+
+  - slug: gcp
+    name: Google Cloud Platform
+    sources:
+      - kind: rss
+        url: https://docs.cloud.google.com/feeds/gcp-release-notes.xml
+        enabled: true
+
+  - slug: github
+    name: GitHub
+    sources:
+      - kind: rss
+        url: https://github.blog/changelog/feed/
+        enabled: true
+      - kind: rss
+        url: https://www.githubstatus.com/history.rss
+        enabled: true
+
+  - slug: twilio
+    name: Twilio
+    sources:
+      - kind: rss
+        url: https://www.twilio.com/en-us/changelog.feed.xml
+        enabled: true
+
+  - slug: cloudflare
+    name: Cloudflare
+    sources:
+      - kind: rss
+        url: https://developers.cloudflare.com/changelog/rss/index.xml
+        enabled: true
+
+  - slug: sentry
+    name: Sentry
+    sources:
+      - kind: rss
+        url: https://sentry.io/changelog/feed.xml
+        enabled: true

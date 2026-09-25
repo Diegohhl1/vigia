@@ -97,3 +97,49 @@ def test_get_conn_creates_and_initializes_db(tmp_path):
 
     names = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     assert "providers" in names
+
+
+def test_get_conn_initializes_existing_empty_db(tmp_path):
+    """get_conn sobre fichero vacío preexistente debe inicializar el schema."""
+    db_path = tmp_path / "empty.sqlite3"
+
+    # Crear fichero vacío (sin schema)
+    db_path.touch()
+    assert db_path.exists()
+
+    conn = get_conn(str(db_path))
+
+    # Verificar que las tablas se crearon
+    cursor = conn.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table'")
+    table_count = cursor.fetchone()[0]
+    assert table_count == 6, f"Debe crear 6 tablas, creó {table_count}"
+
+    conn.close()
+
+
+def test_pragma_busy_timeout_exact_value(tmp_path):
+    """PRAGMA busy_timeout debe ser exactamente 5000."""
+    db_path = tmp_path / "t.sqlite3"
+    conn = get_conn(str(db_path))
+
+    cursor = conn.execute("PRAGMA busy_timeout")
+    timeout = cursor.fetchone()[0]
+    assert timeout == 5000, f"busy_timeout debe ser 5000, es {timeout}"
+
+    conn.close()
+
+
+def test_foreign_keys_enforcement(tmp_path):
+    """FK inválida debe lanzar IntegrityError con foreign_keys=ON."""
+    db_path = tmp_path / "t.sqlite3"
+    conn = get_conn(str(db_path))
+
+    # Intentar insertar source con provider_id inexistente debe fallar
+    import pytest
+    with pytest.raises(sqlite3.IntegrityError):
+        conn.execute("""
+            INSERT INTO sources (provider_id, kind, url)
+            VALUES (99999, 'rss', 'http://example.com')
+        """)
+
+    conn.close()

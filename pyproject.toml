@@ -9,9 +9,6 @@ dependencies = [
     "pyyaml>=6.0",
 ]
 
-[project.scripts]
-vigia = "vigia.cli:main"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

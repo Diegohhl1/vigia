@@ -98,18 +98,10 @@ def get_conn(path: str = "vigia.sqlite3") -> sqlite3.Connection:
     Returns:
         Conexión SQLite con Row factory configurado.
     """
-    db_path = Path(path)
-    exists = db_path.exists()
-
-    conn = sqlite3.connect(str(db_path))
+    conn = sqlite3.connect(str(path))
     conn.row_factory = sqlite3.Row
 
-    if not exists:
-        init_db(conn)
-    else:
-        # Aplicar PRAGMAs aunque la BD ya exista
-        conn.execute("PRAGMA foreign_keys = ON")
-        conn.execute("PRAGMA journal_mode = WAL")
-        conn.execute("PRAGMA busy_timeout = 5000")
+    # Siempre inicializar schema (CREATE TABLE IF NOT EXISTS es idempotente)
+    init_db(conn)
 
     return conn
