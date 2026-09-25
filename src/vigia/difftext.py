@@ -12,7 +12,7 @@ _PRIORITY = re.compile(
     r"\b\d{4}[-/]\d{1,2}(?:[-/]\d{1,2})?\b|\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|"
     r"May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:t(?:ember)?)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
     r"\s+\d{1,2}(?:,?\s+\d{4})?\b|\b(?:deprecated|deprecat|remov|removed|removal|breaking|"
-    r"sunset|end-of-life|EOL)\b)",
+    r"sunset|end-of-life|EOL))",
     re.IGNORECASE,
 )
 
@@ -27,10 +27,11 @@ def _prioritised(parts: list[str], limit: int = 4000) -> list[str]:
     size = 0
     for index, part in ranked:
         extra = len(part) if not selected else len(part) + 1
-        if size + extra > limit:
+        remaining = limit - size - (1 if selected else 0)
+        if remaining <= 0:
             continue
-        selected.append((index, part))
-        size += extra
+        selected.append((index, part[:remaining]))
+        size += (1 if len(selected) > 1 else 0) + min(len(part), remaining)
     return [part for _, part in sorted(selected)]
 
 
@@ -50,8 +51,20 @@ def extract_diff(old: str, new: str) -> dict[str, list[str] | str]:
             removed.extend(old_parts[i1:i2])
         if tag in ("replace", "insert"):
             added.extend(new_parts[j1:j2])
-    added = _prioritised(added)
-    removed = _prioritised(removed)
+    combined = [("added", part) for part in added] + [("removed", part) for part in removed]
+    ranked = sorted(enumerate(combined), key=lambda item: (not bool(_PRIORITY.search(item[1][1])), item[0]))
+    selected: list[tuple[int, str, str]] = []
+    size = 0
+    for index, (kind, part) in ranked:
+        remaining = 4000 - size - (1 if selected else 0)
+        if remaining <= 0:
+            continue
+        clipped = part[:remaining]
+        selected.append((index, kind, clipped))
+        size += (1 if len(selected) > 1 else 0) + len(clipped)
+    selected.sort()
+    added = [part for _, kind, part in selected if kind == "added"]
+    removed = [part for _, kind, part in selected if kind == "removed"]
     return {
         "added": added,
         "removed": removed,
