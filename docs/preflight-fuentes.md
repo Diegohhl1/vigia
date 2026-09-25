@@ -47,7 +47,7 @@ Guardados en `tests/fixtures/`, recortados a <100KB en fronteras de `</item>` o 
 - `aws-blog.xml` (99287 bytes, 7 entries)
 - `gcp.xml` (42160 bytes, 2 entries)
 - `github.xml` (48141 bytes, 10 entries, completo original)
-- `github-status.xml` (76747 bytes, 25 entries, completo original)
+- `cloudflare-deprecations.xml` (92653 bytes, 48 entries, recortado en frontera de entrada, bozo=False)
 - `twilio.xml` (39850 bytes, 30 entries, completo original)
 - `cloudflare.xml` (96236 bytes, 25 entries de 1260 totales)
 - `sentry.xml` (99538 bytes, 154 entries de 320 totales)
@@ -73,16 +73,16 @@ Guardados en `tests/fixtures/`, recortados a <100KB en fronteras de `</item>` o 
 
 1. **AWS** (2 fuentes: recent feed RSS + blog RSS)
 2. **Google Cloud** (1 fuente: release notes Atom)
-3. **GitHub** (2 fuentes: changelog RSS + status RSS)
+3. **GitHub** (1 fuente: changelog RSS)
 4. **Twilio** (1 fuente: changelog RSS)
-5. **Cloudflare** (1 fuente: changelog RSS)
+5. **Cloudflare** (2 fuentes: changelog RSS + API deprecations RSS)
 6. **Sentry** (1 fuente: changelog RSS)
 
 **Total:** 6 proveedores, 8 fuentes activas.
 
 ## Gate de Continuación
 
-✅ **PASS** — Se requieren ≥8 fuentes válidas. Conseguidas exactamente 8 (de 7 proveedores únicos). Task 1 puede continuar.
+✅ **PASS** — Se requieren ≥8 fuentes válidas. Conseguidas exactamente 8 (de 6 proveedores únicos, dentro del límite 4-6). Task 1 puede continuar.
 
 ## Archivos Entregados
 
