@@ -47,9 +47,10 @@ def test_evaluate_false_positive_rate():
 
 
 def test_evaluate_gate_passed_at_threshold():
-    """Gate should pass exactly at recall ≥ 0.90 and FP < 0.10."""
-    # 10 pricing, 10 noise
+    """Gate should pass exactly at recall ≥ 0.90 per class and FP < 0.10."""
+    # 10 pricing, 10 breaking, 10 noise
     cases = [{"label": "pricing", "diff": f"p{i}"} for i in range(10)]
+    cases += [{"label": "breaking", "diff": f"b{i}"} for i in range(10)]
     cases += [{"label": "noise", "diff": f"n{i}"} for i in range(10)]
 
     def classifier_90_recall_0_fp(case: dict) -> dict:
@@ -61,7 +62,8 @@ def test_evaluate_gate_passed_at_threshold():
         return {"verdict": case["label"]}
 
     result = evaluate(cases, classifier_90_recall_0_fp)
-    assert result["protected_recall"] == 0.9
+    assert result["recall_pricing"] == 0.9
+    assert result["recall_breaking"] == 1.0
     assert result["false_positive_rate"] == 0.0
     assert result["gate_passed"] is True
 
@@ -222,3 +224,39 @@ def test_evaluate_dataset_threshold_per_class():
     assert result["recall_pricing"] >= 0.90
     assert result["recall_breaking"] >= 0.90
     assert result["false_positive_rate"] < 0.10
+
+
+def test_evaluate_gate_fails_when_protected_class_missing():
+    """Una clase protegida sin casos en el dataset → gate FAILED (nunca aprobada por defecto)."""
+    cases = [{"label": "pricing", "diff": f"p{i}"} for i in range(10)]
+    cases += [{"label": "noise", "diff": f"n{i}"} for i in range(10)]
+
+    result = evaluate(cases, lambda case: {"verdict": case["label"]})
+
+    assert result["recall_pricing"] == 1.0
+    assert result["gate_passed"] is False
+
+    from vigia.eval import evaluate_real
+    real = evaluate_real(cases, lambda diff, meta: {"verdict": "pricing" if diff.startswith("p") else "noise"})
+    assert real["gate_passed"] is False
+
+
+def test_cli_eval_always_writes_gate_state(tmp_path, monkeypatch):
+    """`vigia eval` sin --model escribe eval/gate_state.json con model=None."""
+    import json
+    import sys
+    import pytest
+    from vigia.cli import main
+
+    dataset = tmp_path / "cases.jsonl"
+    dataset.write_text(json.dumps({"id": "c1", "label": "pricing", "diff": "p", "prediction": {"verdict": "pricing"}}) + "\n")
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["vigia", "eval", "--dataset", str(dataset)])
+
+    with pytest.raises(SystemExit):  # sin breaking → gate falla → exit 1
+        main()
+
+    state = json.loads((tmp_path / "eval" / "gate_state.json").read_text())
+    assert state["model"] is None
+    assert state["gate_passed"] is False
+    assert state["dataset"] == str(dataset)

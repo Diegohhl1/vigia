@@ -143,7 +143,8 @@ def fetch_source(conn: sqlite3.Connection, source_row, client, commit: bool = Tr
             "UPDATE sources SET last_checked_at = ?, robots_checked_at = ? WHERE id = ?",
             (checked_at, robots_checked, source_id),
         )
-        conn.commit()
+        if commit:
+            conn.commit()
     if not allowed:
         return _failure(conn, source_id, "robots_disallowed", checked_at)
 

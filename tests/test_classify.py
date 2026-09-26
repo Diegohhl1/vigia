@@ -299,3 +299,23 @@ def test_classify_anti_injection_diff_is_delimited():
             break
     assert system_content is not None
     assert "untrusted" in system_content.lower() or "ignore" in system_content.lower()
+
+
+import pytest
+
+
+@pytest.mark.parametrize("content, reason", [
+    ('{"verdict":"minor","score":3.5,"summary":"s","evidence":"test"}', "invalid_score"),
+    ('{"verdict":"noise","score":1,"summary":"s","evidence":""}', "empty_evidence"),
+    ('{"verdict":"minor","score":2,"summary":"s","evidence":"   "}', "empty_evidence"),
+])
+def test_classify_float_score_or_empty_evidence_returns_needs_review(monkeypatch, content, reason):
+    """score solo int (no float/bool); evidencia vacía solo válida para needs_review."""
+    transport = httpx.MockTransport(lambda r: httpx.Response(200, json={"message": {"content": content}}))
+    original_client = httpx.Client
+    monkeypatch.setattr(httpx, "Client", lambda *a, **kw: original_client(transport=transport, **kw))
+
+    result = classify("test diff", {"url": "x"}, ollama_url="http://mock")
+
+    assert result["verdict"] == "needs_review"
+    assert result["summary"] == reason

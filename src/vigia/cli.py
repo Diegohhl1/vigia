@@ -70,46 +70,37 @@ def main():
             conn.close()
 
     elif args.command == "eval":
+        from datetime import datetime, timezone
+        from vigia.eval import evaluate
+
         cases = load_cases(args.dataset)
 
         if args.model:
             # Real evaluation with fresh classifier calls
-            from datetime import datetime, timezone
-
             def classifier_wrapper(diff_text, source_meta, **kwargs):
                 kwargs_merged = {"ollama_url": args.url} if args.url else {}
                 kwargs_merged["model"] = args.model
                 return classify(diff_text, source_meta, **kwargs_merged)
 
-            metrics = evaluate_real(
-                cases,
-                classifier_wrapper,
-                model=args.model,
-                dataset=args.dataset,
-            )
-
-            # Save gate state
-            gate_file = Path("eval/gate_state.json")
-            gate_file.parent.mkdir(exist_ok=True)
-            gate_state = {
-                "gate_passed": metrics["gate_passed"],
-                "protected_recall": metrics["protected_recall"],
-                "recall_pricing": metrics["recall_pricing"],
-                "recall_breaking": metrics["recall_breaking"],
-                "false_positive_rate": metrics["false_positive_rate"],
-                "evaluated_at": datetime.now(timezone.utc).isoformat(),
-                "model": args.model,
-                "dataset": args.dataset,
-            }
-            gate_file.write_text(json.dumps(gate_state, indent=2))
+            metrics = evaluate_real(cases, classifier_wrapper, model=args.model, dataset=args.dataset)
         else:
             # Use precalculated predictions
-            from vigia.eval import evaluate
+            metrics = evaluate(cases, lambda case: case["prediction"])
 
-            def use_prediction(case):
-                return case["prediction"]
-
-            metrics = evaluate(cases, use_prediction)
+        # Save gate state (siempre; model=None si se usaron predicciones precalculadas)
+        gate_file = Path("eval/gate_state.json")
+        gate_file.parent.mkdir(exist_ok=True)
+        gate_state = {
+            "gate_passed": metrics["gate_passed"],
+            "protected_recall": metrics["protected_recall"],
+            "recall_pricing": metrics["recall_pricing"],
+            "recall_breaking": metrics["recall_breaking"],
+            "false_positive_rate": metrics["false_positive_rate"],
+            "evaluated_at": datetime.now(timezone.utc).isoformat(),
+            "model": args.model,
+            "dataset": args.dataset,
+        }
+        gate_file.write_text(json.dumps(gate_state, indent=2))
 
         print(f"Cases: {metrics['cases']}")
         print(f"Protected cases: {metrics['protected_cases']}")

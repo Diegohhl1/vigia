@@ -92,17 +92,14 @@ def classify(
         score = parsed.get("score")
         if verdict not in VERDICTS or not isinstance(summary, str) or not isinstance(evidence, str):
             raise ValueError("invalid fields")
-        # score bool/float → needs_review
-        if isinstance(score, bool) or not isinstance(score, (int, float)):
+        # score solo int (bool y float → needs_review)
+        if isinstance(score, bool) or not isinstance(score, int):
             return _fallback("invalid_score")
-        score_int = int(score)
-        # Only clamp if value is already in a valid range being clamped
-        if not (0 <= score_int <= 10):
+        if not (0 <= score <= 10):
             return _fallback("score_out_of_range")
-        score = score_int
-        # evidence vacía con veredicto sustantivo → needs_review
-        if verdict in PROTECTED and not evidence.strip():
-            return _fallback("empty_evidence_for_protected")
+        # evidencia vacía solo es válida para needs_review
+        if verdict != "needs_review" and not evidence.strip():
+            return _fallback("empty_evidence")
         if evidence not in diff_text:
             return _fallback("evidence_not_in_diff")
         return {"verdict": verdict, "score": score, "summary": summary, "evidence": evidence}

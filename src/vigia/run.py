@@ -80,7 +80,7 @@ def run_all(
         try:
             sources = conn.execute(
                 "SELECT * FROM sources WHERE enabled = 1 ORDER BY id LIMIT ?",
-                (limit,) if limit else (-1,)
+                (-1 if limit is None else limit,)
             ).fetchall()
 
             sources_processed = 0
@@ -95,11 +95,6 @@ def run_all(
                     if result.get("error"):
                         # Error ya fue commiteado por _failure
                         errors.append({"source_id": source_id, "error": result["error"]})
-                        continue
-
-                    if not result.get("changed"):
-                        # 304 o sin cambios, ya commiteado
-                        sources_processed += 1
                         continue
 
                     # Process edits (RSS)
@@ -127,7 +122,7 @@ def run_all(
                             verdict_dict = classifier(diff_text, source_meta)
                             verdict_dict = _apply_gate(verdict_dict, gate)
 
-                        conn.execute(
+                        cur = conn.execute(
                             """INSERT OR IGNORE INTO changes (
                                 source_id, detected_at, verdict, score, summary, evidence,
                                 diff_text, old_excerpt, new_excerpt, source_url, model, prompt_version, review_status
@@ -148,7 +143,7 @@ def run_all(
                                 verdict_dict.get("review_status"),
                             )
                         )
-                        changes_created += 1
+                        changes_created += cur.rowcount  # 0 si el dedupe lo ignoró
 
                     # Process new entries (RSS post-baseline)
                     for new_entry in result.get("new", []):
@@ -172,7 +167,7 @@ def run_all(
                             verdict_dict = classifier(diff_text, source_meta)
                             verdict_dict = _apply_gate(verdict_dict, gate)
 
-                        conn.execute(
+                        cur = conn.execute(
                             """INSERT OR IGNORE INTO changes (
                                 source_id, detected_at, verdict, score, summary, evidence,
                                 diff_text, old_excerpt, new_excerpt, source_url, model, prompt_version, review_status
@@ -193,9 +188,9 @@ def run_all(
                                 verdict_dict.get("review_status"),
                             )
                         )
-                        changes_created += 1
+                        changes_created += cur.rowcount  # 0 si el dedupe lo ignoró
 
-                    # Commit atómico: fetch + changes de esta fuente
+                    # Exactamente un commit (o rollback abajo) por fuente, haya cambios o no
                     conn.commit()
                     sources_processed += 1
 

@@ -1,0 +1,16 @@
+Los 4 puntos están cerrados y la suite completa pasa: **94/94** (antes 83). Seguí TDD: 10 tests nuevos fallaron antes del fix; el del lock ya pasaba, así que queda como regresión. No hice commits.
+
+1. **Gate (cerrado):** sin casos de una clase protegida, su recall es 0.0 y el gate falla. Para aprobar hace falta ≥1 caso y recall ≥0.90 en pricing y en breaking, y FP <0.10. `evaluate_real` ahora usa `evaluate`, así que la regla del gate solo existe en un sitio. `vigia eval` escribe siempre `eval/gate_state.json`, con `"model"` (null si no se pasa `--model`). Actualicé el test de umbral para que incluya casos breaking.
+2. **Atomicidad (cerrado):**
+   - a) `run_all` hace un commit por fuente tanto si hay cambios como si no, y rollback si algo lanza.
+   - b) El timestamp de robots respeta `commit`.
+   - c) `changes_created` suma `cursor.rowcount`, así que un INSERT ignorado por dedupe no cuenta.
+   - `--limit 0` procesa 0 fuentes; antes procesaba todas.
+3. **classify (cerrado):** un score float (3.5) o bool devuelve needs_review, porque solo se acepta int de 0 a 10. La evidencia vacía o solo espacios se rechaza en cualquier veredicto que no sea needs_review.
+4. **Tests añadidos (11):**
+   - en `test_run.py`: conflicto real de idempotencia (no duplica ni cuenta), `--limit 0`, rollback con classifier que lanza (sin pérdida en la siguiente pasada), 200 sin cambios persistido, robots con `commit=False`, lock liberado tras excepción;
+   - en `test_eval.py`: gate sin breaking y `gate_state` siempre escrito;
+   - en `test_classify.py`: float y evidencia vacía, parametrizado en 3 casos.
+
+He tocado `classify.py`, `cli.py`, `eval.py`, `fetch.py` y `run.py`, más los 3 ficheros de tests. Grafo reindexado.
+EXIT:0

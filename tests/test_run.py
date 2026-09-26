@@ -447,3 +447,124 @@ def test_run_idempotent_same_diff_creates_single_change():
         if original_robots:
             fetch_module._robots_allowed = original_robots
         client.close()
+
+
+# --- Cierre bloque 3: atomicidad, idempotencia, limit, lock ---
+
+import pytest
+
+import vigia.fetch as fetch_module
+from vigia import run as run_module
+from vigia.fetch import fetch_source
+
+
+def _source(conn, baseline=True):
+    conn.execute("INSERT INTO providers (slug, name) VALUES ('aws', 'AWS')")
+    conn.execute(
+        "INSERT INTO sources (id, provider_id, kind, url, enabled, last_success_at) VALUES (1, 1, 'rss', 'http://aws/feed', 1, ?)",
+        ("2026-01-01T00:00:00Z" if baseline else None,),
+    )
+    if baseline:
+        conn.execute(
+            "INSERT INTO entries (source_id, external_id, url, published_at, content_hash, content) VALUES (1, 'e1', 'http://aws/e1', '2026-01-01', 'hash1', 'old')"
+        )
+    conn.commit()
+
+
+def _feed_client(items):
+    xml = "<?xml version='1.0'?><rss version='2.0'><channel>" + "".join(
+        f"<item><guid>{g}</guid><link>http://aws/{g}</link><title>{t}</title></item>" for g, t in items
+    ) + "</channel></rss>"
+    return httpx.Client(transport=httpx.MockTransport(
+        lambda r: httpx.Response(200, content=xml.encode(), headers={"Content-Type": "application/rss+xml"})
+    ))
+
+
+def _ok(diff_text, source_meta, **kw):
+    return {"verdict": "minor", "score": 2, "summary": "s", "evidence": ""}
+
+
+def test_run_idempotent_real_conflict_does_not_count_ignored(monkeypatch):
+    """changed=True dos veces con mismo external_id y mismo contenido → INSERT OR IGNORE no duplica ni cuenta."""
+    conn = get_conn(":memory:")
+    _source(conn)
+    edit = {"external_id": "e1", "url": "http://aws/e1", "old_content": "old", "new_content": "new"}
+    monkeypatch.setattr(run_module, "fetch_source", lambda c, s, cl, commit=True: {
+        "changed": True, "new_entries": 0, "edits": [dict(edit)], "new": [], "error": None})
+
+    assert run_all(conn, object(), classifier=_ok, gate=True)["changes_created"] == 1
+    assert run_all(conn, object(), classifier=_ok, gate=True)["changes_created"] == 0
+    assert conn.execute("SELECT COUNT(*) FROM changes").fetchone()[0] == 1
+
+
+def test_run_limit_zero_processes_no_sources(monkeypatch):
+    """--limit 0 → 0 fuentes (no todas)."""
+    conn = get_conn(":memory:")
+    _source(conn)
+    calls = []
+    monkeypatch.setattr(run_module, "fetch_source", lambda *a, **kw: calls.append(1))
+
+    report = run_all(conn, object(), limit=0)
+
+    assert calls == []
+    assert report["sources_processed"] == 0
+
+
+def test_run_classifier_exception_rolls_back_entries_and_next_run_recovers(monkeypatch):
+    """Classifier que lanza tras fetch → entries nuevas no quedan; la siguiente pasada las procesa."""
+    monkeypatch.setattr(fetch_module, "_robots_allowed", lambda url, client=None: (True, "2026-09-26T00:00:00Z"))
+    conn = get_conn(":memory:")
+    _source(conn)
+    client = _feed_client([("e1", "old"), ("e2", "brand new entry")])
+
+    def boom(diff_text, source_meta, **kw):
+        raise RuntimeError("ollama down")
+
+    report = run_all(conn, client, classifier=boom, gate=True)
+    assert len(report["errors"]) == 1
+    assert conn.execute("SELECT COUNT(*) FROM entries WHERE external_id = 'e2'").fetchone()[0] == 0
+    assert conn.execute("SELECT robots_checked_at FROM sources WHERE id = 1").fetchone()[0] is None
+
+    report = run_all(conn, client, classifier=_ok, gate=True)
+    assert report["errors"] == []
+    assert report["changes_created"] >= 1
+    assert conn.execute("SELECT COUNT(*) FROM changes WHERE source_url = 'http://aws/e2'").fetchone()[0] == 1
+
+
+def test_run_200_without_changes_persists_last_checked(monkeypatch):
+    """200 sin cambios (baseline) vía run_all → last_checked_at/last_success_at confirmados."""
+    monkeypatch.setattr(fetch_module, "_robots_allowed", lambda url, client=None: (True, ""))
+    conn = get_conn(":memory:")
+    _source(conn, baseline=False)
+
+    report = run_all(conn, _feed_client([("e1", "hello")]), classifier=_ok)
+    conn.rollback()  # si run_all dejó la transacción abierta, se pierde aquí
+
+    row = conn.execute("SELECT last_checked_at, last_success_at FROM sources WHERE id = 1").fetchone()
+    assert report["sources_processed"] == 1
+    assert row["last_checked_at"] is not None
+    assert row["last_success_at"] is not None
+
+
+def test_fetch_robots_timestamp_obeys_commit_flag(monkeypatch):
+    """Con commit=False el update de robots queda en la transacción abierta (rollback lo revierte)."""
+    monkeypatch.setattr(fetch_module, "_robots_allowed", lambda url, client=None: (True, "2026-09-26T00:00:00Z"))
+    conn = get_conn(":memory:")
+    _source(conn)
+    source = conn.execute("SELECT * FROM sources WHERE id = 1").fetchone()
+
+    fetch_source(conn, source, _feed_client([("e1", "old")]), commit=False)
+    conn.rollback()
+
+    assert conn.execute("SELECT robots_checked_at FROM sources WHERE id = 1").fetchone()[0] is None
+
+
+def test_run_lock_released_after_exception():
+    """Un run_all que lanza no deja el lock tomado."""
+    broken = get_conn(":memory:")
+    broken.close()
+    with pytest.raises(sqlite3.ProgrammingError):
+        run_all(broken, object())
+
+    conn = get_conn(":memory:")
+    assert run_all(conn, object())["sources_processed"] == 0
