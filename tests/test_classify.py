@@ -306,6 +306,8 @@ import pytest
 
 @pytest.mark.parametrize("content, reason", [
     ('{"verdict":"minor","score":3.5,"summary":"s","evidence":"test"}', "invalid_score"),
+    ('{"verdict":"minor","score":true,"summary":"s","evidence":"test"}', "invalid_score"),
+    ('{"verdict":"minor","score":false,"summary":"s","evidence":"test"}', "invalid_score"),
     ('{"verdict":"noise","score":1,"summary":"s","evidence":""}', "empty_evidence"),
     ('{"verdict":"minor","score":2,"summary":"s","evidence":"   "}', "empty_evidence"),
 ])
