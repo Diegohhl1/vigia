@@ -38,7 +38,15 @@ def _normalise(value: str) -> str:
 
 
 class _ResponseTooLarge(Exception):
-    """El cuerpo de la respuesta supera MAX_RESPONSE_BYTES."""
+    """El cuerpo de la respuesta supera MAX_RESPONSE_BYTES.
+
+    ``partial`` conserva el prefijo descargado (frontera de chunk), útil para
+    feeds gigantes donde el prefijo truncado sigue siendo parseable.
+    """
+
+    def __init__(self, url: str, partial: bytes = b""):
+        super().__init__(url)
+        self.partial = partial
 
 
 def _request(client, url: str, *, headers: dict[str, str]):
@@ -54,18 +62,24 @@ def _request(client, url: str, *, headers: dict[str, str]):
             # en lugar de cargar la respuesta completa en memoria.
             with client.stream("GET", url, headers=headers, timeout=30.0) as resp:
                 status = resp.status_code
-                resp_headers = resp.headers
+                resp_headers = httpx.Headers(resp.headers)
                 chunks: list[bytes] = []
                 total = 0
                 for chunk in resp.iter_bytes():
                     total += len(chunk)
                     if total > MAX_RESPONSE_BYTES:
-                        raise _ResponseTooLarge(url)
+                        raise _ResponseTooLarge(url, b"".join(chunks))
                     chunks.append(chunk)
                 content = b"".join(chunks)
             if (status >= 500 or status == 429) and attempt < MAX_RETRIES:
                 time.sleep(0.1 * (2 ** attempt))
                 continue
+            # iter_bytes() ya descomprimió el cuerpo: hay que eliminar los
+            # headers de codificación o la Response reconstruida reintenta
+            # descomprimir y lanza DecodingError.
+            resp_headers = httpx.Headers(
+                [(k, v) for k, v in resp_headers.raw if k.lower() not in (b"content-encoding", b"content-length")]
+            )
             return httpx.Response(status, headers=resp_headers, content=content, request=resp.request)
         except _ResponseTooLarge:
             raise
@@ -165,7 +179,11 @@ def fetch_source(conn: sqlite3.Connection, source_row, client, commit: bool = Tr
         headers["If-Modified-Since"] = source_row["last_modified"]
     try:
         response = _request(client, url, headers=headers)
-    except _ResponseTooLarge:
+    except _ResponseTooLarge as exc:
+        if kind == "rss" and exc.partial:
+            # Feed gigante: parsea el prefijo truncado (recortado a frontera
+            # de entrada) en vez de descartar la fuente.
+            return _fetch_feed(conn, source_id, exc.partial, checked_at, None, commit)
         return _failure(conn, source_id, "response_too_large", checked_at)
     except Exception as exc:
         return _failure(conn, source_id, str(exc), checked_at)
@@ -195,10 +213,30 @@ def fetch_source(conn: sqlite3.Connection, source_row, client, commit: bool = Tr
     return _fetch_feed(conn, source_id, response.content, checked_at, response.headers, commit)
 
 
+def _maybe_gunzip(payload: bytes) -> bytes:
+    """Algunos CDNs sirven gzip crudo ignorando la negociación: descomprime si ve el magic number."""
+    if payload[:2] == b"\x1f\x8b":
+        import gzip
+        try:
+            return gzip.decompress(payload)
+        except OSError:
+            return payload
+    return payload
+
+
 def _fetch_feed(conn, source_id, payload: bytes, checked_at: str, response_headers=None, commit: bool = True) -> dict:
+    payload = _maybe_gunzip(payload)
     parsed = feedparser.parse(payload)
     if getattr(parsed, "bozo", False) and not parsed.entries:
-        return _failure(conn, source_id, "feed_parse_error", checked_at)
+        # Los feeds gigantes (p. ej. Cloudflare, 7+ MB) pueden llegar truncados
+        # por el límite de descarga. Reintenta sobre el prefijo válido: recorta
+        # a la última frontera de </item> o </entry> completa.
+        cut = max(payload.rfind(b"</item>"), payload.rfind(b"</entry>"))
+        if cut > 0:
+            repaired = payload[:cut] + b"</channel></rss>"
+            parsed = feedparser.parse(repaired)
+        if getattr(parsed, "bozo", False) and not parsed.entries:
+            return _failure(conn, source_id, "feed_parse_error", checked_at)
     existing = {row[0]: row for row in conn.execute(
         "SELECT external_id, content_hash, content FROM entries WHERE source_id = ?", (source_id,)
     )}
