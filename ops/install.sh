@@ -29,6 +29,7 @@ cp "${SCRIPT_DIR}/vigia-run.service" "${SYSTEMD_USER_DIR}/"
 cp "${SCRIPT_DIR}/vigia-run.timer" "${SYSTEMD_USER_DIR}/"
 cp "${SCRIPT_DIR}/vigia-digest.service" "${SYSTEMD_USER_DIR}/"
 cp "${SCRIPT_DIR}/vigia-digest.timer" "${SYSTEMD_USER_DIR}/"
+cp "${SCRIPT_DIR}/vigia-notify@.service" "${SYSTEMD_USER_DIR}/"
 
 echo "Units installed to ${SYSTEMD_USER_DIR}"
 

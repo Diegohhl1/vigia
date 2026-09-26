@@ -35,7 +35,7 @@ cd /home/diego/Desktop/vigia
 
 **Esperado:**
 - Las 8 fuentes enabled procesadas (6 proveedores según Wiki/estado.md)
-- Exit code 0 aunque HAYA errores puntuales de red: `run` sale 1 solo si errors es no vacío; ante timeouts transitorios re-ejecutar antes de investigar
+- Exit code: **0 solo si `Errors: 0`**; cualquier error reportado → exit 1 (ante timeouts transitorios re-ejecutar antes de investigar)
 - Veredictos: con Ollama caído NO aparece error — los changes quedan `needs_review` (verificar en SQLite: `SELECT verdict, summary, review_status FROM changes ORDER BY id DESC LIMIT 10`)
 
 ### 3. Generación del sitio estático

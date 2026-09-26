@@ -1,0 +1,10 @@
+[Unit]
+Description=Vigía - Notify failure of %i
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/diego/Desktop/vigia
+EnvironmentFile=-/home/diego/Desktop/vigia/config/secrets.env
+Environment="PATH=/home/diego/.local/bin:/home/diego/Desktop/vigia/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+# Notifica el fallo por Telegram si hay credenciales; si no, lo deja en journal.
+ExecStart=/bin/bash -c '/home/diego/Desktop/vigia/.venv/bin/python -c "import os,httpx; t=os.environ.get(\"VIGIA_TG_TOKEN\",\"\"); c=os.environ.get(\"VIGIA_TG_CHAT_ID\",\"\"); exit() if not t or not c else httpx.post(f\"https://api.telegram.org/bot{t}/sendMessage\", json={\"chat_id\":c,\"text\":\"VIGIA FAILED: %i — journalctl --user -u %i -n 30\"}, timeout=15)" || true'
