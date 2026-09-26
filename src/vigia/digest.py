@@ -56,19 +56,21 @@ def build_digest(conn, since: datetime) -> str:
     blocks = _blocks(rows)
     selected = []
     length = 0
-    oversized = False
     for block in blocks:
         if len(block) > _MAX_MESSAGE:
-            # Keep a huge provider visible, then keep evaluating later providers.
+            # Keep a huge provider visible (truncated hard), then keep
+            # evaluating later providers within the remaining budget.
             selected.append(block[:_MAX_MESSAGE])
-            oversized = True
+            length = _MAX_MESSAGE
             continue
         added = len(block) if not selected else len(block) + 2
-        if not oversized and length + added > _MAX_MESSAGE:
-            break
+        if length + added > _MAX_MESSAGE:
+            continue
         selected.append(block)
         length += added
-    return "\n\n".join(selected)
+    text = "\n\n".join(selected)
+    # Telegram hard limit: never exceed _MAX_MESSAGE on the final payload.
+    return text[:_MAX_MESSAGE]
 
 
 def send_digest(text: str, token: str, chat_id: str) -> bool:

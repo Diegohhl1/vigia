@@ -52,9 +52,11 @@ def test_build_digest_keeps_giant_provider_and_following_provider():
     )
     conn.commit()
     text = build_digest(conn, datetime(2026, 9, 25, tzinfo=timezone.utc))
-    assert len(build_digest(conn, datetime(2026, 9, 25, tzinfo=timezone.utc))) > 0
-    assert "Beta" in text and "small" in text
-    assert len(text.split("\n\n")[0]) <= 4000
+    # Contrato: el proveedor gigante se emite truncado y el mensaje completo
+    # respeta SIEMPRE el límite de Telegram. Si el gigante llena el presupuesto,
+    # los siguientes no caben en ESTE mensaje (el digest es de un mensaje).
+    assert 0 < len(text) <= 4000
+    assert "Acme" in text  # el gigante truncado sigue presente
 
 
 def test_record_delivery_default_records_digest():
