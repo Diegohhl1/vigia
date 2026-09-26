@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import httpx
@@ -31,6 +33,21 @@ def main():
     eval_parser.add_argument("--dataset", default="eval/classifier_cases.v1.jsonl", help="Dataset path")
     eval_parser.add_argument("--model", help="Model name to use for evaluation")
     eval_parser.add_argument("--url", help="Ollama URL (default: http://127.0.0.1:11434)")
+
+    # vigia smoke
+    smoke_parser = subparsers.add_parser("smoke", help="Smoke test (run with limit)")
+    smoke_parser.add_argument("--limit", type=int, default=2, help="Max sources to process")
+    smoke_parser.add_argument("--db", default="vigia.sqlite3", help="Database path")
+
+    # vigia digest
+    digest_parser = subparsers.add_parser("digest", help="Send Telegram digest")
+    digest_parser.add_argument("--db", default="vigia.sqlite3", help="Database path")
+    digest_parser.add_argument("--hours", type=int, default=24, help="Window size in hours")
+
+    # vigia build-site
+    site_parser = subparsers.add_parser("build-site", help="Generate static site and RSS")
+    site_parser.add_argument("--db", default="vigia.sqlite3", help="Database path")
+    site_parser.add_argument("--out", default="site", help="Output directory")
 
     args = parser.parse_args()
 
@@ -112,6 +129,59 @@ def main():
 
         if not metrics['gate_passed']:
             sys.exit(1)
+
+    elif args.command == "smoke":
+        import time
+        conn = get_conn(args.db)
+        client = httpx.Client(timeout=30.0)
+        start = time.time()
+        try:
+            report = run_all(conn, client, classifier=classify, limit=args.limit)
+            duration = time.time() - start
+            print(f"Sources processed: {report['sources_processed']}")
+            print(f"Changes created: {report['changes_created']}")
+            print(f"Errors: {len(report['errors'])}")
+            if report['errors']:
+                for error in report['errors']:
+                    print(f"  - Source {error['source_id']}: {error['error']}")
+            print(f"Duration: {duration:.2f}s")
+            if report['errors']:
+                sys.exit(1)
+        finally:
+            client.close()
+            conn.close()
+
+    elif args.command == "digest":
+        from datetime import timedelta
+        from vigia.digest import build_digest, send_digest, record_delivery
+
+        token = os.environ.get("VIGIA_TG_TOKEN", "")
+        chat_id = os.environ.get("VIGIA_TG_CHAT_ID", "")
+        if not token or not chat_id:
+            print("VIGIA_TG_TOKEN and VIGIA_TG_CHAT_ID must be set", file=sys.stderr)
+            sys.exit(1)
+        conn = get_conn(args.db)
+        try:
+            now = datetime.now(timezone.utc)
+            text = build_digest(conn, now - timedelta(hours=args.hours))
+            if send_digest(text, token, chat_id):
+                record_delivery(conn, text)
+                print("Digest sent")
+            else:
+                print("Digest send failed", file=sys.stderr)
+                sys.exit(1)
+        finally:
+            conn.close()
+
+    elif args.command == "build-site":
+        from vigia.publish import build_site
+
+        conn = get_conn(args.db)
+        try:
+            written = build_site(conn, Path(args.out))
+            print(f"Pages written: {written}")
+        finally:
+            conn.close()
 
 
 if __name__ == "__main__":

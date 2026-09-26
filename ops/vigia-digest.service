@@ -1,0 +1,14 @@
+[Unit]
+Description=Vigía - Send Telegram digest
+After=network-online.target
+OnFailure=vigia-notify@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/diego/Desktop/vigia
+EnvironmentFile=-/home/diego/Desktop/vigia/config/secrets.env
+Environment="PATH=/home/diego/.local/bin:/home/diego/Desktop/vigia/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+ExecStart=/home/diego/Desktop/vigia/.venv/bin/vigia digest
+
+[Install]
+WantedBy=default.target
