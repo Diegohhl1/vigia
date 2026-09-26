@@ -1,0 +1,141 @@
+"""Tests for eval.py with synthetic cases and real jsonl."""
+
+from __future__ import annotations
+
+from vigia.eval import (
+    load_cases,
+    evaluate,
+    gate_allows_publication,
+    conservative_verdict,
+    PROTECTED,
+)
+
+
+def test_evaluate_recall_with_synthetic_pricing_and_breaking():
+    """Recall calculation should correctly count TP for pricing and breaking."""
+    cases = [
+        {"label": "pricing", "diff": "price $10"},
+        {"label": "breaking", "diff": "removed API"},
+        {"label": "noise", "diff": "typo fix"},
+    ]
+
+    def fake_classifier(case: dict) -> dict:
+        # Perfect classifier
+        return {"verdict": case["label"]}
+
+    result = evaluate(cases, fake_classifier)
+
+    assert result["protected_cases"] == 2
+    assert result["protected_recall"] == 1.0  # 2/2 correct
+
+
+def test_evaluate_false_positive_rate():
+    """FP rate should count non-protected labeled as protected."""
+    cases = [
+        {"label": "noise", "diff": "nav"},
+        {"label": "minor", "diff": "small"},
+        {"label": "pricing", "diff": "price"},
+    ]
+
+    def fake_classifier(case: dict) -> dict:
+        # Always says pricing (2 FP for noise/minor, 1 TP for pricing)
+        return {"verdict": "pricing"}
+
+    result = evaluate(cases, fake_classifier)
+
+    assert result["false_positive_rate"] == 1.0  # 2/2 non-protected mislabeled
+
+
+def test_evaluate_gate_passed_at_threshold():
+    """Gate should pass exactly at recall ≥ 0.90 and FP < 0.10."""
+    # 10 pricing, 10 noise
+    cases = [{"label": "pricing", "diff": f"p{i}"} for i in range(10)]
+    cases += [{"label": "noise", "diff": f"n{i}"} for i in range(10)]
+
+    def classifier_90_recall_0_fp(case: dict) -> dict:
+        # 9/10 pricing correct, 0 FP
+        if case["label"] == "pricing" and case["diff"] != "p9":
+            return {"verdict": "pricing"}
+        if case["label"] == "pricing" and case["diff"] == "p9":
+            return {"verdict": "noise"}  # 1 FN
+        return {"verdict": case["label"]}
+
+    result = evaluate(cases, classifier_90_recall_0_fp)
+    assert result["protected_recall"] == 0.9
+    assert result["false_positive_rate"] == 0.0
+    assert result["gate_passed"] is True
+
+
+def test_evaluate_gate_fails_below_threshold():
+    """Gate should fail if recall < 0.90 or FP ≥ 0.10."""
+    cases = [{"label": "pricing", "diff": f"p{i}"} for i in range(10)]
+    cases += [{"label": "noise", "diff": f"n{i}"} for i in range(10)]
+
+    def classifier_89_recall(case: dict) -> dict:
+        # Only 8.9/10 = 89% recall
+        if case["label"] == "pricing" and case["diff"] not in ["p9", "p8"]:
+            return {"verdict": "pricing"}
+        if case["label"] == "pricing" and case["diff"] == "p8":
+            return {"verdict": "pricing"}  # 9/10 = 0.9 but we want to test < 0.9
+        return {"verdict": "noise"}
+
+    # Actually let's make it fail clearly
+    def classifier_80_recall(case: dict) -> dict:
+        # 8/10 pricing correct
+        if case["label"] == "pricing" and int(case["diff"][1:]) < 8:
+            return {"verdict": "pricing"}
+        return {"verdict": "noise"}
+
+    result = evaluate(cases, classifier_80_recall)
+    assert result["protected_recall"] == 0.8
+    assert result["gate_passed"] is False
+
+
+def test_conservative_verdict_forces_needs_review_when_gate_fails():
+    """conservative_verdict should force needs_review if gate_passed is False."""
+    verdict = {"verdict": "pricing", "score": 8, "summary": "test"}
+    metrics = {"gate_passed": False}
+
+    result = conservative_verdict(verdict, metrics)
+
+    assert result["verdict"] == "needs_review"
+    assert result["review_status"] == "evaluation_gate_failed"
+
+
+def test_conservative_verdict_allows_when_gate_passes():
+    """conservative_verdict should pass through verdict if gate_passed is True."""
+    verdict = {"verdict": "pricing", "score": 8, "summary": "test"}
+    metrics = {"gate_passed": True}
+
+    result = conservative_verdict(verdict, metrics)
+
+    assert result == verdict
+
+
+def test_load_cases_reads_real_jsonl():
+    """load_cases should read the real classifier_cases.v1.jsonl with valid structure."""
+    cases = load_cases("eval/classifier_cases.v1.jsonl")
+
+    assert len(cases) >= 50
+    for case in cases:
+        assert "id" in case
+        assert "label" in case
+        assert case["label"] in ("pricing", "breaking", "noise", "minor", "needs_review")
+        assert "diff" in case
+        assert "prediction" in case
+
+
+def test_evaluate_on_real_predictions_gives_coherent_metrics():
+    """evaluate using real predictions from jsonl should produce sensible metrics."""
+    cases = load_cases("eval/classifier_cases.v1.jsonl")
+
+    def use_stored_prediction(case: dict) -> dict:
+        return case["prediction"]
+
+    result = evaluate(cases, use_stored_prediction)
+
+    assert result["cases"] == len(cases)
+    assert 0.0 <= result["protected_recall"] <= 1.0
+    assert 0.0 <= result["false_positive_rate"] <= 1.0
+    # Predictions are deterministic and tuned, should be high quality
+    assert result["protected_recall"] >= 0.85  # reasonable threshold for real data
