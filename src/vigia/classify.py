@@ -9,6 +9,7 @@ import httpx
 
 
 VERDICTS = ("noise", "minor", "pricing", "breaking", "needs_review")
+PROTECTED = {"pricing", "breaking"}
 DEFAULT_MODEL = "qwen2.5:7b"
 PROMPT_VERSION = "classifier-v2"
 
@@ -59,25 +60,25 @@ def classify(
     """Call Ollama and validate its verdict; every failure is reviewable."""
     if not isinstance(diff_text, str) or not diff_text.strip():
         return _fallback("empty_diff")
-    user_prompt = (
-        "SOURCE_METADATA_BEGIN\n"
-        + json.dumps(source_meta, ensure_ascii=False, sort_keys=True, default=str)
-        + "\nSOURCE_METADATA_END\n"
-        "UNTRUSTED_DIFF_BEGIN\n"
-        + diff_text
-        + "\nUNTRUSTED_DIFF_END"
-    )
-    body = {
-        "model": model,
-        "stream": False,
-        "temperature": 0,
-        "format": SCHEMA,
-        "messages": [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_prompt},
-        ],
-    }
     try:
+        user_prompt = (
+            "SOURCE_METADATA_BEGIN\n"
+            + json.dumps(source_meta, ensure_ascii=False, sort_keys=True, default=str)
+            + "\nSOURCE_METADATA_END\n"
+            "UNTRUSTED_DIFF_BEGIN\n"
+            + diff_text
+            + "\nUNTRUSTED_DIFF_END"
+        )
+        body = {
+            "model": model,
+            "stream": False,
+            "format": SCHEMA,
+            "options": {"temperature": 0},
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": user_prompt},
+            ],
+        }
         with httpx.Client(timeout=60.0) as client:
             response = client.post(ollama_url.rstrip("/") + "/api/chat", json=body)
             response.raise_for_status()
@@ -91,9 +92,17 @@ def classify(
         score = parsed.get("score")
         if verdict not in VERDICTS or not isinstance(summary, str) or not isinstance(evidence, str):
             raise ValueError("invalid fields")
+        # score bool/float → needs_review
         if isinstance(score, bool) or not isinstance(score, (int, float)):
-            raise ValueError("invalid score")
-        score = max(0, min(10, int(score)))
+            return _fallback("invalid_score")
+        score_int = int(score)
+        # Only clamp if value is already in a valid range being clamped
+        if not (0 <= score_int <= 10):
+            return _fallback("score_out_of_range")
+        score = score_int
+        # evidence vacía con veredicto sustantivo → needs_review
+        if verdict in PROTECTED and not evidence.strip():
+            return _fallback("empty_evidence_for_protected")
         if evidence not in diff_text:
             return _fallback("evidence_not_in_diff")
         return {"verdict": verdict, "score": score, "summary": summary, "evidence": evidence}

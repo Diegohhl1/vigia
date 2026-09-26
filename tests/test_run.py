@@ -37,7 +37,7 @@ def test_run_two_sources_one_changes():
         from vigia import run as run_module
         original_fetch = run_module.fetch_source
 
-        def mock_fetch(conn_inner, source_row, client):
+        def mock_fetch(conn_inner, source_row, client, commit=True):
             if source_row["url"] == "http://aws/feed":
                 # Edit to existing entry
                 return {
@@ -65,7 +65,7 @@ def test_run_two_sources_one_changes():
         httpx.Client = lambda **kwargs: None
 
         try:
-            report = run_all(conn, None, classifier=fake_classifier)
+            report = run_all(conn, None, classifier=fake_classifier, gate=True)
         finally:
             httpx.Client = original_client
 
@@ -99,7 +99,7 @@ def test_run_second_execution_no_new_changes():
         from vigia import run as run_module
         original_fetch = run_module.fetch_source
 
-        def mock_fetch(conn_inner, source_row, client):
+        def mock_fetch(conn_inner, source_row, client, commit=True):
             return {"changed": False, "new_entries": 0, "edits": [], "error": None}
 
         run_module.fetch_source = mock_fetch
@@ -135,7 +135,7 @@ def test_run_baseline_first_ingestion_no_changes():
         from vigia import run as run_module
         original_fetch = run_module.fetch_source
 
-        def mock_fetch(conn_inner, source_row, client):
+        def mock_fetch(conn_inner, source_row, client, commit=True):
             # Simulates first ingestion: new_entries but changed=False (baseline)
             return {"changed": False, "new_entries": 5, "edits": [], "error": None}
 
@@ -174,7 +174,7 @@ def test_run_rss_edit_creates_change_with_diff():
         from vigia import run as run_module
         original_fetch = run_module.fetch_source
 
-        def mock_fetch(conn_inner, source_row, client):
+        def mock_fetch(conn_inner, source_row, client, commit=True):
             return {
                 "changed": True,
                 "new_entries": 0,
@@ -230,7 +230,7 @@ def test_run_error_in_one_source_does_not_abort_others():
         from vigia import run as run_module
         original_fetch = run_module.fetch_source
 
-        def mock_fetch(conn_inner, source_row, client):
+        def mock_fetch(conn_inner, source_row, client, commit=True):
             if source_row["url"] == "http://aws/feed":
                 return {"changed": False, "new_entries": 0, "edits": [], "error": "network_timeout"}
             else:
@@ -271,24 +271,30 @@ def test_run_error_in_one_source_does_not_abort_others():
 
 
 def test_run_concurrent_lock_fails_cleanly():
-    """Second run while first is locked → fails with clean error."""
+    """Second run while first is locked → fails with RuntimeError."""
+    import fcntl
+    from pathlib import Path
+    import pytest
+
     conn = get_conn(":memory:")
 
-    # This test will be implemented once run.py implements locking
-    # For now, we expect run_all to exist and accept the parameters
+    # Acquire lock manually to simulate concurrent run
+    lockfile_path = Path("/tmp/vigia-run.lock")
+    lockfile = lockfile_path.open("w")
+    fcntl.flock(lockfile.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+
     try:
         original_client = httpx.Client
         httpx.Client = lambda **kwargs: None
 
         try:
-            # Just verify the function exists and can be called
-            report = run_all(conn, None)
-            assert "errors" in report
+            with pytest.raises(RuntimeError, match="lock"):
+                run_all(conn, None)
         finally:
             httpx.Client = original_client
-    except Exception:
-        # Expected to fail until run.py is implemented
-        pass
+    finally:
+        fcntl.flock(lockfile.fileno(), fcntl.LOCK_UN)
+        lockfile.close()
 
 
 def test_run_no_classifier_uses_needs_review():
@@ -309,7 +315,7 @@ def test_run_no_classifier_uses_needs_review():
         from vigia import run as run_module
         original_fetch = run_module.fetch_source
 
-        def mock_fetch(conn_inner, source_row, client):
+        def mock_fetch(conn_inner, source_row, client, commit=True):
             return {
                 "changed": True,
                 "new_entries": 0,
@@ -338,3 +344,106 @@ def test_run_no_classifier_uses_needs_review():
     changes = conn.execute("SELECT * FROM changes").fetchall()
     assert len(changes) == 1
     assert changes[0]["verdict"] == "needs_review"
+
+
+def test_run_rss_new_entry_after_baseline_creates_change():
+    """New RSS entry after baseline → should create a change row."""
+    conn = get_conn(":memory:")
+
+    conn.execute("INSERT INTO providers (slug, name) VALUES ('aws', 'AWS')")
+    conn.execute(
+        "INSERT INTO sources (provider_id, kind, url, enabled, last_success_at) VALUES (1, 'rss', 'http://aws/feed', 1, '2026-01-01T00:00:00Z')"
+    )
+    # Baseline entry exists
+    conn.execute(
+        "INSERT INTO entries (source_id, external_id, url, published_at, content_hash, content) VALUES (1, 'e1', 'http://aws/e1', '2026-01-01T00:00:00Z', 'hash1', 'old content')"
+    )
+    conn.commit()
+
+    original_fetch = None
+    try:
+        from vigia import run as run_module
+        original_fetch = run_module.fetch_source
+
+        def mock_fetch(conn_inner, source_row, client, commit=True):
+            # Simulates new entry post-baseline
+            return {
+                "changed": True,
+                "new_entries": 1,
+                "edits": [],
+                "new": [{
+                    "external_id": "e2",
+                    "url": "http://aws/e2",
+                    "content": "New pricing: $20/month"
+                }],
+                "error": None
+            }
+
+        run_module.fetch_source = mock_fetch
+
+        original_client = httpx.Client
+        httpx.Client = lambda **kwargs: None
+
+        try:
+            report = run_all(conn, None)
+        finally:
+            httpx.Client = original_client
+    finally:
+        if original_fetch:
+            run_module.fetch_source = original_fetch
+
+    # Should create 1 change from the new entry
+    changes = conn.execute("SELECT * FROM changes").fetchall()
+    assert len(changes) == 1
+    assert "New pricing" in changes[0]["diff_text"]
+
+
+def test_run_idempotent_same_diff_creates_single_change():
+    """Processing same source with same diff twice → only 1 change row (ON CONFLICT IGNORE)."""
+    from pathlib import Path
+    conn = get_conn(":memory:")
+
+    conn.execute("INSERT INTO providers (slug, name) VALUES ('aws', 'AWS')")
+    conn.execute(
+        "INSERT INTO sources (id, provider_id, kind, url, enabled, last_success_at) VALUES (1, 1, 'rss', 'http://aws/feed', 1, '2026-01-01T00:00:00Z')"
+    )
+    conn.execute(
+        "INSERT INTO entries (source_id, external_id, url, published_at, content_hash, content) VALUES (1, 'e1', 'http://aws/e1', '2026-01-01', 'hash1', 'old')"
+    )
+    conn.commit()
+
+    # Mock feed with edit
+    feed_xml = b"""<?xml version="1.0"?>
+    <rss version="2.0"><channel>
+        <item><guid>e1</guid><link>http://aws/e1</link><title>new</title></item>
+    </channel></rss>"""
+
+    def handler(request):
+        return httpx.Response(200, content=feed_xml, headers={"Content-Type": "application/rss+xml"})
+
+    transport = httpx.MockTransport(handler)
+    client = httpx.Client(transport=transport)
+
+    # First run
+    from vigia.fetch import fetch_source
+    from vigia.classify import classify
+
+    original_robots = None
+    try:
+        import vigia.fetch as fetch_module
+        original_robots = fetch_module._robots_allowed
+        fetch_module._robots_allowed = lambda url, client=None: (True, "")
+
+        report = run_all(conn, client, classifier=classify, gate=True)
+        assert report["changes_created"] == 1
+
+        # Second run with same feed → 0 new changes (idempotence)
+        report2 = run_all(conn, client, classifier=classify, gate=True)
+        assert report2["changes_created"] == 0
+
+        changes = conn.execute("SELECT * FROM changes").fetchall()
+        assert len(changes) == 1
+    finally:
+        if original_robots:
+            fetch_module._robots_allowed = original_robots
+        client.close()

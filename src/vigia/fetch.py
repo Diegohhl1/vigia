@@ -125,8 +125,12 @@ def _published(entry) -> str:
     return _normalise(value or _now())
 
 
-def fetch_source(conn: sqlite3.Connection, source_row, client) -> dict:
-    """Descarga una fuente y actualiza su baseline; nunca propaga errores de red/parseo."""
+def fetch_source(conn: sqlite3.Connection, source_row, client, commit: bool = True) -> dict:
+    """Descarga una fuente y actualiza su baseline; nunca propaga errores de red/parseo.
+
+    Args:
+        commit: Si True, hace commit tras ingesta exitosa. Failure/304 siempre commitean.
+    """
     source_id = _value(source_row, "id")
     checked_at = _now()
     url = _value(source_row, "url")
@@ -185,11 +189,11 @@ def fetch_source(conn: sqlite3.Connection, source_row, client) -> dict:
     }:
         return _failure(conn, source_id, "invalid_content_type", checked_at)
     if kind == "html":
-        return _fetch_html(conn, source_id, source_row, response.content, checked_at, response.headers)
-    return _fetch_feed(conn, source_id, response.content, checked_at, response.headers)
+        return _fetch_html(conn, source_id, source_row, response.content, checked_at, response.headers, commit)
+    return _fetch_feed(conn, source_id, response.content, checked_at, response.headers, commit)
 
 
-def _fetch_feed(conn, source_id, payload: bytes, checked_at: str, response_headers=None) -> dict:
+def _fetch_feed(conn, source_id, payload: bytes, checked_at: str, response_headers=None, commit: bool = True) -> dict:
     parsed = feedparser.parse(payload)
     if getattr(parsed, "bozo", False) and not parsed.entries:
         return _failure(conn, source_id, "feed_parse_error", checked_at)
@@ -202,6 +206,7 @@ def _fetch_feed(conn, source_id, payload: bytes, checked_at: str, response_heade
     changed = False
     new_entries = 0
     edits = []
+    new = []
     for entry in parsed.entries:
         external_id = _normalise(getattr(entry, "id", "") or getattr(entry, "link", ""))
         link = _normalise(getattr(entry, "link", "") or external_id)
@@ -215,7 +220,9 @@ def _fetch_feed(conn, source_id, payload: bytes, checked_at: str, response_heade
                 (source_id, external_id, link, _published(entry), content_hash, content),
             )
             new_entries += 1
-            changed = not first_ingestion
+            if not first_ingestion:
+                changed = True
+                new.append({"external_id": external_id, "url": link, "content": content})
         elif existing[external_id][1] != content_hash:
             old_content = existing[external_id][2]
             conn.execute(
@@ -233,11 +240,12 @@ def _fetch_feed(conn, source_id, payload: bytes, checked_at: str, response_heade
          response_headers.get("Last-Modified") if response_headers else None,
          checked_at, checked_at, source_id),
     )
-    conn.commit()
-    return {"changed": changed, "new_entries": new_entries, "edits": edits, "error": None}
+    if commit:
+        conn.commit()
+    return {"changed": changed, "new_entries": new_entries, "edits": edits, "new": new, "error": None}
 
 
-def _fetch_html(conn, source_id, source_row, payload: bytes, checked_at: str, response_headers=None) -> dict:
+def _fetch_html(conn, source_id, source_row, payload: bytes, checked_at: str, response_headers=None, commit: bool = True) -> dict:
     selector = _value(source_row, "selector")
     soup = BeautifulSoup(payload, "html.parser")
     selected = soup.select_one(selector) if selector else None
@@ -246,7 +254,7 @@ def _fetch_html(conn, source_id, source_row, payload: bytes, checked_at: str, re
         return _failure(conn, source_id, "selector_empty_or_content_too_short", checked_at)
     content_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()
     previous = conn.execute(
-        "SELECT content_hash FROM snapshots WHERE source_id = ? ORDER BY id DESC LIMIT 1", (source_id,)
+        "SELECT content_hash, content FROM snapshots WHERE source_id = ? ORDER BY id DESC LIMIT 1", (source_id,)
     ).fetchone()
     if previous and previous[0] == content_hash:
         conn.execute(
@@ -257,7 +265,8 @@ def _fetch_html(conn, source_id, source_row, payload: bytes, checked_at: str, re
              response_headers.get("Last-Modified") if response_headers else None,
              checked_at, checked_at, source_id),
         )
-        conn.commit()
+        if commit:
+            conn.commit()
         return {"changed": False, "new_entries": 0, "edits": [], "error": None}
     conn.execute(
         "INSERT INTO snapshots (source_id, taken_at, content_hash, content) VALUES (?, ?, ?, ?)",
@@ -271,5 +280,18 @@ def _fetch_html(conn, source_id, source_row, payload: bytes, checked_at: str, re
          response_headers.get("Last-Modified") if response_headers else None,
          checked_at, checked_at, source_id),
     )
-    conn.commit()
-    return {"changed": bool(previous), "new_entries": 0, "edits": [], "error": None}
+
+    # Devolver edits con old/new content para HTML snapshots
+    edits = []
+    if previous:
+        url = _value(source_row, "url")
+        edits = [{
+            "external_id": "html-snapshot",
+            "url": url,
+            "old_content": previous[1],
+            "new_content": content
+        }]
+
+    if commit:
+        conn.commit()
+    return {"changed": bool(previous), "new_entries": 0, "edits": edits, "error": None}

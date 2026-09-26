@@ -126,7 +126,7 @@ def test_load_cases_reads_real_jsonl():
 
 
 def test_evaluate_on_real_predictions_gives_coherent_metrics():
-    """evaluate using real predictions from jsonl should produce sensible metrics."""
+    """evaluate using PRECALCULATED predictions from jsonl (fixture check only)."""
     cases = load_cases("eval/classifier_cases.v1.jsonl")
 
     def use_stored_prediction(case: dict) -> dict:
@@ -138,4 +138,87 @@ def test_evaluate_on_real_predictions_gives_coherent_metrics():
     assert 0.0 <= result["protected_recall"] <= 1.0
     assert 0.0 <= result["false_positive_rate"] <= 1.0
     # Predictions are deterministic and tuned, should be high quality
-    assert result["protected_recall"] >= 0.85  # reasonable threshold for real data
+    assert result["protected_recall"] >= 0.90  # per-class threshold
+
+
+def test_evaluate_real_classifier_calls_classify_function():
+    """evaluate_real should call the classifier on fresh diffs, not cached predictions."""
+    cases = [
+        {"id": "t1", "label": "pricing", "diff": "price is $10"},
+        {"id": "t2", "label": "noise", "diff": "typo fix"},
+    ]
+
+    calls_made = []
+
+    def tracking_classifier(diff_text, source_meta, **kwargs):
+        calls_made.append(diff_text)
+        if "$10" in diff_text:
+            return {"verdict": "pricing", "score": 8, "summary": "test", "evidence": "$10"}
+        return {"verdict": "noise", "score": 1, "summary": "test", "evidence": "typo"}
+
+    from vigia.eval import evaluate_real
+
+    result = evaluate_real(cases, tracking_classifier)
+
+    # The classifier should be called with diff_text from each case
+    assert len(calls_made) == 2
+    assert any("$10" in call for call in calls_made)
+    assert result["recall_pricing"] == 1.0  # pricing case classified correctly
+
+
+def test_evaluate_per_class_recall_not_compensated():
+    """Recall must be ≥90% PER CLASS (pricing AND breaking), not aggregated."""
+    # 10 pricing (100% recall), 10 breaking (50% recall) → gate FAILS
+    cases = [{"label": "pricing", "diff": f"p{i}"} for i in range(10)]
+    cases += [{"label": "breaking", "diff": f"b{i}"} for i in range(10)]
+
+    def classifier_perfect_pricing_bad_breaking(case: dict) -> dict:
+        if case["label"] == "pricing":
+            return {"verdict": "pricing"}  # 10/10 pricing
+        if case["label"] == "breaking" and int(case["diff"][1:]) < 5:
+            return {"verdict": "breaking"}  # only 5/10 breaking
+        return {"verdict": "noise"}
+
+    result = evaluate(cases, classifier_perfect_pricing_bad_breaking)
+
+    # Aggregate recall would be 15/20 = 75%, but per-class should fail
+    assert result["recall_pricing"] == 1.0
+    assert result["recall_breaking"] == 0.5
+    assert result["gate_passed"] is False  # breaking recall < 0.90
+
+
+def test_evaluate_real_includes_metadata():
+    """evaluate_real should include model, prompt_version, dataset in metrics."""
+    cases = [{"id": "t1", "label": "pricing", "diff": "price $10"}]
+
+    def fake_classifier(diff_text, source_meta, **kwargs):
+        return {"verdict": "pricing", "score": 8, "summary": "test", "evidence": "$10"}
+
+    from vigia.eval import evaluate_real
+
+    result = evaluate_real(
+        cases,
+        fake_classifier,
+        model="qwen2.5:7b",
+        prompt_version="classifier-v2",
+        dataset="test-dataset.jsonl"
+    )
+
+    assert result["model"] == "qwen2.5:7b"
+    assert result["prompt_version"] == "classifier-v2"
+    assert result["dataset"] == "test-dataset.jsonl"
+
+
+def test_evaluate_dataset_threshold_per_class():
+    """Dataset evaluation should check ≥90% recall PER CLASS (pricing AND breaking)."""
+    cases = load_cases("eval/classifier_cases.v1.jsonl")
+
+    def use_stored_prediction(case: dict) -> dict:
+        return case["prediction"]
+
+    result = evaluate(cases, use_stored_prediction)
+
+    # Per-class thresholds
+    assert result["recall_pricing"] >= 0.90
+    assert result["recall_breaking"] >= 0.90
+    assert result["false_positive_rate"] < 0.10
