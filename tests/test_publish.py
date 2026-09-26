@@ -3,7 +3,7 @@ import sqlite3
 import xml.etree.ElementTree as ET
 
 from vigia.db import init_db
-from vigia.publish import build_site
+from vigia.publish import _rss, build_site
 
 
 def _db():
@@ -42,6 +42,20 @@ def test_build_site_publishes_only_approved_and_is_parseable(tmp_path):
     assert len(json.loads((site / "providers/acme/history.json").read_text())) == 2
 
 
+def test_rss_resolves_relative_source_url_and_guid_is_stable():
+    row = {
+        "source_url": "/changes/1",
+        "detected_at": "2026-09-26T03:00:00Z",
+        "id": 1,
+        "provider_name": "Acme",
+        "summary": "newer",
+    }
+    first = ET.fromstring(_rss([row], "https://example.test/"))
+    second = ET.fromstring(_rss([row], "https://example.test/"))
+    assert first.find("./channel/item/link").text == "https://example.test/changes/1"
+    assert first.find("./channel/item/guid").text == second.find("./channel/item/guid").text
+
+
 def test_build_site_keeps_previous_tree_on_write_error(tmp_path, monkeypatch):
     conn = _db()
     out = tmp_path / "site"
@@ -60,3 +74,28 @@ def test_build_site_keeps_previous_tree_on_write_error(tmp_path, monkeypatch):
     except OSError:
         pass
     assert (out / "providers/acme/index.html").read_text() == old
+
+
+def test_build_site_restores_previous_tree_when_swap_fails(tmp_path, monkeypatch):
+    conn = _db()
+    out = tmp_path / "site"
+    build_site(conn, out)
+    old = (out / "index.html").read_text()
+    original = __import__("vigia.publish", fromlist=["os"]).os.replace
+    calls = 0
+
+    def fail_after_backup(source, target):
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise OSError("swap failed")
+        return original(source, target)
+
+    monkeypatch.setattr("vigia.publish.os.replace", fail_after_backup)
+    try:
+        build_site(conn, out)
+    except OSError as error:
+        assert str(error) == "swap failed"
+    else:
+        raise AssertionError("expected swap failure")
+    assert (out / "index.html").read_text() == old

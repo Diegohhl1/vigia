@@ -27,7 +27,8 @@ def _blocks(rows):
     for provider, changes in groups.items():
         lines = [f"{provider}"]
         for row in changes:
-            lines.append(f"{_EMOJI[row['verdict']]} {row['summary']}")
+            label = _EMOJI.get(row["verdict"], row["verdict"])
+            lines.append(f"{label} {row['summary']}")
         result.append("\n".join(lines))
     return result
 
@@ -55,9 +56,15 @@ def build_digest(conn, since: datetime) -> str:
     blocks = _blocks(rows)
     selected = []
     length = 0
+    oversized = False
     for block in blocks:
+        if len(block) > _MAX_MESSAGE:
+            # Keep a huge provider visible, then keep evaluating later providers.
+            selected.append(block[:_MAX_MESSAGE])
+            oversized = True
+            continue
         added = len(block) if not selected else len(block) + 2
-        if length + added > _MAX_MESSAGE:
+        if not oversized and length + added > _MAX_MESSAGE:
             break
         selected.append(block)
         length += added

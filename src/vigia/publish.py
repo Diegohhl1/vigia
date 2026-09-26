@@ -105,7 +105,12 @@ def _write(path: Path, content: str) -> None:
 
 
 def build_site(conn, out_dir: Path, base_url: str = "https://vigia.pages.dev") -> int:
-    """Build all site files in a temporary tree and atomically replace ``out_dir``."""
+    """Build a temporary tree, then swap it into ``out_dir``.
+
+    Directory replacement on POSIX cannot exchange two non-empty directories in
+    one atomic operation. The old tree is briefly moved to a unique backup name
+    before the new tree is renamed into place; a failed second rename restores it.
+    """
     out_dir = Path(out_dir)
     changes = _approved_changes(conn)
     providers = conn.execute("SELECT slug, name FROM providers ORDER BY name, slug").fetchall()
@@ -131,17 +136,19 @@ def build_site(conn, out_dir: Path, base_url: str = "https://vigia.pages.dev") -
             )
             count += 2
         backup = None
+        published = False
         if out_dir.exists():
-            backup = Path(tempfile.mkdtemp(prefix=f".{out_dir.name}.old.", dir=parent))
+            backup = Path(tempfile.mkdtemp(prefix=f"{out_dir.name}.old-{os.getpid()}-", dir=parent))
             backup.rmdir()
             os.replace(out_dir, backup)
         try:
             os.replace(tmp_dir, out_dir)
+            published = True
         except Exception:
             if backup is not None and not out_dir.exists():
                 os.replace(backup, out_dir)
             raise
-        if backup is not None:
+        if backup is not None and published:
             shutil.rmtree(backup)
         return count
     except Exception:
