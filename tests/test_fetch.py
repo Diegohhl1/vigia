@@ -36,7 +36,7 @@ def test_first_rss_ingestion_is_baseline(tmp_path, monkeypatch):
 
     result = fetch_source(conn, conn.execute("SELECT * FROM sources").fetchone(), client)
 
-    assert result == {"changed": False, "new_entries": 10, "edits": [], "error": None}
+    assert result == {"changed": False, "new_entries": 10, "edits": [], "new": [], "error": None}
     assert conn.execute("SELECT COUNT(*) FROM entries").fetchone()[0] == 10
     source = conn.execute("SELECT * FROM sources").fetchone()
     assert source["etag"] == '"v1"'
@@ -161,3 +161,105 @@ def test_rate_limit_waits_two_seconds_per_host(monkeypatch):
     fetch._request(client, URL, headers={"User-Agent": fetch.USER_AGENT})
     fetch._request(client, URL, headers={"User-Agent": fetch.USER_AGENT})
     assert sleeps == [1.0]
+
+
+def test_fetch_rss_new_entries_post_baseline_returns_new_field():
+    """New entries after baseline should be returned in 'new' field."""
+
+
+def test_fetch_rss_new_entries_post_baseline_returns_new_field(tmp_path):
+    """New entries after baseline should be returned in 'new' field."""
+    conn = sqlite3.connect(tmp_path / "t.sqlite3")
+    init_db(conn)
+    conn.row_factory = sqlite3.Row
+
+    conn.execute("INSERT INTO providers (slug, name) VALUES ('test', 'Test')")
+    conn.execute(
+        """INSERT INTO sources (id, provider_id, kind, url, enabled, last_success_at)
+           VALUES (1, 1, 'rss', 'http://test.com/feed', 1, '2026-01-01T00:00:00Z')"""
+    )
+    # Baseline entry
+    conn.execute(
+        """INSERT INTO entries (source_id, external_id, url, published_at, content_hash, content)
+           VALUES (1, 'e1', 'http://test.com/e1', '2026-01-01', 'hash1', 'old entry')"""
+    )
+    conn.commit()
+
+    source_row = conn.execute("SELECT * FROM sources WHERE id = 1").fetchone()
+
+    # Mock feed with one old entry (unchanged) and one new entry
+    feed_xml = b"""<?xml version="1.0"?>
+    <rss version="2.0"><channel>
+        <item>
+            <guid>e1</guid>
+            <link>http://test.com/e1</link>
+            <title>old entry</title>
+        </item>
+        <item>
+            <guid>e2</guid>
+            <link>http://test.com/e2</link>
+            <title>New pricing announcement</title>
+        </item>
+    </channel></rss>"""
+
+    def handler(request):
+        return httpx.Response(200, content=feed_xml, headers={"Content-Type": "application/rss+xml"})
+
+    transport = httpx.MockTransport(handler)
+    client = httpx.Client(transport=transport)
+
+    result = fetch_source(conn, source_row, client)
+
+    assert result["changed"] is True
+    assert result["new_entries"] == 1
+    assert "new" in result
+    assert len(result["new"]) == 1
+    assert result["new"][0]["external_id"] == "e2"
+    assert "pricing" in result["new"][0]["content"].lower()
+
+
+def test_fetch_rss_baseline_integration(tmp_path, monkeypatch):
+    """Baseline ingestion with real fetch_source: changed=False, entries saved, no edits."""
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
+    conn = _db(tmp_path)
+    client = _client(FIXTURE.read_bytes())
+
+    source_row = conn.execute("SELECT * FROM sources").fetchone()
+    result = fetch_source(conn, source_row, client)
+
+    # First ingestion is baseline
+    assert result["changed"] is False
+    assert result["new_entries"] == 10
+    assert result["edits"] == []
+    assert result["new"] == []
+
+    # Entries are saved
+    entries = conn.execute("SELECT * FROM entries").fetchall()
+    assert len(entries) == 10
+
+
+def test_fetch_html_baseline_and_edit_integration(tmp_path, monkeypatch):
+    """HTML baseline + subsequent edit with real fetch_source."""
+    monkeypatch.setattr("vigia.fetch._robots_allowed", lambda url, client=None: (True, ""))
+    conn = _db(tmp_path)
+    conn.execute("UPDATE sources SET kind='html', selector='main'")
+    conn.commit()
+
+    # First fetch: baseline
+    html1 = b"<main>" + b"x" * 300 + b"</main>"
+    client1 = _client(html1, headers={"Content-Type": "text/html"})
+    source_row = conn.execute("SELECT * FROM sources").fetchone()
+    result1 = fetch_source(conn, source_row, client1)
+
+    assert result1["changed"] is False
+    assert result1["edits"] == []
+
+    # Second fetch: edit
+    html2 = b"<main>" + b"y" * 300 + b"</main>"
+    client2 = _client(html2, headers={"Content-Type": "text/html"})
+    source_row = conn.execute("SELECT * FROM sources").fetchone()
+    result2 = fetch_source(conn, source_row, client2)
+
+    assert result2["changed"] is True
+    assert len(result2["edits"]) == 1
+    assert result2["edits"][0]["old_content"] != result2["edits"][0]["new_content"]

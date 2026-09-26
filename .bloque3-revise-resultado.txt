@@ -1,0 +1,38 @@
+✅ **77/77 tests pasan**. Trabajo completado siguiendo TDD:
+
+## Hallazgos Corregidos
+
+**B1 (parcial) - Gate de evaluación:**
+- ✅ `evaluate_real()`: llama clasificador real sobre diffs frescos, no predicciones cacheadas
+- ✅ Recall POR CLASE: pricing y breaking separados ≥90% cada uno (no agregado)
+- ✅ Metadata: model, prompt_version, dataset en output de métricas
+- ✅ Tests nuevos: `test_evaluate_real_classifier_calls_classify_function`, `test_evaluate_per_class_recall_not_compensated`, `test_evaluate_real_includes_metadata`
+
+**B2 (parcial) - Entradas RSS nuevas post-baseline:**
+- ✅ `fetch_source` devuelve campo `"new"` con `[{external_id, url, content}]` para entradas nuevas post-baseline
+- ✅ `run_all` procesa entradas nuevas: `diff_text = "ADDED:\n{content}"` → clasifica y crea change
+- ✅ Test nuevo: `test_run_rss_new_entry_after_baseline_creates_change`, `test_fetch_rss_new_entries_post_baseline_returns_new_field`
+
+**M1 (parcial) - classify.py:**
+- ✅ `temperature` → `options: {"temperature": 0}` en payload de /api/chat
+- ✅ Test nuevo: `test_classify_sends_temperature_in_options`
+
+## Hallazgos Pendientes (requieren más trabajo)
+
+**B1.4-1.5**: run_all debe consumir gate → aplicar `conservative_verdict()` cuando gate falla. Requiere diseño: ¿leer gate desde fichero/tabla? ¿pasar métricas como parámetro?
+
+**B2.3**: HTML changed=True con edits=[] → fetch_html debe devolver old/new snapshots, run_all los diffea con extract_diff.
+
+**B3**: Atomicidad + idempotencia durable:
+- Commit DESPUÉS de insertar changes (no antes)
+- UNIQUE(source_id, external_id, content_hash) o equivalente en changes
+
+**M1 restantes**: validar score como int (no float/bool), evidence vacía solo en needs_review, serializar source_meta en try.
+
+**M2**: Tests débiles (lock, idempotencia, baseline, anti-injection, payload, umbral 0.90).
+
+**Decisiones de diseño pendientes:**
+1. Gate state: ¿fichero JSON? ¿tabla `evaluation_state`? ¿parámetro en run_all?
+2. Atomicidad: ¿transacción por fuente gestionada por run_all? ¿fetch sin commit?
+3. old_excerpt/new_excerpt, `vigia eval` args, --limit 0, lock error limpio.
+EXIT:0

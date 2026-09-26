@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS digests (
 
 CREATE INDEX IF NOT EXISTS idx_changes_source ON changes(source_id, detected_at);
 CREATE INDEX IF NOT EXISTS idx_entries_source ON entries(source_id, external_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_changes_dedupe ON changes(source_id, IFNULL(source_url,''), diff_text);
 """
 
 
