@@ -32,6 +32,11 @@ def main():
     eval_parser.add_argument("--model", help="Model name to use for evaluation")
     eval_parser.add_argument("--url", help="Ollama URL (default: http://127.0.0.1:11434)")
 
+    # vigia smoke
+    smoke_parser = subparsers.add_parser("smoke", help="Smoke test (run with limit)")
+    smoke_parser.add_argument("--limit", type=int, default=2, help="Max sources to process")
+    smoke_parser.add_argument("--db", default="vigia.sqlite3", help="Database path")
+
     args = parser.parse_args()
 
     if args.command == "run":
@@ -112,6 +117,27 @@ def main():
 
         if not metrics['gate_passed']:
             sys.exit(1)
+
+    elif args.command == "smoke":
+        import time
+        conn = get_conn(args.db)
+        client = httpx.Client(timeout=30.0)
+        start = time.time()
+        try:
+            report = run_all(conn, client, classifier=classify, limit=args.limit)
+            duration = time.time() - start
+            print(f"Sources processed: {report['sources_processed']}")
+            print(f"Changes created: {report['changes_created']}")
+            print(f"Errors: {len(report['errors'])}")
+            if report['errors']:
+                for error in report['errors']:
+                    print(f"  - Source {error['source_id']}: {error['error']}")
+            print(f"Duration: {duration:.2f}s")
+            if report['errors']:
+                sys.exit(1)
+        finally:
+            client.close()
+            conn.close()
 
 
 if __name__ == "__main__":
