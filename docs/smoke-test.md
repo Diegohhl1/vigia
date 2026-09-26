@@ -7,7 +7,7 @@ Checklist de verificación de ejecución real antes de activar systemd timers.
 - [ ] Repo en `/home/diego/Desktop/vigia`
 - [ ] venv creado y dependencias instaladas: `python3.12 -m venv .venv && .venv/bin/pip install -e '.[dev]'`
 - [ ] Ollama corriendo: `curl -s http://127.0.0.1:11434/api/version`
-- [ ] Modelo REAL del clasificador disponible: `ollama list | grep qwen2.5:7b` (DEFAULT_MODEL en src/vigia/classify.py). Si falta: `ollama pull qwen2.5:7b`
+- [ ] Modelo REAL del clasificador disponible: `ollama list | grep qwen3.5:9b` (DEFAULT_MODEL en src/vigia/classify.py). Si falta: `ollama pull qwen3.5:9b`
 - [ ] Catálogo cargado en la BD: `.venv/bin/python -c "from vigia.db import get_conn; from vigia.providers import load_providers; c = get_conn('vigia.sqlite3'); print(load_providers(c, 'config/providers.yaml'))"`
 - [ ] Credenciales Telegram en el entorno o en `config/secrets.env`: `VIGIA_TG_TOKEN`, `VIGIA_TG_CHAT_ID` (solo para el paso 4)
 

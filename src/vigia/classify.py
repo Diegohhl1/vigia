@@ -10,7 +10,7 @@ import httpx
 
 VERDICTS = ("noise", "minor", "pricing", "breaking", "needs_review")
 PROTECTED = {"pricing", "breaking"}
-DEFAULT_MODEL = "qwen2.5:7b"
+DEFAULT_MODEL = "qwen3.5:9b"
 PROMPT_VERSION = "classifier-v2"
 
 SCHEMA: dict[str, Any] = {

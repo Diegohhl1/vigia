@@ -201,12 +201,12 @@ def test_evaluate_real_includes_metadata():
     result = evaluate_real(
         cases,
         fake_classifier,
-        model="qwen2.5:7b",
+        model="qwen3.5:9b",
         prompt_version="classifier-v2",
         dataset="test-dataset.jsonl"
     )
 
-    assert result["model"] == "qwen2.5:7b"
+    assert result["model"] == "qwen3.5:9b"
     assert result["prompt_version"] == "classifier-v2"
     assert result["dataset"] == "test-dataset.jsonl"
 
