@@ -89,6 +89,7 @@ def run_all(
 
             for source in sources:
                 source_id = source["id"]
+                source_changes = 0  # se suma al reporte solo tras el commit
                 try:
                     result = fetch_source(conn, source, client, commit=False)
 
@@ -143,7 +144,7 @@ def run_all(
                                 verdict_dict.get("review_status"),
                             )
                         )
-                        changes_created += cur.rowcount  # 0 si el dedupe lo ignoró
+                        source_changes += cur.rowcount  # 0 si el dedupe lo ignoró
 
                     # Process new entries (RSS post-baseline)
                     for new_entry in result.get("new", []):
@@ -188,10 +189,11 @@ def run_all(
                                 verdict_dict.get("review_status"),
                             )
                         )
-                        changes_created += cur.rowcount  # 0 si el dedupe lo ignoró
+                        source_changes += cur.rowcount  # 0 si el dedupe lo ignoró
 
                     # Exactamente un commit (o rollback abajo) por fuente, haya cambios o no
                     conn.commit()
+                    changes_created += source_changes  # solo cuenta lo persistido
                     sources_processed += 1
 
                 except Exception as exc:

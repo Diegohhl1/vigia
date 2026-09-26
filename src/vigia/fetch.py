@@ -176,7 +176,8 @@ def fetch_source(conn: sqlite3.Connection, source_row, client, commit: bool = Tr
             "UPDATE sources SET last_checked_at = ?, last_success_at = ?, last_error = NULL, failure_count = 0 WHERE id = ?",
             (checked_at, checked_at, source_id),
         )
-        conn.commit()
+        if commit:
+            conn.commit()
         return {"changed": False, "new_entries": 0, "edits": [], "error": None}
     response.raise_for_status()
 
