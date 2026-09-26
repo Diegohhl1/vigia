@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 import httpx
@@ -36,6 +38,16 @@ def main():
     smoke_parser = subparsers.add_parser("smoke", help="Smoke test (run with limit)")
     smoke_parser.add_argument("--limit", type=int, default=2, help="Max sources to process")
     smoke_parser.add_argument("--db", default="vigia.sqlite3", help="Database path")
+
+    # vigia digest
+    digest_parser = subparsers.add_parser("digest", help="Send Telegram digest")
+    digest_parser.add_argument("--db", default="vigia.sqlite3", help="Database path")
+    digest_parser.add_argument("--hours", type=int, default=24, help="Window size in hours")
+
+    # vigia build-site
+    site_parser = subparsers.add_parser("build-site", help="Generate static site and RSS")
+    site_parser.add_argument("--db", default="vigia.sqlite3", help="Database path")
+    site_parser.add_argument("--out", default="site", help="Output directory")
 
     args = parser.parse_args()
 
@@ -137,6 +149,38 @@ def main():
                 sys.exit(1)
         finally:
             client.close()
+            conn.close()
+
+    elif args.command == "digest":
+        from datetime import timedelta
+        from vigia.digest import build_digest, send_digest, record_delivery
+
+        token = os.environ.get("VIGIA_TG_TOKEN", "")
+        chat_id = os.environ.get("VIGIA_TG_CHAT_ID", "")
+        if not token or not chat_id:
+            print("VIGIA_TG_TOKEN and VIGIA_TG_CHAT_ID must be set", file=sys.stderr)
+            sys.exit(1)
+        conn = get_conn(args.db)
+        try:
+            now = datetime.now(timezone.utc)
+            text = build_digest(conn, now - timedelta(hours=args.hours))
+            if send_digest(text, token, chat_id):
+                record_delivery(conn, text)
+                print("Digest sent")
+            else:
+                print("Digest send failed", file=sys.stderr)
+                sys.exit(1)
+        finally:
+            conn.close()
+
+    elif args.command == "build-site":
+        from vigia.publish import build_site
+
+        conn = get_conn(args.db)
+        try:
+            written = build_site(conn, Path(args.out))
+            print(f"Pages written: {written}")
+        finally:
             conn.close()
 
 

@@ -4,12 +4,12 @@ Checklist de verificación de ejecución real antes de activar systemd timers.
 
 ## Prerrequisitos
 
-- [ ] Repo clonado en `/home/diego/Desktop/vigia`
-- [ ] venv creado y dependencias instaladas: `python3.12 -m venv .venv && .venv/bin/pip install -e .`
+- [ ] Repo en `/home/diego/Desktop/vigia`
+- [ ] venv creado y dependencias instaladas: `python3.12 -m venv .venv && .venv/bin/pip install -e '.[dev]'`
 - [ ] Ollama corriendo: `curl -s http://127.0.0.1:11434/api/version`
-- [ ] Modelo local disponible: `ollama list | grep qwen3.5:9b-hermes-64k`
-- [ ] DB creado y catálogo cargado: `ls -lh vigia.sqlite3`
-- [ ] Credenciales Telegram configuradas: `test -f config/secrets.toml`
+- [ ] Modelo REAL del clasificador disponible: `ollama list | grep qwen2.5:7b` (DEFAULT_MODEL en src/vigia/classify.py). Si falta: `ollama pull qwen2.5:7b`
+- [ ] Catálogo cargado en la BD: `.venv/bin/python -c "from vigia.db import get_conn; from vigia.providers import load_providers; c = get_conn('vigia.sqlite3'); print(load_providers(c, 'config/providers.yaml'))"`
+- [ ] Credenciales Telegram en el entorno o en `config/secrets.env`: `VIGIA_TG_TOKEN`, `VIGIA_TG_CHAT_ID` (solo para el paso 4)
 
 ## Pasos del smoke test
 
@@ -22,9 +22,10 @@ cd /home/diego/Desktop/vigia
 
 **Esperado:**
 - `Sources processed: 2`
-- `Errors: 0` (o errores de red comprensibles como timeout)
-- `Duration:` < 30s
+- `Errors: 0`
+- Duración: puede superar 30s (rate limit de 2s/host entre robots.txt y feed, más timeouts)
 - Exit code 0
+- Nota: la primera pasada es baseline → `Changes created: 0` es lo esperado
 
 ### 2. Run completo (todas las fuentes)
 
@@ -33,9 +34,9 @@ cd /home/diego/Desktop/vigia
 ```
 
 **Esperado:**
-- Todas las fuentes enabled procesadas (8 fuentes / 6 proveedores según Wiki/estado.md)
-- Changes detectados si hay ediciones reales (o 0 si todo está estable)
-- Exit code 0
+- Las 8 fuentes enabled procesadas (6 proveedores según Wiki/estado.md)
+- Exit code 0 aunque HAYA errores puntuales de red: `run` sale 1 solo si errors es no vacío; ante timeouts transitorios re-ejecutar antes de investigar
+- Veredictos: con Ollama caído NO aparece error — los changes quedan `needs_review` (verificar en SQLite: `SELECT verdict, summary, review_status FROM changes ORDER BY id DESC LIMIT 10`)
 
 ### 3. Generación del sitio estático
 
@@ -44,28 +45,27 @@ cd /home/diego/Desktop/vigia
 ```
 
 **Esperado:**
-- Archivos generados en `public/`
-- `public/index.html`, `public/feed.xml`, `public/providers/<slug>.html`
-- HTML válido (spot check)
+- `Pages written: N` con N ≥ 1
+- Ficheros en `site/`: `index.html`, `rss.xml`, `providers/<slug>/index.html`, `providers/<slug>/history.json`
+- HTML válido (spot check) y sin changes `needs_review` publicados
 
 ### 4. Digest a Telegram
 
 ```bash
-.venv/bin/vigia digest --chat-id <ID_CANAL_TEST>
+VIGIA_TG_TOKEN=... VIGIA_TG_CHAT_ID=... .venv/bin/vigia digest
 ```
 
 **Esperado:**
-- Mensaje enviado a Telegram con formato correcto
-- Links a cada change clicables
-- Truncado si >4096 caracteres
-- Exit code 0
+- `Digest sent` y mensaje en el chat con formato correcto (agrupado por proveedor)
+- Sin cambios relevantes → mensaje "Sin cambios relevantes en las últimas 24h" (también cuenta como éxito)
+- Exit code 0; si falla el envío → stderr `Digest send failed` y exit 1
 
 ## Post-smoke
 
 Si todos los pasos pasan:
 - [ ] Ejecutar `ops/install.sh` (sin `--enable` todavía)
-- [ ] Verificar que units están instalados: `systemctl --user list-unit-files | grep vigia`
-- [ ] Verificar que timers aparecen: `systemctl --user list-timers`
+- [ ] Verificar units instalados: `systemctl --user list-unit-files | grep vigia`
+- [ ] Verificar timers: `systemctl --user list-timers`
 - [ ] **NO activar timers** hasta decisión del orquestador
 
 Si algún paso falla: documentar el error, investigar la causa, no proceder a systemd.
