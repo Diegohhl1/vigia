@@ -1,0 +1,19 @@
+✓ Suite completa: **71 tests PASS** (48 base + 23 nuevos)
+
+## Reporte Final
+
+**Tests nuevos:** 23 (8 classify, 8 eval, 7 run)  
+**Total suite:** 71/71 PASS en 30.75s
+
+**Archivos creados/modificados:**
+- `tests/test_classify.py` — validación httpx.MockTransport, enum/score/evidence, fallback needs_review
+- `tests/test_eval.py` — métricas sintéticas + real jsonl, gate 90/10, conservative_verdict  
+- `src/vigia/run.py` — fetch/classify/insert loop, lock fcntl, classifier=None → needs_review
+- `tests/test_run.py` — baseline, edits, errors, lock concurrente
+- `src/vigia/cli.py` — argparse run/eval, httpx client, exit codes
+- `pyproject.toml` — entry point `vigia = vigia.cli:main`
+
+**Bugs encontrados:** Ninguno en código existente (classify.py y eval.py funcionan correctamente según spec)
+
+**Desviaciones:** Ninguna. TDD estricto para run.py+cli.py (RED → GREEN). Tests de classify/eval pasan inmediatamente (código legacy funcional).
+EXIT:0
