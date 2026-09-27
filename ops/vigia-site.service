@@ -1,0 +1,14 @@
+[Unit]
+Description=Vigía - Sitio estático local (solo loopback)
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/diego/Desktop/vigia
+Environment="PATH=/home/diego/.local/bin:/home/diego/Desktop/vigia/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+# Solo loopback: el sitio local es para trabajar; el público será GitHub Pages.
+ExecStart=/home/diego/Desktop/vigia/.venv/bin/python -m http.server 8770 --bind 127.0.0.1 --directory /home/diego/Desktop/vigia/site
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
