@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import fcntl
 from datetime import datetime, timezone
+import os
 from pathlib import Path
 import sqlite3
 from typing import Callable
@@ -62,7 +63,7 @@ def run_all(
         dict with keys: sources_processed, changes_created, errors (list)
     """
     # Lock to prevent concurrent executions
-    lockfile_path = Path("/tmp/vigia-run.lock")
+    lockfile_path = Path(os.environ.get("VIGIA_LOCK_PATH", "/tmp/vigia-run.lock"))
     lockfile = lockfile_path.open("w")
     try:
         fcntl.flock(lockfile.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)

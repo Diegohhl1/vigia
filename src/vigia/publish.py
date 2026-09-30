@@ -8,12 +8,52 @@ import json
 import os
 import shutil
 import tempfile
+import time
 import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin
 
 
 _PUBLIC_VERDICTS = ("pricing", "breaking", "minor")
+_VERDICT_CLASSES = {
+    "pricing": "badge-pricing",
+    "breaking": "badge-breaking",
+    "minor": "badge-minor",
+    "needs_review": "badge-needs-review",
+}
+
+_SITE_CSS = """
+:root { color-scheme: dark; --bg: #0d1117; --surface: #161b22; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; --pricing: #d29922; --breaking: #f85149; --minor: #58a6ff; --needs-review: #8b949e; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.5; }
+a { color: var(--minor); }
+.shell { max-width: 1120px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+header { margin-bottom: 2rem; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: .35rem; letter-spacing: -.02em; }
+.tagline, .generated, .meta { color: var(--muted); }
+.generated, time, code { font-family: ui-monospace, monospace; }
+.generated { font-size: .85rem; }
+.provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.card, .change { background: var(--surface); border: 1px solid var(--border); border-radius: .65rem; }
+.card { display: flex; flex-direction: column; min-height: 150px; padding: 1.25rem; }
+.card h2 { margin-bottom: .45rem; font-size: 1.15rem; }
+.card .count { color: var(--muted); margin-bottom: 1rem; }
+.card a { margin-top: auto; font-weight: 600; }
+.provider-heading { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.badge { display: inline-block; border: 1px solid currentColor; border-radius: 999px; padding: .12rem .55rem; font-size: .75rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+.badge-pricing { color: var(--pricing); background: rgba(210, 153, 34, .1); }
+.badge-breaking { color: var(--breaking); background: rgba(248, 81, 73, .1); }
+.badge-minor { color: var(--minor); background: rgba(88, 166, 255, .1); }
+.badge-needs-review { color: var(--needs-review); background: rgba(139, 148, 158, .1); }
+.changes { display: grid; gap: 1rem; }
+.change { padding: 1.25rem; }
+.change h2 { margin: .75rem 0 .45rem; font-size: 1.05rem; }
+.change .meta { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; font-size: .85rem; }
+.change code { display: block; overflow-x: auto; margin: .9rem 0; padding: .8rem; background: var(--bg); border: 1px solid var(--border); border-radius: .4rem; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
+.source { font-size: .9rem; }
+"""
 
 
 def _approved_changes(conn):
@@ -72,30 +112,48 @@ def _provider_html(name: str, slug: str, changes) -> str:
     items = []
     for row in changes:
         summary = html.escape(row["summary"] or "")
-        verdict = html.escape(row["verdict"] or "")
-        detected = html.escape(row["detected_at"] or "")
+        evidence = html.escape(row["evidence"] or "")
+        verdict_value = row["verdict"] or ""
+        verdict = html.escape(verdict_value)
+        verdict_class = _VERDICT_CLASSES.get(verdict_value, "badge-needs-review")
+        detected_value = row["detected_at"] or ""
+        detected = html.escape(detected_value)
+        detected_short = html.escape(detected_value[:10])
         source = html.escape(row["source_url"] or "", quote=True)
-        link = f'<a href="{source}">Fuente</a>' if source else ""
+        # Solo esquemas http/https en href: un feed controla source_url y podría inyectar javascript:...
+        source_url_raw = row["source_url"] or ""
+        if source_url_raw.lower().startswith(("http://", "https://")):
+            link = f'<a class="source" href="{source}" aria-label="fuente">fuente</a>'
+        else:
+            link = ""
         items.append(
-            f"<article><h2>{summary}</h2><p><time datetime=\"{detected}\">{detected}</time> "
-            f"<span>{verdict}</span> {link}</p></article>"
+            f'<article class="change"><div class="meta"><span class="badge {verdict_class}">{verdict}</span>'
+            f'<time datetime="{detected}">{detected_short}</time> {link}</div>'
+            f"<h2>{summary}</h2><code>{evidence}</code></article>"
         )
     return (
         "<!doctype html><html lang=\"es\"><head><meta charset=\"utf-8\">"
-        f"<title>{title} — Vigía</title></head><body><header><h1>{title}</h1></header>"
-        f"<main>{''.join(items)}</main></body></html>"
+        f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
+        f"<title>{title} — Vigía</title></head><body><div class=\"shell\"><header>"
+        f'<div class="provider-heading"><h1>{title}</h1><span class="badge">{len(changes)} cambios</span></div>'
+        f"</header><main class=\"changes\">{''.join(items)}</main></div></body></html>"
     )
 
 
 def _index_html(providers) -> str:
     links = "".join(
-        f'<li><a href="providers/{html.escape(slug, quote=True)}/">{html.escape(name)}</a></li>'
-        for slug, name in providers
+        f'<article class="card"><h2>{html.escape(provider[1])}</h2><p class="count">{provider[2] if len(provider) > 2 else 0} cambios recientes</p>'
+        f'<a href="providers/{html.escape(provider[0], quote=True)}/">ver cambios</a></article>'
+        for provider in providers
     )
+    generated = html.escape(datetime.now(timezone.utc).date().isoformat())
     return (
         "<!doctype html><html lang=\"es\"><head><meta charset=\"utf-8\">"
-        "<title>Vigía</title></head><body><header><h1>Vigía</h1></header>"
-        f"<main><ul>{links}</ul></main></body></html>"
+        f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
+        "<title>Vigía</title></head><body><div class=\"shell\"><header>"
+        '<h1>Vigía</h1><p class="tagline">Radar de cambios en proveedores cloud/SaaS</p>'
+        f'<p class="generated">Generado: <time datetime="{generated}">{generated}</time></p>'
+        f"</header><main class=\"provider-grid\">{links}</main></div></body></html>"
     )
 
 
@@ -108,8 +166,11 @@ def build_site(conn, out_dir: Path, base_url: str = "https://vigia.pages.dev") -
     """Build a temporary tree, then swap it into ``out_dir``.
 
     Directory replacement on POSIX cannot exchange two non-empty directories in
-    one atomic operation. The old tree is briefly moved to a unique backup name
-    before the new tree is renamed into place; a failed second rename restores it.
+    one atomic operation, so ``out_dir`` is a *symlink* to a versioned tree
+    (``.site-<timestamp>``) and publication swaps the symlink with a single
+    ``os.replace`` — readers always see a complete tree. Old versions are
+    removed after a successful swap; a failed swap leaves the previous version
+    untouched.
     """
     out_dir = Path(out_dir)
     changes = _approved_changes(conn)
@@ -123,7 +184,7 @@ def build_site(conn, out_dir: Path, base_url: str = "https://vigia.pages.dev") -
     tmp_name = tempfile.mkdtemp(prefix=f".{out_dir.name}.", dir=parent)
     tmp_dir = Path(tmp_name)
     try:
-        _write(tmp_dir / "index.html", _index_html([(r["slug"], r["name"]) for r in providers]))
+        _write(tmp_dir / "index.html", _index_html([(r["slug"], r["name"], len(grouped.get(r["slug"], []))) for r in providers]))
         _write(tmp_dir / "rss.xml", _rss(changes, base_url))
         count = 2
         for row in providers:
@@ -135,21 +196,28 @@ def build_site(conn, out_dir: Path, base_url: str = "https://vigia.pages.dev") -
                 json.dumps([_change_dict(change) for change in provider_changes], ensure_ascii=False, indent=2),
             )
             count += 2
-        backup = None
-        published = False
-        if out_dir.exists():
-            backup = Path(tempfile.mkdtemp(prefix=f"{out_dir.name}.old-{os.getpid()}-", dir=parent))
-            backup.rmdir()
-            os.replace(out_dir, backup)
-        try:
-            os.replace(tmp_dir, out_dir)
-            published = True
-        except Exception:
-            if backup is not None and not out_dir.exists():
-                os.replace(backup, out_dir)
-            raise
-        if backup is not None and published:
-            shutil.rmtree(backup)
+        # Publicación atómica vía symlink: out_dir apunta a una versión con nombre,
+        # y el swap es un único os.replace sobre el symlink (crash-safe).
+        version_dir = parent / f".{out_dir.name}-{os.getpid()}-{time.time_ns()}"
+        os.replace(tmp_dir, version_dir)
+        link_tmp = parent / f".{out_dir.name}.link-{os.getpid()}-{time.time_ns()}"
+        link_tmp.symlink_to(version_dir.name, target_is_directory=True)
+        if out_dir.is_symlink() or out_dir.exists():
+            old_target = os.readlink(out_dir) if out_dir.is_symlink() else None
+            if old_target is None:
+                # Directorio real preexistente (primera migración al esquema symlink):
+                # moverlo a versión con nombre y dejar el symlink en su sitio.
+                legacy_dir = parent / f".{out_dir.name}-legacy-{os.getpid()}-{time.time_ns()}"
+                os.replace(out_dir, legacy_dir)
+                os.replace(link_tmp, out_dir)
+                shutil.rmtree(legacy_dir, ignore_errors=True)
+            else:
+                os.replace(link_tmp, out_dir)  # swap atómico del symlink
+                old_path = parent / old_target
+                if old_path.is_dir() and not old_path.is_symlink():
+                    shutil.rmtree(old_path, ignore_errors=True)
+        else:
+            os.replace(link_tmp, out_dir)
         return count
     except Exception:
         if tmp_dir.exists():
