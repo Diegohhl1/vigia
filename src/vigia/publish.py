@@ -90,9 +90,9 @@ def _change_dict(row):
 def _rss(changes, base_url: str) -> str:
     root = ET.Element("rss", version="2.0")
     channel = ET.SubElement(root, "channel")
-    ET.SubElement(channel, "title").text = "Vigía — cambios de proveedores"
+    ET.SubElement(channel, "title").text = "Vigía — provider changes"
     ET.SubElement(channel, "link").text = base_url
-    ET.SubElement(channel, "description").text = "Cambios relevantes en servicios SaaS y cloud"
+    ET.SubElement(channel, "description").text = "Relevant changes in SaaS and cloud services"
     for row in changes:
         item = ET.SubElement(channel, "item")
         source_url = row["source_url"] or ""
@@ -123,7 +123,7 @@ def _provider_html(name: str, slug: str, changes) -> str:
         # Solo esquemas http/https en href: un feed controla source_url y podría inyectar javascript:...
         source_url_raw = row["source_url"] or ""
         if source_url_raw.lower().startswith(("http://", "https://")):
-            link = f'<a class="source" href="{source}" aria-label="fuente">fuente</a>'
+            link = f'<a class="source" href="{source}" aria-label="source">source</a>'
         else:
             link = ""
         items.append(
@@ -132,27 +132,27 @@ def _provider_html(name: str, slug: str, changes) -> str:
             f"<h2>{summary}</h2><code>{evidence}</code></article>"
         )
     return (
-        "<!doctype html><html lang=\"es\"><head><meta charset=\"utf-8\">"
+        "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
         f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
         f"<title>{title} — Vigía</title></head><body><div class=\"shell\"><header>"
-        f'<div class="provider-heading"><h1>{title}</h1><span class="badge">{len(changes)} cambios</span></div>'
+        f'<div class="provider-heading"><h1>{title}</h1><span class="badge">{len(changes)} changes</span></div>'
         f"</header><main class=\"changes\">{''.join(items)}</main></div></body></html>"
     )
 
 
 def _index_html(providers) -> str:
     links = "".join(
-        f'<article class="card"><h2>{html.escape(provider[1])}</h2><p class="count">{provider[2] if len(provider) > 2 else 0} cambios recientes</p>'
-        f'<a href="providers/{html.escape(provider[0], quote=True)}/">ver cambios</a></article>'
+        f'<article class="card"><h2>{html.escape(provider[1])}</h2><p class="count">{provider[2] if len(provider) > 2 else 0} recent changes</p>'
+        f'<a href="providers/{html.escape(provider[0], quote=True)}/">view changes</a></article>'
         for provider in providers
     )
     generated = html.escape(datetime.now(timezone.utc).date().isoformat())
     return (
-        "<!doctype html><html lang=\"es\"><head><meta charset=\"utf-8\">"
+        "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
         f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
         "<title>Vigía</title></head><body><div class=\"shell\"><header>"
-        '<h1>Vigía</h1><p class="tagline">Radar de cambios en proveedores cloud/SaaS</p>'
-        f'<p class="generated">Generado: <time datetime="{generated}">{generated}</time></p>'
+        '<h1>Vigía</h1><p class="tagline">Change radar for cloud/SaaS providers</p>'
+        f'<p class="generated">Generated: <time datetime="{generated}">{generated}</time></p>'
         f"</header><main class=\"provider-grid\">{links}</main></div></body></html>"
     )
 
