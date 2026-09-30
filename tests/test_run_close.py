@@ -2,11 +2,17 @@
 import sqlite3
 
 import httpx
+import pytest
 
 import vigia.fetch as fetch_module
 from vigia import run as run_module
 from vigia.db import get_conn
 from vigia.run import run_all
+
+
+@pytest.fixture(autouse=True)
+def isolated_run_lock(tmp_path, monkeypatch):
+    monkeypatch.setenv("VIGIA_LOCK_PATH", str(tmp_path / "run.lock"))
 
 
 class _CountingConn:

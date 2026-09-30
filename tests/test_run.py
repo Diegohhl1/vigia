@@ -3,10 +3,17 @@
 from __future__ import annotations
 
 import sqlite3
+import os
 import httpx
+import pytest
 
 from vigia.db import get_conn
 from vigia.run import run_all
+
+
+@pytest.fixture(autouse=True)
+def isolated_run_lock(tmp_path, monkeypatch):
+    monkeypatch.setenv("VIGIA_LOCK_PATH", str(tmp_path / "run.lock"))
 
 
 def test_run_two_sources_one_changes():
@@ -279,7 +286,7 @@ def test_run_concurrent_lock_fails_cleanly():
     conn = get_conn(":memory:")
 
     # Acquire lock manually to simulate concurrent run
-    lockfile_path = Path("/tmp/vigia-run.lock")
+    lockfile_path = Path(os.environ["VIGIA_LOCK_PATH"])
     lockfile = lockfile_path.open("w")
     fcntl.flock(lockfile.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
 
@@ -450,8 +457,6 @@ def test_run_idempotent_same_diff_creates_single_change():
 
 
 # --- Cierre bloque 3: atomicidad, idempotencia, limit, lock ---
-
-import pytest
 
 import vigia.fetch as fetch_module
 from vigia import run as run_module

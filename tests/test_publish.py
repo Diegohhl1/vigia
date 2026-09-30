@@ -42,6 +42,40 @@ def test_build_site_publishes_only_approved_and_is_parseable(tmp_path):
     assert len(json.loads((site / "providers/acme/history.json").read_text())) == 2
 
 
+def test_html_embeds_dark_styles_without_external_assets(tmp_path):
+    conn = _db()
+    build_site(conn, tmp_path / "site")
+    index = (tmp_path / "site" / "index.html").read_text()
+    assert "<style>" in index
+    assert "#0d1117" in index
+    assert '<link rel="stylesheet"' not in index
+    assert "<script" not in index
+
+
+def test_provider_html_escapes_summary_and_uses_verdict_badges(tmp_path):
+    conn = _db()
+    build_site(conn, tmp_path / "site")
+    html = (tmp_path / "site" / "providers/acme/index.html").read_text()
+    assert "&lt;script&gt;alert(1)&lt;/script&gt;" in html
+    assert 'class="badge badge-minor"' in html
+    assert 'class="badge badge-pricing"' in html
+
+
+def test_provider_html_blocks_javascript_source_url(tmp_path):
+    conn = _db()
+    conn.execute(
+        "INSERT INTO changes (source_id, detected_at, verdict, summary, diff_text, source_url) VALUES (1, ?, ?, ?, ?, ?)",
+        ("2026-09-28T03:00:00Z", "minor", "xss url", "diff-xss", "javascript:alert(document.cookie)"),
+    )
+    conn.commit()
+    build_site(conn, tmp_path / "site")
+    html = (tmp_path / "site" / "providers/acme/index.html").read_text()
+    assert "javascript:" not in html
+    assert 'href="javascript' not in html
+    # el change se publica, pero sin enlace "fuente" activo
+    assert "xss url" in html
+
+
 def test_rss_resolves_relative_source_url_and_guid_is_stable():
     row = {
         "source_url": "/changes/1",
@@ -84,18 +118,20 @@ def test_build_site_restores_previous_tree_when_swap_fails(tmp_path, monkeypatch
     original = __import__("vigia.publish", fromlist=["os"]).os.replace
     calls = 0
 
-    def fail_after_backup(source, target):
+    def fail_on_link_swap(source, target):
         nonlocal calls
         calls += 1
-        if calls == 2:
+        # falla solo en el swap final del symlink (2ª llamada: version_dir, luego link)
+        if calls == 2 and str(source).endswith(".link-1") or (calls == 2 and ".link-" in str(source)):
             raise OSError("swap failed")
         return original(source, target)
 
-    monkeypatch.setattr("vigia.publish.os.replace", fail_after_backup)
+    monkeypatch.setattr("vigia.publish.os.replace", fail_on_link_swap)
     try:
         build_site(conn, out)
     except OSError as error:
         assert str(error) == "swap failed"
     else:
         raise AssertionError("expected swap failure")
+    # crash-safety: el sitio anterior sigue completo y accesible
     assert (out / "index.html").read_text() == old
