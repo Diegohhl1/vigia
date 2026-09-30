@@ -1,0 +1,32 @@
+[
+  {
+    "id": 72,
+    "source_id": 5,
+    "detected_at": "2026-09-30T22:07:43.763432+00:00",
+    "verdict": "minor",
+    "score": 6,
+    "summary": "New feature availability announcement.",
+    "evidence": "On-demand rule execution and Conversation Metadata now generally available with Twilio Conversations",
+    "diff_text": "ADDED:\nOn-demand rule execution and Conversation Metadata now generally available with Twilio Conversations <p>Today, we are launching two new capabilities with <a href=\"https://www.twilio.com/docs/conversations\">Twilio Conversations</a>– On-demand rule execution for Conversation Intelligence and Conversation metadata for Conversation Orchestrator<br /> </p>",
+    "old_excerpt": "",
+    "new_excerpt": "On-demand rule execution and Conversation Metadata now generally available with Twilio Conversations <p>Today, we are launching two new capabilities with <a href=\"https://www.twilio.com/docs/conversations\">Twilio Conversations</a>– On-demand rule execution for Conversation Intelligence and Conversation metadata for Conversation Orchestrator<br /> </p>",
+    "source_url": "https://www.twilio.com/en-us/changelog/on-demand-rule-execution-and-conversation-metadata-now-generally",
+    "provider_slug": "twilio",
+    "provider_name": "Twilio"
+  },
+  {
+    "id": 71,
+    "source_id": 5,
+    "detected_at": "2026-09-30T22:07:19.831712+00:00",
+    "verdict": "minor",
+    "score": 5,
+    "summary": "New Public Beta release of Twilio Video Media SDK for Node.js.",
+    "evidence": "The Twilio Video Media SDK for Node.js is now in Public Beta.",
+    "diff_text": "ADDED:\nTwilio Video Media SDK for Node.js now in Public Beta <p>The Twilio Video Media SDK for Node.js is now in Public Beta. Your server-side app can securely join a Video Group Room as a participant and work with decoded audio and video frames directly, so you can run AI and media processing such as transcription, computer vision, or compliance monitoring on your own infrastructure, without the overhead of a headless browser.&nbsp;</p> <p>Your app reads decoded frames from other participants and publishes frames back into the Room as a virtual camera or microphone. This Media SDK shares the Room, Participant, Track, and Access Token model of the <a href=\"https://www.twilio.com/docs/video/javascript\">Video JavaScript SDK</a>, so most concepts carry over. Install it from npm as @twilio/video-node-sdk. It requires Node.js 24 or later on x86-64 Linux, and the Media SDK participant counts and bills as a standard Group Room participant.</p> <p>To get started, read the <a href=\"https://www.twilio.com/docs/video/media-sdks\">Video Media SDKs overview</a>, follow the <a href=\"https://www.twilio.com/docs/video/node-getting-started\">quickstart</a>, and browse the <a href=\"https://github.com/twilio/twilio-video-node/tree/main/examples\">AI/ML example applications</a>.</p>",
+    "old_excerpt": "",
+    "new_excerpt": "Twilio Video Media SDK for Node.js now in Public Beta <p>The Twilio Video Media SDK for Node.js is now in Public Beta. Your server-side app can securely join a Video Group Room as a participant and work with decoded audio and video frames directly, so you can run AI and media processing such as transcription, computer vision, or compliance monitoring on your own infrastructure, without the overhead of a headless browser.&nbsp;</p> <p>Your app reads decoded frames from other participants and publishes frames back into the Room as a virtual camera or microphone. This Media SDK shares the Room, Participant, Track, and Access Token model of the <a href=\"https://www.twilio.com/docs/video/javascript\">Video JavaScript SDK</a>, so most concepts carry over. Install it from npm as @twilio/video-node-sdk. It requires Node.js 24 or later on x86-64 Linux, and the Media SDK participant counts and bills as a standard Group Room participant.</p> <p>To get started, read the <a href=\"https://www.twilio.com/docs/video/media-sdks\">Video Media SDKs overview</a>, follow the <a href=\"https://www.twilio.com/docs/video/node-getting-started\">quickstart</a>, and browse the <a href=\"https://github.com/twilio/twilio-video-node/tree/main/examples\">AI/ML example applications</a>.</p>",
+    "source_url": "https://www.twilio.com/en-us/changelog/twilio-video-media-sdk-for-node-js-now-in-public-beta",
+    "provider_slug": "twilio",
+    "provider_name": "Twilio"
+  }
+]

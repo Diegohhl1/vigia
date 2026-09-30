@@ -1,0 +1,47 @@
+[
+  {
+    "id": 134,
+    "source_id": 8,
+    "detected_at": "2026-09-30T22:36:22.258514+00:00",
+    "verdict": "minor",
+    "score": 2,
+    "summary": "",
+    "evidence": "JavaScript SDK 11.1.0: TypeSafe Jev tracing The JavaScript SDKs now trace TypeSafe Jev calls.",
+    "diff_text": "ADDED:\nJavaScript SDK 11.1.0: TypeSafe Jev tracing The JavaScript SDKs now trace TypeSafe Jev calls.",
+    "old_excerpt": "",
+    "new_excerpt": "JavaScript SDK 11.1.0: TypeSafe Jev tracing The JavaScript SDKs now trace TypeSafe Jev calls.",
+    "source_url": "https://sentry.io/changelog/javascript-sdk-1110-typesafe-jev-tracing",
+    "provider_slug": "sentry",
+    "provider_name": "Sentry"
+  },
+  {
+    "id": 133,
+    "source_id": 8,
+    "detected_at": "2026-09-30T22:35:59.135882+00:00",
+    "verdict": "minor",
+    "score": 4,
+    "summary": "New feature added to Python SDK for tracing specific calls.",
+    "evidence": "Python SDK 2.71.0: TypeSafe Jev tracing and Data Collection The Python SDK now traces TypeSafe Jev calls.",
+    "diff_text": "ADDED:\nPython SDK 2.71.0: TypeSafe Jev tracing and Data Collection The Python SDK now traces TypeSafe Jev calls.",
+    "old_excerpt": "",
+    "new_excerpt": "Python SDK 2.71.0: TypeSafe Jev tracing and Data Collection The Python SDK now traces TypeSafe Jev calls.",
+    "source_url": "https://sentry.io/changelog/python-sdk-2710-typesafe-jev-tracing",
+    "provider_slug": "sentry",
+    "provider_name": "Sentry"
+  },
+  {
+    "id": 132,
+    "source_id": 8,
+    "detected_at": "2026-09-30T22:35:42.567640+00:00",
+    "verdict": "minor",
+    "score": 6,
+    "summary": "Feature addition (Seer Agent capabilities) without breaking changes or pricing impact.",
+    "evidence": "Seer Agent now manages more of Sentry for you and connects to external telemetry Seer agent just got a lot more powerful. Now you can have the agent manage more of your Sentry projects for you and integrate third-party data sources, like Datadog and Google Cloud Platform, to help you better diagnose issues.",
+    "diff_text": "ADDED:\nSeer Agent now manages more of Sentry for you and connects to external telemetry Seer agent just got a lot more powerful. Now you can have the agent manage more of your Sentry projects for you and integrate third-party data sources, like Datadog and Google Cloud Platform, to help you better diagnose issues.",
+    "old_excerpt": "",
+    "new_excerpt": "Seer Agent now manages more of Sentry for you and connects to external telemetry Seer agent just got a lot more powerful. Now you can have the agent manage more of your Sentry projects for you and integrate third-party data sources, like Datadog and Google Cloud Platform, to help you better diagnose issues.",
+    "source_url": "https://sentry.io/changelog/seer-agent-updates",
+    "provider_slug": "sentry",
+    "provider_name": "Sentry"
+  }
+]

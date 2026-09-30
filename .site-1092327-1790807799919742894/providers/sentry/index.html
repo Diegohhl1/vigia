@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>
+:root { color-scheme: dark; --bg: #0d1117; --surface: #161b22; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; --pricing: #d29922; --breaking: #f85149; --minor: #58a6ff; --needs-review: #8b949e; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.5; }
+a { color: var(--minor); }
+.shell { max-width: 1120px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+header { margin-bottom: 2rem; }
+h1, h2, p { margin-top: 0; }
+h1 { margin-bottom: .35rem; letter-spacing: -.02em; }
+.tagline, .generated, .meta { color: var(--muted); }
+.generated, time, code { font-family: ui-monospace, monospace; }
+.generated { font-size: .85rem; }
+.provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.card, .change { background: var(--surface); border: 1px solid var(--border); border-radius: .65rem; }
+.card { display: flex; flex-direction: column; min-height: 150px; padding: 1.25rem; }
+.card h2 { margin-bottom: .45rem; font-size: 1.15rem; }
+.card .count { color: var(--muted); margin-bottom: 1rem; }
+.card a { margin-top: auto; font-weight: 600; }
+.provider-heading { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.badge { display: inline-block; border: 1px solid currentColor; border-radius: 999px; padding: .12rem .55rem; font-size: .75rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
+.badge-pricing { color: var(--pricing); background: rgba(210, 153, 34, .1); }
+.badge-breaking { color: var(--breaking); background: rgba(248, 81, 73, .1); }
+.badge-minor { color: var(--minor); background: rgba(88, 166, 255, .1); }
+.badge-needs-review { color: var(--needs-review); background: rgba(139, 148, 158, .1); }
+.changes { display: grid; gap: 1rem; }
+.change { padding: 1.25rem; }
+.change h2 { margin: .75rem 0 .45rem; font-size: 1.05rem; }
+.change .meta { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; font-size: .85rem; }
+.change code { display: block; overflow-x: auto; margin: .9rem 0; padding: .8rem; background: var(--bg); border: 1px solid var(--border); border-radius: .4rem; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
+.source { font-size: .9rem; }
+</style><title>Sentry — Vigía</title></head><body><div class="shell"><header><div class="provider-heading"><h1>Sentry</h1><span class="badge">3 changes</span></div></header><main class="changes"><article class="change"><div class="meta"><span class="badge badge-minor">minor</span><time datetime="2026-09-30T22:36:22.258514+00:00">2026-09-30</time> <a class="source" href="https://sentry.io/changelog/javascript-sdk-1110-typesafe-jev-tracing" aria-label="source">source</a></div><h2></h2><code>JavaScript SDK 11.1.0: TypeSafe Jev tracing The JavaScript SDKs now trace TypeSafe Jev calls.</code></article><article class="change"><div class="meta"><span class="badge badge-minor">minor</span><time datetime="2026-09-30T22:35:59.135882+00:00">2026-09-30</time> <a class="source" href="https://sentry.io/changelog/python-sdk-2710-typesafe-jev-tracing" aria-label="source">source</a></div><h2>New feature added to Python SDK for tracing specific calls.</h2><code>Python SDK 2.71.0: TypeSafe Jev tracing and Data Collection The Python SDK now traces TypeSafe Jev calls.</code></article><article class="change"><div class="meta"><span class="badge badge-minor">minor</span><time datetime="2026-09-30T22:35:42.567640+00:00">2026-09-30</time> <a class="source" href="https://sentry.io/changelog/seer-agent-updates" aria-label="source">source</a></div><h2>Feature addition (Seer Agent capabilities) without breaking changes or pricing impact.</h2><code>Seer Agent now manages more of Sentry for you and connects to external telemetry Seer agent just got a lot more powerful. Now you can have the agent manage more of your Sentry projects for you and integrate third-party data sources, like Datadog and Google Cloud Platform, to help you better diagnose issues.</code></article></main></div></body></html>
