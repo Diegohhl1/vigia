@@ -47,7 +47,7 @@ def test_html_embeds_dark_styles_without_external_assets(tmp_path):
     build_site(conn, tmp_path / "site")
     index = (tmp_path / "site" / "index.html").read_text()
     assert "<style>" in index
-    assert "#0d1117" in index
+    assert "#0a0a0a" in index
     assert '<link rel="stylesheet"' not in index
     assert "<script" not in index
 

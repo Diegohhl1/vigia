@@ -24,42 +24,48 @@ _VERDICT_CLASSES = {
 }
 
 _SITE_CSS = """
-:root { color-scheme: dark; --bg: #0d1117; --surface: #161b22; --text: #c9d1d9; --muted: #8b949e; --border: #30363d; --pricing: #d29922; --breaking: #f85149; --minor: #58a6ff; --needs-review: #8b949e; }
+:root { color-scheme: dark; --bg: #0a0a0a; --surface: #111113; --surface-2: #17171a; --text: #ededed; --muted: #a1a1a1; --faint: #707070; --line: rgba(255, 255, 255, .09); --pricing: #e2b344; --breaking: #ff5b4f; --minor: #4da3ff; --needs-review: #a1a1a1; }
 * { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.5; }
-a { color: var(--minor); }
-.shell { max-width: 1120px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
-header { margin-bottom: 2rem; }
-h1, h2, p { margin-top: 0; }
-h1 { margin-bottom: .35rem; letter-spacing: -.02em; }
-.tagline, .generated, .meta { color: var(--muted); }
-.generated, time, code { font-family: ui-monospace, monospace; }
-.generated { font-size: .85rem; }
-.provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-.card, .change { background: var(--surface); border: 1px solid var(--border); border-radius: .65rem; }
-.card { display: flex; flex-direction: column; min-height: 150px; padding: 1.25rem; }
-.card h2 { margin-bottom: .45rem; font-size: 1.15rem; }
-.card .count { color: var(--muted); margin-bottom: 1rem; }
-.card a { margin-top: auto; font-weight: 600; }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.55; }
+a { color: var(--minor); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 4.5rem; }
+header { margin-bottom: 2.5rem; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin-bottom: .4rem; font-size: 2.25rem; font-weight: 600; letter-spacing: -.045em; line-height: 1.1; }
+.tagline, .generated, .meta, .count { color: var(--muted); }
+.generated, time, code, .day-label { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.generated { font-size: .8rem; color: var(--faint); }
+.badge { display: inline-flex; align-items: center; border-radius: 999px; padding: .14rem .6rem; font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.badge-pricing { color: var(--pricing); background: rgba(226, 179, 68, .12); }
+.badge-breaking { color: var(--breaking); background: rgba(255, 91, 79, .12); }
+.badge-minor { color: var(--minor); background: rgba(77, 163, 255, .12); }
+.badge-needs-review { color: var(--needs-review); background: rgba(161, 161, 161, .12); }
+.provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: .9rem; margin-top: 2.25rem; }
+.card { display: flex; flex-direction: column; min-height: 8.5rem; padding: 1.15rem 1.2rem; background: var(--surface); border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow .15s ease; }
+.card:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2); }
+.card h2 { margin-bottom: .3rem; font-size: 1.05rem; font-weight: 600; letter-spacing: -.02em; }
+.card .count { margin-bottom: 1rem; font-size: .85rem; }
+.card a { margin-top: auto; font-size: .85rem; font-weight: 600; }
 .provider-heading { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
-.badge { display: inline-block; border: 1px solid currentColor; border-radius: 999px; padding: .12rem .55rem; font-size: .75rem; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; }
-.badge-pricing { color: var(--pricing); background: rgba(210, 153, 34, .1); }
-.badge-breaking { color: var(--breaking); background: rgba(248, 81, 73, .1); }
-.badge-minor { color: var(--minor); background: rgba(88, 166, 255, .1); }
-.badge-needs-review { color: var(--needs-review); background: rgba(139, 148, 158, .1); }
-.changes { display: grid; gap: 1rem; }
-.change { padding: 1.25rem; }
-.change h2 { margin: .75rem 0 .45rem; font-size: 1.05rem; }
-.change .meta { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; font-size: .85rem; }
-.change code { display: block; overflow-x: auto; margin: .9rem 0; padding: .8rem; background: var(--bg); border: 1px solid var(--border); border-radius: .4rem; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
-.source { font-size: .9rem; }
-.change.read { opacity: .45; }
+.provider-heading .badge { margin-left: auto; }
+.day { position: relative; margin-bottom: 2.25rem; padding-left: 1.4rem; border-left: 1px solid var(--line); }
+.day-label { display: block; margin-bottom: .9rem; font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
+.day .change::before { content: ''; position: absolute; left: -1.71rem; top: 1.45rem; width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
+.changes { display: grid; gap: .8rem; }
+.change { position: relative; padding: 1.05rem 1.2rem; background: var(--surface); border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line); }
+.change h2 { margin: .7rem 0 .3rem; font-size: 1rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.45; }
+.change .meta { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; font-size: .8rem; }
+.change code { display: block; overflow-x: auto; margin: .8rem 0 0; padding: .75rem .85rem; background: var(--bg); border-radius: 7px; box-shadow: inset 0 0 0 1px var(--line); color: var(--muted); font-size: .82rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.source { font-size: .8rem; }
+.change.read { opacity: .38; }
 .change.read .badge { filter: grayscale(1); }
-.change .new-pill { display: none; margin-left: auto; border: 1px solid var(--minor); border-radius: 999px; padding: .1rem .5rem; font-size: .7rem; font-weight: 700; letter-spacing: .05em; color: var(--minor); }
+.change .new-pill { display: none; margin-left: auto; border-radius: 999px; padding: .08rem .5rem; font-size: .65rem; font-weight: 600; letter-spacing: .08em; color: var(--minor); background: rgba(77, 163, 255, .12); }
 .change:not(.read) .new-pill { display: inline-block; }
 body.hide-read .change.read { display: none; }
-.read-toggle { margin-top: .75rem; background: var(--surface); color: var(--muted); border: 1px solid var(--border); border-radius: .4rem; padding: .35rem .8rem; font-size: .85rem; cursor: pointer; }
-.read-toggle:hover { color: var(--text); border-color: var(--muted); }
+.read-toggle { margin-top: .9rem; background: var(--surface); color: var(--muted); border: 0; border-radius: 7px; box-shadow: inset 0 0 0 1px var(--line); padding: .38rem .85rem; font-size: .82rem; font-weight: 500; cursor: pointer; }
+.read-toggle:hover { color: var(--text); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2); }
+@media (max-width: 560px) { h1 { font-size: 1.7rem; } .shell { padding-top: 2.25rem; } }
 """
 
 
@@ -182,36 +188,45 @@ _SITE_READ_TRACKER = """
 
 def _provider_html(name: str, slug: str, changes) -> str:
     title = html.escape(name)
-    items = []
+    # Timeline estilo changelog: agrupar por día (las changes ya vienen DESC)
+    days = []
     for row in changes:
-        summary = html.escape(row["summary"] or "")
-        evidence = html.escape(row["evidence"] or "")
-        verdict_value = row["verdict"] or ""
-        verdict = html.escape(verdict_value)
-        verdict_class = _VERDICT_CLASSES.get(verdict_value, "badge-needs-review")
-        detected_value = row["detected_at"] or ""
-        detected = html.escape(detected_value)
-        detected_short = html.escape(detected_value[:10])
-        change_id = int(row["id"])
-        source = html.escape(row["source_url"] or "", quote=True)
-        # Solo esquemas http/https en href: un feed controla source_url y podría inyectar javascript:...
-        source_url_raw = row["source_url"] or ""
-        if source_url_raw.lower().startswith(("http://", "https://")):
-            link = f'<a class="source" href="{source}" aria-label="source">source</a>'
-        else:
-            link = ""
-        items.append(
-            f'<article class="change" data-change-id="{change_id}"><div class="meta"><span class="badge {verdict_class}">{verdict}</span>'
-            f'<time datetime="{detected}">{detected_short}</time> {link}<span class="new-pill">NEW</span></div>'
-            f"<h2>{summary}</h2><code>{evidence}</code></article>"
-        )
+        day = (row["detected_at"] or "")[:10]
+        if not days or days[-1][0] != day:
+            days.append((day, []))
+        days[-1][1].append(row)
+    day_blocks = []
+    for day, day_changes in days:
+        items = []
+        for row in day_changes:
+            summary = html.escape(row["summary"] or "")
+            evidence = html.escape(row["evidence"] or "")
+            verdict_value = row["verdict"] or ""
+            verdict = html.escape(verdict_value)
+            verdict_class = _VERDICT_CLASSES.get(verdict_value, "badge-needs-review")
+            detected_value = row["detected_at"] or ""
+            detected = html.escape(detected_value)
+            change_id = int(row["id"])
+            source = html.escape(row["source_url"] or "", quote=True)
+            # Solo esquemas http/https en href: un feed controla source_url y podría inyectar javascript:...
+            source_url_raw = row["source_url"] or ""
+            if source_url_raw.lower().startswith(("http://", "https://")):
+                link = f'<a class="source" href="{source}" aria-label="source">source</a>'
+            else:
+                link = ""
+            items.append(
+                f'<article class="change" data-change-id="{change_id}"><div class="meta"><span class="badge {verdict_class}">{verdict}</span>'
+                f'<time datetime="{detected}">{html.escape(detected_value[11:16])}</time> {link}<span class="new-pill">NEW</span></div>'
+                f"<h2>{summary}</h2><code>{evidence}</code></article>"
+            )
+        day_blocks.append(f'<section class="day"><span class="day-label">{html.escape(day)}</span>{"".join(items)}</section>')
     return (
         "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
         f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
         f"<title>{title} — Vigía</title></head><body><div class=\"shell\"><header>"
         f'<div class="provider-heading"><h1>{title}</h1><span class="badge">{len(changes)} changes</span></div>'
         '<button id="toggle-read" class="read-toggle" type="button">Hide read</button>'
-        f"</header><main class=\"changes\">{''.join(items)}</main></div>"
+        f"</header><main class=\"timeline\">{''.join(day_blocks)}</main></div>"
         f"<script>{_SITE_READ_TRACKER}</script></body></html>"
     )
 
@@ -226,7 +241,7 @@ def _index_html(providers) -> str:
     return (
         "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
         f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
-        "<title>Vigía</title></head><body><div class=\"shell\"><header>"
+        "<title>Vigía — Change radar for cloud/SaaS providers</title></head><body><div class=\"shell\"><header>"
         '<h1>Vigía</h1><p class="tagline">Change radar for cloud/SaaS providers</p>'
         f'<p class="generated">Generated: <time datetime="{generated}">{generated}</time></p>'
         f"</header><main class=\"provider-grid\">{links}</main></div></body></html>"
