@@ -61,6 +61,37 @@ def test_provider_html_escapes_summary_and_uses_verdict_badges(tmp_path):
     assert 'class="badge badge-pricing"' in html
 
 
+def test_provider_page_marks_changes_with_ids_and_read_tracking(tmp_path):
+    conn = _db()
+    build_site(conn, tmp_path / "site")
+    page = (tmp_path / "site/providers/acme/index.html").read_text()
+    # cada noticia publicada lleva su id para el tracking local
+    assert 'data-change-id="1"' in page
+    assert 'data-change-id="2"' in page
+    # el script de localStorage y el botón de ocultar leídas están presentes
+    assert "localStorage" in page
+    assert "IntersectionObserver" in page
+    assert 'id="toggle-read"' in page
+
+
+def test_provider_page_read_tracking_css_and_hide_read_state(tmp_path):
+    conn = _db()
+    build_site(conn, tmp_path / "site")
+    page = (tmp_path / "site/providers/acme/index.html").read_text()
+    # estilo de leída atenuada y de ocultar leídas
+    assert ".change.read" in page
+    assert "hide-read" in page
+
+
+def test_index_page_stays_script_free(tmp_path):
+    # el tracking solo vive en páginas de proveedor; el index sigue estático puro
+    conn = _db()
+    build_site(conn, tmp_path / "site")
+    index = (tmp_path / "site/index.html").read_text()
+    assert "<script" not in index
+    assert 'id="toggle-read"' not in index
+
+
 def test_provider_html_blocks_javascript_source_url(tmp_path):
     conn = _db()
     conn.execute(

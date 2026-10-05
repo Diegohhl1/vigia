@@ -53,6 +53,13 @@ h1 { margin-bottom: .35rem; letter-spacing: -.02em; }
 .change .meta { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; font-size: .85rem; }
 .change code { display: block; overflow-x: auto; margin: .9rem 0; padding: .8rem; background: var(--bg); border: 1px solid var(--border); border-radius: .4rem; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
 .source { font-size: .9rem; }
+.change.read { opacity: .45; }
+.change.read .badge { filter: grayscale(1); }
+.change .new-pill { display: none; margin-left: auto; border: 1px solid var(--minor); border-radius: 999px; padding: .1rem .5rem; font-size: .7rem; font-weight: 700; letter-spacing: .05em; color: var(--minor); }
+.change:not(.read) .new-pill { display: inline-block; }
+body.hide-read .change.read { display: none; }
+.read-toggle { margin-top: .75rem; background: var(--surface); color: var(--muted); border: 1px solid var(--border); border-radius: .4rem; padding: .35rem .8rem; font-size: .85rem; cursor: pointer; }
+.read-toggle:hover { color: var(--text); border-color: var(--muted); }
 """
 
 
@@ -107,6 +114,72 @@ def _rss(changes, base_url: str) -> str:
     return ET.tostring(root, encoding="unicode", xml_declaration=True)
 
 
+_SITE_READ_TRACKER = """
+(function () {
+  var KEY = 'vigia_read';
+  var HIDE_KEY = 'vigia_hide_read';
+  var MAX_TRACKED = 500;
+  var readIds = {};
+  try {
+    JSON.parse(localStorage.getItem(KEY) || '[]').forEach(function (id) { readIds[id] = true; });
+  } catch (e) { /* lista corrupta: se empieza de cero */ }
+
+  function persist() {
+    var ids = Object.keys(readIds).slice(-MAX_TRACKED);
+    try { localStorage.setItem(KEY, JSON.stringify(ids)); } catch (e) { /* modo privado */ }
+  }
+
+  function markRead(el, id) {
+    if (readIds[id]) return;
+    readIds[id] = true;
+    el.classList.add('read');
+    persist();
+  }
+
+  function applyHide(state) {
+    document.body.classList.toggle('hide-read', state);
+    var btn = document.getElementById('toggle-read');
+    if (btn) btn.textContent = state ? 'Show read' : 'Hide read';
+  }
+
+  function setup() {
+    var items = document.querySelectorAll('.change[data-change-id]');
+    items.forEach(function (el) {
+      if (readIds[el.getAttribute('data-change-id')]) el.classList.add('read');
+    });
+    var seen = {};
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        if (seen[el]) return;
+        seen[el] = true;
+        setTimeout(function () {
+          // solo cuenta como leída si sigue en pantalla un momento
+          var box = el.getBoundingClientRect();
+          if (box.bottom > 0 && box.top < window.innerHeight) markRead(el, el.getAttribute('data-change-id'));
+        }, 1000);
+      });
+    }, { threshold: 0.5 });
+    items.forEach(function (el) { observer.observe(el); });
+    var btn = document.getElementById('toggle-read');
+    applyHide(localStorage.getItem(HIDE_KEY) === '1');
+    if (btn) btn.addEventListener('click', function () {
+      var next = !document.body.classList.contains('hide-read');
+      applyHide(next);
+      try { localStorage.setItem(HIDE_KEY, next ? '1' : '0'); } catch (e) { /* modo privado */ }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setup);
+  } else {
+    setup();
+  }
+})();
+"""
+
+
 def _provider_html(name: str, slug: str, changes) -> str:
     title = html.escape(name)
     items = []
@@ -119,6 +192,7 @@ def _provider_html(name: str, slug: str, changes) -> str:
         detected_value = row["detected_at"] or ""
         detected = html.escape(detected_value)
         detected_short = html.escape(detected_value[:10])
+        change_id = int(row["id"])
         source = html.escape(row["source_url"] or "", quote=True)
         # Solo esquemas http/https en href: un feed controla source_url y podría inyectar javascript:...
         source_url_raw = row["source_url"] or ""
@@ -127,8 +201,8 @@ def _provider_html(name: str, slug: str, changes) -> str:
         else:
             link = ""
         items.append(
-            f'<article class="change"><div class="meta"><span class="badge {verdict_class}">{verdict}</span>'
-            f'<time datetime="{detected}">{detected_short}</time> {link}</div>'
+            f'<article class="change" data-change-id="{change_id}"><div class="meta"><span class="badge {verdict_class}">{verdict}</span>'
+            f'<time datetime="{detected}">{detected_short}</time> {link}<span class="new-pill">NEW</span></div>'
             f"<h2>{summary}</h2><code>{evidence}</code></article>"
         )
     return (
@@ -136,7 +210,9 @@ def _provider_html(name: str, slug: str, changes) -> str:
         f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
         f"<title>{title} — Vigía</title></head><body><div class=\"shell\"><header>"
         f'<div class="provider-heading"><h1>{title}</h1><span class="badge">{len(changes)} changes</span></div>'
-        f"</header><main class=\"changes\">{''.join(items)}</main></div></body></html>"
+        '<button id="toggle-read" class="read-toggle" type="button">Hide read</button>'
+        f"</header><main class=\"changes\">{''.join(items)}</main></div>"
+        f"<script>{_SITE_READ_TRACKER}</script></body></html>"
     )
 
 
