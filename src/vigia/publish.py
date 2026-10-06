@@ -246,13 +246,17 @@ def _feed_rows(rows) -> str:
     return "".join(trs)
 
 
-def _sidebar(providers, active_slug: str | None) -> str:
-    """Navegación lateral: proveedores + leyenda de impacto."""
+def _sidebar(providers, active_slug: str | None, prefix: str = "../") -> str:
+    """Navegación lateral: proveedores + leyenda de impacto.
+
+    ``prefix`` resuelve las rutas relativas: ``"../"`` desde /providers/<slug>/,
+    ``""`` desde el index en la raíz.
+    """
     items = []
     for slug, name, count in providers:
         active = " active" if slug == active_slug else ""
         hot = " hot" if count >= 10 else ""
-        url = "../" if slug == active_slug else f"../{html.escape(slug, quote=True)}/"
+        url = prefix + html.escape(slug, quote=True) + "/"
         items.append(
             f'<a class="side-item{active}" href="{url}">'
             f'<span class="side-dot{hot}"></span>{html.escape(name)}'
@@ -267,8 +271,8 @@ def _sidebar(providers, active_slug: str | None) -> str:
     )
 
 
-def _page(title: str, head_meta: str, sidebar: str, table_rows: str, with_script: bool) -> str:
-    topnav = '<nav class="topnav"><a href="../">All providers</a><a href="../rss.xml">RSS</a></nav>'
+def _page(title: str, head_meta: str, sidebar: str, table_rows: str, with_script: bool, prefix: str = "../") -> str:
+    topnav = f'<nav class="topnav"><a href="{prefix}">All providers</a><a href="{prefix}rss.xml">RSS</a></nav>'
     return (
         "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
         f'<meta name="viewport" content="width=device-width, initial-scale=1"><style>{_SITE_CSS}</style>'
@@ -302,13 +306,14 @@ def _provider_html(name: str, slug: str, changes, providers) -> str:
 
 def _index_html(providers, changes) -> str:
     total = sum(count for _, _, count in providers)
-    sidebar = _sidebar(providers, None)
+    sidebar = _sidebar(providers, None, prefix="")
     return _page(
         "All changes",
         f"{total} entries · {len(providers)} providers",
         sidebar,
         _feed_rows(changes),
         with_script=False,
+        prefix="",
     )
 
 

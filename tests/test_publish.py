@@ -92,6 +92,18 @@ def test_index_page_stays_script_free(tmp_path):
     assert 'id="toggle-read"' not in index
 
 
+def test_sidebar_links_resolve_from_every_page(tmp_path):
+    # los links del sidebar resuelven tanto desde el index (/) como desde
+    # /providers/<slug>/ — sin ellos el click en un proveedor da 404
+    conn = _db()
+    build_site(conn, tmp_path / "site")
+    index = (tmp_path / "site/index.html").read_text()
+    assert 'href="acme/"' in index
+    provider_page = (tmp_path / "site/providers/acme/index.html").read_text()
+    assert 'href="../acme/"' in provider_page
+    assert 'href="../"' in provider_page  # nav "All providers"
+
+
 def test_provider_html_blocks_javascript_source_url(tmp_path):
     conn = _db()
     conn.execute(
