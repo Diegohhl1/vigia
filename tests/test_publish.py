@@ -98,7 +98,7 @@ def test_sidebar_links_resolve_from_every_page(tmp_path):
     conn = _db()
     build_site(conn, tmp_path / "site")
     index = (tmp_path / "site/index.html").read_text()
-    assert 'href="acme/"' in index
+    assert 'href="providers/acme/"' in index
     provider_page = (tmp_path / "site/providers/acme/index.html").read_text()
     assert 'href="../acme/"' in provider_page
     assert 'href="../"' in provider_page  # nav "All providers"

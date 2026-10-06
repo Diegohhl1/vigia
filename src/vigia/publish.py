@@ -306,7 +306,7 @@ def _provider_html(name: str, slug: str, changes, providers) -> str:
 
 def _index_html(providers, changes) -> str:
     total = sum(count for _, _, count in providers)
-    sidebar = _sidebar(providers, None, prefix="")
+    sidebar = _sidebar(providers, None, prefix="providers/")
     return _page(
         "All changes",
         f"{total} entries · {len(providers)} providers",
