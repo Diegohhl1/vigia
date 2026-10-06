@@ -24,48 +24,71 @@ _VERDICT_CLASSES = {
 }
 
 _SITE_CSS = """
-:root { color-scheme: dark; --bg: #0a0a0a; --surface: #111113; --surface-2: #17171a; --text: #ededed; --muted: #a1a1a1; --faint: #707070; --line: rgba(255, 255, 255, .09); --pricing: #e2b344; --breaking: #ff5b4f; --minor: #4da3ff; --needs-review: #a1a1a1; }
+:root { color-scheme: dark; --bg: #09090b; --panel: #0e0e12; --panel-2: #131318; --text: #ececf1; --muted: #9d9daa; --faint: #5f5f6e; --line: rgba(255, 255, 255, .08); --line-strong: rgba(255, 255, 255, .16); --accent: #f5a623; --pricing: #f5c04a; --breaking: #ff5d5d; --minor: #58a6ff; --needs-review: #9d9daa; }
 * { box-sizing: border-box; }
-body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.55; }
-a { color: var(--minor); text-decoration: none; }
-a:hover { text-decoration: underline; }
-.shell { max-width: 760px; margin: 0 auto; padding: 3rem 1.25rem 4.5rem; }
-header { margin-bottom: 2.5rem; }
-h1, h2, h3, p { margin-top: 0; }
-h1 { margin-bottom: .4rem; font-size: 2.25rem; font-weight: 600; letter-spacing: -.045em; line-height: 1.1; }
-.tagline, .generated, .meta, .count { color: var(--muted); }
-.generated, time, code, .day-label { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
-.generated { font-size: .8rem; color: var(--faint); }
-.badge { display: inline-flex; align-items: center; border-radius: 999px; padding: .14rem .6rem; font-size: .7rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
-.badge-pricing { color: var(--pricing); background: rgba(226, 179, 68, .12); }
-.badge-breaking { color: var(--breaking); background: rgba(255, 91, 79, .12); }
-.badge-minor { color: var(--minor); background: rgba(77, 163, 255, .12); }
-.badge-needs-review { color: var(--needs-review); background: rgba(161, 161, 161, .12); }
-.provider-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: .9rem; margin-top: 2.25rem; }
-.card { display: flex; flex-direction: column; min-height: 8.5rem; padding: 1.15rem 1.2rem; background: var(--surface); border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow .15s ease; }
-.card:hover { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2); }
-.card h2 { margin-bottom: .3rem; font-size: 1.05rem; font-weight: 600; letter-spacing: -.02em; }
-.card .count { margin-bottom: 1rem; font-size: .85rem; }
-.card a { margin-top: auto; font-size: .85rem; font-weight: 600; }
-.provider-heading { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
-.provider-heading .badge { margin-left: auto; }
-.day { position: relative; margin-bottom: 2.25rem; padding-left: 1.4rem; border-left: 1px solid var(--line); }
-.day-label { display: block; margin-bottom: .9rem; font-size: .72rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); }
-.day .change::before { content: ''; position: absolute; left: -1.71rem; top: 1.45rem; width: 7px; height: 7px; border-radius: 50%; background: var(--faint); }
-.changes { display: grid; gap: .8rem; }
-.change { position: relative; padding: 1.05rem 1.2rem; background: var(--surface); border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line); }
-.change h2 { margin: .7rem 0 .3rem; font-size: 1rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.45; }
-.change .meta { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; font-size: .8rem; }
-.change code { display: block; overflow-x: auto; margin: .8rem 0 0; padding: .75rem .85rem; background: var(--bg); border-radius: 7px; box-shadow: inset 0 0 0 1px var(--line); color: var(--muted); font-size: .82rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
-.source { font-size: .8rem; }
-.change.read { opacity: .38; }
-.change.read .badge { filter: grayscale(1); }
-.change .new-pill { display: none; margin-left: auto; border-radius: 999px; padding: .08rem .5rem; font-size: .65rem; font-weight: 600; letter-spacing: .08em; color: var(--minor); background: rgba(77, 163, 255, .12); }
+body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; line-height: 1.5; }
+a { color: inherit; }
+.mono, time, .clock, .side-count, .day-cell, .t { font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.topbar { display: flex; align-items: center; gap: 1rem; padding: .7rem 1.4rem; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; z-index: 10; }
+.brand { font-weight: 800; letter-spacing: -.02em; font-size: 1rem; display: flex; align-items: center; gap: .55rem; }
+.brand .sq { width: 10px; height: 10px; background: var(--accent); border-radius: 3px; }
+.clock { color: var(--faint); font-size: .75rem; }
+.topnav { margin-left: auto; display: flex; gap: 1.2rem; font-size: .8rem; }
+.topnav a { color: var(--muted); text-decoration: none; }
+.topnav a:hover { color: var(--text); }
+.live { display: inline-flex; align-items: center; gap: .45rem; color: #3fb950; font-size: .74rem; font-weight: 600; }
+.live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #3fb950; animation: vigia-pulse 2s infinite; }
+@keyframes vigia-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+.layout { display: grid; grid-template-columns: 230px 1fr; min-height: calc(100vh - 49px); }
+.sidebar { border-right: 1px solid var(--line); background: var(--panel); padding: 1.1rem .7rem; }
+.side-label { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); padding: 0 .55rem; margin: 1.3rem 0 .6rem; }
+.side-label:first-child { margin-top: 0; }
+.side-item { display: flex; align-items: center; gap: .55rem; padding: .48rem .6rem; border-radius: 8px; font-size: .84rem; color: var(--muted); text-decoration: none; }
+.side-item:hover { background: var(--panel-2); color: var(--text); }
+.side-item.active { background: var(--panel-2); color: var(--text); font-weight: 600; }
+.side-count { margin-left: auto; font-size: .68rem; color: var(--faint); }
+.side-dot { width: 8px; height: 8px; border-radius: 3px; background: var(--faint); opacity: .5; }
+.side-dot.hot { background: var(--accent); opacity: 1; }
+.main { padding: 1.6rem 1.8rem 4rem; }
+.main-head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.main-head h1 { margin: 0; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; }
+.head-meta { color: var(--faint); font-size: .78rem; }
+.top-actions { margin-left: auto; display: flex; gap: .9rem; align-items: center; }
+.legend { display: flex; gap: .9rem; font-size: .7rem; color: var(--faint); }
+.legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: .3rem; }
+.read-toggle { background: var(--panel-2); color: var(--muted); border: 1px solid var(--line); border-radius: 7px; padding: .3rem .75rem; font-size: .76rem; font-weight: 500; cursor: pointer; }
+.read-toggle:hover { color: var(--text); border-color: var(--line-strong); }
+table.feed { width: 100%; border-collapse: collapse; }
+table.feed td { padding: .68rem .6rem; vertical-align: top; font-size: .86rem; }
+tr.change { border-bottom: 1px solid var(--line); }
+tr.change:hover { background: var(--panel); }
+tr.change.read { opacity: .38; }
+tr.change.read .badge { filter: grayscale(1); }
+td.t { width: 92px; color: var(--faint); font-size: .72rem; white-space: nowrap; padding-top: .78rem; }
+td.v { width: 90px; padding-top: .7rem; }
+td.src { width: 110px; text-align: right; }
+td.src a { color: var(--faint); text-decoration: none; font-size: .76rem; }
+td.src a:hover { color: var(--accent); }
+.badge { display: inline-block; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .16rem .5rem; border-radius: 5px; }
+.badge-minor { color: var(--minor); background: rgba(88, 166, 255, .1); }
+.badge-breaking { color: var(--breaking); background: rgba(255, 93, 93, .1); }
+.badge-pricing { color: var(--pricing); background: rgba(245, 192, 74, .1); }
+.badge-needs-review { color: var(--needs-review); background: rgba(157, 157, 170, .1); }
+.entry-title { font-weight: 600; letter-spacing: -.01em; line-height: 1.4; }
+.new-pill { display: none; margin-left: .5rem; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: .58rem; font-weight: 700; letter-spacing: .08em; color: var(--minor); background: rgba(88, 166, 255, .12); border-radius: 5px; padding: .1rem .4rem; vertical-align: 2px; }
 .change:not(.read) .new-pill { display: inline-block; }
-body.hide-read .change.read { display: none; }
-.read-toggle { margin-top: .9rem; background: var(--surface); color: var(--muted); border: 0; border-radius: 7px; box-shadow: inset 0 0 0 1px var(--line); padding: .38rem .85rem; font-size: .82rem; font-weight: 500; cursor: pointer; }
-.read-toggle:hover { color: var(--text); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .2); }
-@media (max-width: 560px) { h1 { font-size: 1.7rem; } .shell { padding-top: 2.25rem; } }
+.entry-evidence { color: var(--muted); font-size: .8rem; margin-top: .15rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+tr.day-row td { padding: 1.2rem .6rem .4rem; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
+tr.day-row + tr.change td { border-top: 1px solid var(--line-strong); }
+body.hide-read tr.change.read { display: none; }
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { border-right: 0; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: .35rem; }
+  .side-label { width: 100%; margin: .8rem 0 .3rem; }
+  .side-label:first-child { margin-top: 0; }
+  .side-count { margin-left: auto; }
+  td.src { display: none; }
+}
 """
 
 
@@ -186,65 +209,106 @@ _SITE_READ_TRACKER = """
 """
 
 
-def _provider_html(name: str, slug: str, changes) -> str:
+def _source_link(row) -> str:
+    # Solo esquemas http/https en href: un feed controla source_url y podría inyectar javascript:...
+    source_url_raw = row["source_url"] or ""
+    if source_url_raw.lower().startswith(("http://", "https://")):
+        source = html.escape(source_url_raw, quote=True)
+        return f'<a class="source" href="{source}" aria-label="source">source ↗</a>'
+    return ""
+
+
+def _feed_rows(rows) -> str:
+    """Filas de la tabla feed, agrupadas por día (los rows ya vienen DESC)."""
+    trs = []
+    last_day = None
+    for row in rows:
+        detected_value = row["detected_at"] or ""
+        day = detected_value[:10]
+        if day != last_day:
+            last_day = day
+            trs.append(f'<tr class="day-row"><td colspan="4">{html.escape(day)}</td></tr>')
+        summary = html.escape(row["summary"] or "")
+        evidence = html.escape(row["evidence"] or "")
+        verdict_value = row["verdict"] or ""
+        verdict = html.escape(verdict_value)
+        verdict_class = _VERDICT_CLASSES.get(verdict_value, "badge-needs-review")
+        detected = html.escape(detected_value)
+        change_id = int(row["id"])
+        trs.append(
+            f'<tr class="change" data-change-id="{change_id}">'
+            f'<td class="t"><time datetime="{detected}">{html.escape(detected_value[11:16])}</time></td>'
+            f'<td class="v"><span class="badge {verdict_class}">{verdict}</span></td>'
+            f'<td><div class="entry-title">{summary}<span class="new-pill">NEW</span></div>'
+            f'<div class="entry-evidence">{evidence}</div></td>'
+            f'<td class="src">{_source_link(row)}</td></tr>'
+        )
+    return "".join(trs)
+
+
+def _sidebar(providers, active_slug: str | None) -> str:
+    """Navegación lateral: proveedores + leyenda de impacto."""
+    items = []
+    for slug, name, count in providers:
+        active = " active" if slug == active_slug else ""
+        hot = " hot" if count >= 10 else ""
+        url = "../" if slug == active_slug else f"../{html.escape(slug, quote=True)}/"
+        items.append(
+            f'<a class="side-item{active}" href="{url}">'
+            f'<span class="side-dot{hot}"></span>{html.escape(name)}'
+            f'<span class="side-count">{count}</span></a>'
+        )
+    return (
+        f'<aside class="sidebar"><div class="side-label">Providers</div>{"".join(items)}'
+        f'<div class="side-label">Impact</div>'
+        f'<span class="side-item" style="font-size:.78rem"><span class="side-dot" style="background:var(--breaking);opacity:1"></span>Breaking</span>'
+        f'<span class="side-item" style="font-size:.78rem"><span class="side-dot" style="background:var(--pricing);opacity:1"></span>Pricing</span>'
+        f'<span class="side-item" style="font-size:.78rem"><span class="side-dot" style="background:var(--minor);opacity:1"></span>Minor</span></aside>'
+    )
+
+
+def _page(title: str, head_meta: str, sidebar: str, table_rows: str, with_script: bool) -> str:
+    topnav = '<nav class="topnav"><a href="../">All providers</a><a href="../rss.xml">RSS</a></nav>'
+    return (
+        "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
+        f'<meta name="viewport" content="width=device-width, initial-scale=1"><style>{_SITE_CSS}</style>'
+        f"<title>{title} — Vigía</title></head><body>"
+        f'<div class="topbar"><span class="brand"><span class="sq"></span>vigía</span>'
+        f'<span class="clock">change radar for cloud/SaaS providers</span>{topnav}'
+        f'<span class="live">LIVE</span></div>'
+        f'<div class="layout">{sidebar}<main class="main">'
+        f'<div class="main-head"><h1>{title}</h1><span class="head-meta">{head_meta}</span>'
+        f'<div class="top-actions"><div class="legend">'
+        f'<span><i style="background:var(--breaking)"></i>breaking</span>'
+        f'<span><i style="background:var(--pricing)"></i>pricing</span>'
+        f'<span><i style="background:var(--minor)"></i>minor</span></div>'
+        + ('<button id="toggle-read" class="read-toggle" type="button">Hide read</button>' if with_script else "")
+        + "</div></div>"
+        f'<table class="feed">{table_rows}</table>'
+        f"</main></div>"
+        + (f"<script>{_SITE_READ_TRACKER}</script>" if with_script else "")
+        + "</body></html>"
+    )
+
+
+def _provider_html(name: str, slug: str, changes, providers) -> str:
     title = html.escape(name)
-    # Timeline estilo changelog: agrupar por día (las changes ya vienen DESC)
-    days = []
-    for row in changes:
-        day = (row["detected_at"] or "")[:10]
-        if not days or days[-1][0] != day:
-            days.append((day, []))
-        days[-1][1].append(row)
-    day_blocks = []
-    for day, day_changes in days:
-        items = []
-        for row in day_changes:
-            summary = html.escape(row["summary"] or "")
-            evidence = html.escape(row["evidence"] or "")
-            verdict_value = row["verdict"] or ""
-            verdict = html.escape(verdict_value)
-            verdict_class = _VERDICT_CLASSES.get(verdict_value, "badge-needs-review")
-            detected_value = row["detected_at"] or ""
-            detected = html.escape(detected_value)
-            change_id = int(row["id"])
-            source = html.escape(row["source_url"] or "", quote=True)
-            # Solo esquemas http/https en href: un feed controla source_url y podría inyectar javascript:...
-            source_url_raw = row["source_url"] or ""
-            if source_url_raw.lower().startswith(("http://", "https://")):
-                link = f'<a class="source" href="{source}" aria-label="source">source</a>'
-            else:
-                link = ""
-            items.append(
-                f'<article class="change" data-change-id="{change_id}"><div class="meta"><span class="badge {verdict_class}">{verdict}</span>'
-                f'<time datetime="{detected}">{html.escape(detected_value[11:16])}</time> {link}<span class="new-pill">NEW</span></div>'
-                f"<h2>{summary}</h2><code>{evidence}</code></article>"
-            )
-        day_blocks.append(f'<section class="day"><span class="day-label">{html.escape(day)}</span>{"".join(items)}</section>')
-    return (
-        "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
-        f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
-        f"<title>{title} — Vigía</title></head><body><div class=\"shell\"><header>"
-        f'<div class="provider-heading"><h1>{title}</h1><span class="badge">{len(changes)} changes</span></div>'
-        '<button id="toggle-read" class="read-toggle" type="button">Hide read</button>'
-        f"</header><main class=\"timeline\">{''.join(day_blocks)}</main></div>"
-        f"<script>{_SITE_READ_TRACKER}</script></body></html>"
-    )
+    rows = _feed_rows(changes)
+    counts = {s: c for s, _, c in providers}
+    total = counts.get(slug, len(changes))
+    sidebar = _sidebar(providers, slug)
+    return _page(title, f"{total} entries", sidebar, rows, with_script=True)
 
 
-def _index_html(providers) -> str:
-    links = "".join(
-        f'<article class="card"><h2>{html.escape(provider[1])}</h2><p class="count">{provider[2] if len(provider) > 2 else 0} recent changes</p>'
-        f'<a href="providers/{html.escape(provider[0], quote=True)}/">view changes</a></article>'
-        for provider in providers
-    )
-    generated = html.escape(datetime.now(timezone.utc).date().isoformat())
-    return (
-        "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\">"
-        f"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>{_SITE_CSS}</style>"
-        "<title>Vigía — Change radar for cloud/SaaS providers</title></head><body><div class=\"shell\"><header>"
-        '<h1>Vigía</h1><p class="tagline">Change radar for cloud/SaaS providers</p>'
-        f'<p class="generated">Generated: <time datetime="{generated}">{generated}</time></p>'
-        f"</header><main class=\"provider-grid\">{links}</main></div></body></html>"
+def _index_html(providers, changes) -> str:
+    total = sum(count for _, _, count in providers)
+    sidebar = _sidebar(providers, None)
+    return _page(
+        "All changes",
+        f"{total} entries · {len(providers)} providers",
+        sidebar,
+        _feed_rows(changes),
+        with_script=False,
     )
 
 
@@ -275,13 +339,14 @@ def build_site(conn, out_dir: Path, base_url: str = "https://vigia.pages.dev") -
     tmp_name = tempfile.mkdtemp(prefix=f".{out_dir.name}.", dir=parent)
     tmp_dir = Path(tmp_name)
     try:
-        _write(tmp_dir / "index.html", _index_html([(r["slug"], r["name"], len(grouped.get(r["slug"], []))) for r in providers]))
+        _write(tmp_dir / "index.html", _index_html([(r["slug"], r["name"], len(grouped.get(r["slug"], []))) for r in providers], changes))
         _write(tmp_dir / "rss.xml", _rss(changes, base_url))
         count = 2
         for row in providers:
             slug, name = row["slug"], row["name"]
             provider_changes = grouped.get(slug, [])
-            _write(tmp_dir / "providers" / slug / "index.html", _provider_html(name, slug, provider_changes))
+            provider_list = [(r["slug"], r["name"], len(grouped.get(r["slug"], []))) for r in providers]
+            _write(tmp_dir / "providers" / slug / "index.html", _provider_html(name, slug, provider_changes, provider_list))
             _write(
                 tmp_dir / "providers" / slug / "history.json",
                 json.dumps([_change_dict(change) for change in provider_changes], ensure_ascii=False, indent=2),
