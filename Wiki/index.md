@@ -14,3 +14,4 @@
 - 2026-09-25: nombre del proyecto = **vigía** (vigía → vigia). Ver `2026-09-25-origen-validacion.md`.
 - 2026-09-25: canal del producto = **email** (no Telegram); Telegram solo canal interno. Alcance público honesto: changelogs y deprecaciones. Ver `2026-09-25-challenge-plan-mvp.md`.
 - 2026-10-05: rediseño visual del sitio = CSS propio con referencias Vercel/changelogs; descartadas daisyUI/Flowbite (toolchain) y Astro (sobredimensionado). Ver `2026-10-05-rediseño-web.md`.
+- 2026-10-05: dirección visual final = **Dense Monitor** (elegida entre 3 mockups en `design/2026-10-05-mockups/`): sidebar de proveedores con contadores, feed global en tabla agrupado por día, topbar con indicador LIVE. Commit `e4c77f7`.
